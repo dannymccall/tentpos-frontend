@@ -7,8 +7,9 @@ import EditUserForm from "./users_table/UserEditForm";
 import FormLoading from "../loaders/FormLoading";
 import { useFetchBranches } from "../../hooks/useFetchBranches";
 import { apiBase } from "@/lib/api";
-import BaseModal from "../BaseModal";
+// import BaseModal from "../BaseModal";
 import DialogModal from "../Dialog";
+import { SpinnerCustom } from "../loaders/Spinner";
 interface RoleModalProps extends ActionProps<User> {
   selectedUser:User
 }
@@ -24,7 +25,7 @@ const UserModal: React.FC<RoleModalProps> = ({
   if (!selectedUser) return null;
   const [loading, setLoading] = useState(false);
   const { showToast } = useNotification();
-  const { branches, loading: branchLoading, error } = useFetchBranches();
+  const { branches, loading: branchLoading } = useFetchBranches();
   const handleDelete = async () => {
     setLoading(true);
     try {
@@ -49,10 +50,12 @@ apiBase      );
     onClose();
   };
 
+  if(branchLoading) return <SpinnerCustom />
+
   return (
     <DialogModal
       open={isOpen}
-      onClose={onClose}
+      setOpen={() => onClose()}
       title={
         mode === "view"
           ? "View User"

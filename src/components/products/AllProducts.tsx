@@ -10,13 +10,11 @@ const AllProducts = () => {
   const {
     data: products,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Product[]>({ uri: "/api/products/get-products" });

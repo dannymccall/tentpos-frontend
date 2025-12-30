@@ -10,13 +10,11 @@ const SalesOnHold = () => {
   const {
     data: sales,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Product[]>({ uri: "/api/sales", additionalQuery: "status=HOLD" });

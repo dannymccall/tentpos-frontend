@@ -1,6 +1,6 @@
 import Tabs from "../Tabs";
-import { useNavigate } from "react-router-dom";
-import { FaTruckLoading, FaUser } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
 import api from "@/lib/api";
 import { SpinnerCustom } from "../loaders/Spinner";
 import NoDataFound from "../NoDataFound";
@@ -15,7 +15,7 @@ const SaleDetails: React.FC = () => {
    const {products} = useFetchProducts();
    const {customers} = useFetchCustomers()
   let query = "details";
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   query = params.get("query")!;
   const saleId = params.get("saleId");
 
@@ -30,27 +30,42 @@ const SaleDetails: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
-  const { mutate: supplierMutation, isPending } = useApiMutation({
+  const { mutate: cancelSale, isPending } = useApiMutation({
+    
     url: `/api/sales/cancel?id=${saleId}`,
     method: "PUT",
     invalidateKey: `get-customer ${saleId}`,
     onSuccessCallback: () => {},
   });
 
+  const { mutateAsync: completeHoldSale, isPending: holdSaleLoading } = useApiMutation({
+    
+    url: `/api/sales/complete-hold-sale?id=${saleId}`,
+    method: "POST",
+    invalidateKey: `get-customer ${saleId}`,
+    onSuccessCallback: () => {},
+  });
+
   const onSubmit = async (formData: any) => {
-    supplierMutation(formData);
+    console.log(saleId)
+    console.log(formData)
+    if(formData && formData.status === "HOLD"){
+      const result = await completeHoldSale(formData);
+    return result.data.data;
+    }else
+    cancelSale(formData);
   };
   if (isLoading) return <SpinnerCustom />;
 
   if (!data) return <NoDataFound />;
   return (
     <Tabs
-      defaultTab="details"
-      onChange={(key) => {
-        window.scroll({ top: 0, behavior: "smooth" });
+      defaultTab={query}
+      // onChange={(key) => {
+      //   window.scroll({ top: 0, behavior: "smooth" });
 
-        // navigate(`/clients/client-details?query=${key}`)
-      }}
+      //   // navigate(`/clients/client-details?query=${key}`)
+      // }}
       tabs={[
         {
           key: "details",
@@ -61,7 +76,7 @@ const SaleDetails: React.FC = () => {
               onSubmit={onSubmit}
               mode="edit"
               defaultValues={data}
-              loading={isPending}
+              loading={isPending || holdSaleLoading}
               products={products as any}
               customers={customers as any}
             />

@@ -28,6 +28,12 @@ import Debtors from "../customers/debtors";
 import AllStockAdjustments from "../products/AllStockAdjustments";
 import AllLowStockAlerts from "../products/AllLowStockAlerts";
 import AllSaleReturns from "../sales/AllSaleReturns";
+import DailySummaryDashboard from "../dashboard/DailySummary";
+import SalesReport from "../reports/SalesReport";
+import InventoryReportDashboard from "../reports/InventoryReport";
+import IncomeStatement from "../accounting/components/IncomeStatement";
+import ProfitReportTable from "../accounting/components/ProfitReport";
+import CashFlow from "../accounting/components/CashFlows";
 export default function AuthRoutes() {
   return (
     <Routes>
@@ -50,7 +56,7 @@ export default function AuthRoutes() {
         }
       />
       <Route
-        path="/operations/roles"
+        path="operations/roles"
         element={
           <DashboardLayout title="Roles">
             <ProtectedRoute>
@@ -61,7 +67,7 @@ export default function AuthRoutes() {
       />
 
        <Route
-        path="roles/role-details"
+        path="operations/roles/role-details"
         element={
           <DashboardLayout title="Role Details">
             <ProtectedRoute>
@@ -71,7 +77,7 @@ export default function AuthRoutes() {
         }
       />
       <Route
-        path="/operations/staff"
+        path="operations/staff"
         element={
           <DashboardLayout title="Users">
             <ProtectedRoute>
@@ -81,7 +87,7 @@ export default function AuthRoutes() {
         }
       />
       <Route
-        path="/operations/branches"
+        path="operations/branches"
         element={
           <DashboardLayout title="Branches">
             <ProtectedRoute>
@@ -296,6 +302,66 @@ export default function AuthRoutes() {
           <DashboardLayout title="Sale Returns">
             <ProtectedRoute>
               <AllSaleReturns />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/reports/daily"
+        element={
+          <DashboardLayout title="Daily Summary">
+            <ProtectedRoute>
+              <DailySummaryDashboard />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/reports/sales"
+        element={
+          <DashboardLayout title="Sales Report">
+            <ProtectedRoute>
+              <SalesReport />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/reports/inventory"
+        element={
+          <DashboardLayout title="Sales Report">
+            <ProtectedRoute>
+              <InventoryReportDashboard />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/accounting/income-statement"
+        element={
+          <DashboardLayout title="Income Statement">
+            <ProtectedRoute>
+              <IncomeStatement />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/accounting/profit"
+        element={
+          <DashboardLayout title="Profit Report">
+            <ProtectedRoute>
+              <ProfitReportTable />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
+        path="/accounting/cash-flow"
+        element={
+          <DashboardLayout title="Cash Flow">
+            <ProtectedRoute>
+              <CashFlow />
             </ProtectedRoute>
           </DashboardLayout>
         }

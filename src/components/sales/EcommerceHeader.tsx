@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { ShoppingCart } from "lucide-react";
-import React from "react";
 
 interface EcommerceHeaderProps {
   cartCount: number;

@@ -4,20 +4,17 @@ import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
 import { useExportPDF } from "@/hooks/useExportPDF";
 import DataTableWrapper from "../DataTableWrapper";
-import ProductTable from "./ProductList";
 import type { ProductBranch } from "@/types/product.types";
 import LowStockAlertsTable from "./LowStockAlerts";
 const AllLowStockAlerts = () => {
   const {
     data: lowStock,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<ProductBranch[]>({ uri: "/api/products/fetch-low-stock-products" });

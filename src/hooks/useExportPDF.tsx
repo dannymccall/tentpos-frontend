@@ -108,7 +108,7 @@ export function useExportPDF(): UseExportPDFResult {
       startY: tableStartY,
       styles: { fontSize: 9 },
       headStyles: { fillColor: [52, 73, 94] },
-      didDrawPage: (data) => {
+      didDrawPage: () => {
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
 

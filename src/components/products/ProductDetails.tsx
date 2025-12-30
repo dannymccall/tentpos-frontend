@@ -1,17 +1,18 @@
 import Tabs from "../Tabs";
-import { useNavigate } from "react-router-dom";
-import { FaBoxOpen, FaUser } from "react-icons/fa";
+// import { useNavigate } from "react-router-dom";
+import { FaBoxOpen } from "react-icons/fa";
 import ProductForm from "./ProductForm";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { SpinnerCustom } from "../loaders/Spinner";
 import NoDataFound from "../NoDataFound";
 import { useNotification } from "@/context/NotificationContext";
+import InventoryBreakdown from "./InventoryBreakdown";
 
 const ProductDetails: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
   let query = "details";
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   query = params.get("query")!;
   const productId = params.get("productId");
 
@@ -58,18 +59,25 @@ const ProductDetails: React.FC = () => {
   if (!data) return <NoDataFound />;
   return (
     <Tabs
-      defaultTab="details"
-      onChange={(key) => {
-        window.scroll({ top: 0, behavior: "smooth" });
+      defaultTab={query}
+      // onChange={(key) => {
+      //   window.scroll({ top: 0, behavior: "smooth" });
 
-        // navigate(`/clients/client-details?query=${key}`)
-      }}
+      //   navigate(`/clients/client-details?query=${key}`)
+      // }}
       tabs={[
         {
           key: "details",
           label: "Product Details",
           icon: <FaBoxOpen className="text-[#0f172b]" />,
           panel: <ProductForm onSubmit={onSubmit} mode="edit" product={data} loading={productMutation.isPending}/>,
+          code: "inventory.products.view",
+        },
+        {
+          key: "inventory_breakdown",
+          label: "Inventory Breakdown",
+          icon: <FaBoxOpen className="text-[#0f172b]" />,
+          panel: <InventoryBreakdown />,
           code: "inventory.products.view",
         },
       ]}

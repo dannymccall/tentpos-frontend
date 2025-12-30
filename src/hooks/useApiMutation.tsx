@@ -18,7 +18,6 @@ export function useApiMutation({
   method = "POST",
   body,
   query = "",
-  headers,
   invalidateKey,
   onSuccessCallback,
 }: MutationOptions) {

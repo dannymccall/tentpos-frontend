@@ -6,10 +6,10 @@ import { useState } from "react";
 export default function InvoiceView({
   invoice,
   sale,
-  tenant,
+  // tenant,
   onClose,
-  onPay,
-  onDownload,
+  // onPay,
+  // onDownload,
   onPrint,
 }: {
   invoice: any;
@@ -38,12 +38,12 @@ export default function InvoiceView({
         </div>
 
         {/* Invoice Title */}
-        <h1 className="text-3xl font-bold text-center mb-4">Invoice</h1>
+        <h1 className="text-xl font-bold text-center mb-4">Invoice</h1>
 
         {/* Invoice Details */}
-        <div className="flex justify-between mb-4 gap-2">
-          <div>
-            <strong>#:</strong> {invoice.invoiceNumber}
+        <div className="flex justify-between mb-4 gap-2 text-sm">
+          <div className="">
+            <strong>#:</strong> <span>{invoice.invoiceNumber}</span>
           </div>
           <div>
             <strong>Status:</strong> {invoice.status}

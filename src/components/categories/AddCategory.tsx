@@ -1,29 +1,10 @@
-import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import type { Category } from "@/types/category.types";
+
+
 import { useApiMutation } from "@/hooks/useApiMutation";
-import FormLoading from "../loaders/FormLoading";
 import CategoryForm from "./CategoryForm";
 
 const categorySchema = z.object({
@@ -32,23 +13,7 @@ const categorySchema = z.object({
   parentCategory: z.string().optional(),
 });
 
-const parentOptions = [
-  "electronics",
-  "fashion",
-  "groceries",
-  "beauty",
-  "home_kitchen",
-  "health_pharmacy",
-  "hardware",
-  "stationery",
-  "automotive",
-  "services",
-  "food_restaurant",
-  "agriculture",
-  "entertainment",
-  "baby_kids",
-  "sports_fitness",
-];
+
 type addCategory = z.infer<typeof categorySchema>;
 
 export default function AddCategory() {

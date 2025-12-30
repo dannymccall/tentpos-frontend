@@ -4,8 +4,7 @@ import { useApiMutation } from "../../hooks/useApiMutation";
 import { useBulkUpload } from "../../hooks/useBulkUpload";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "../ui/button";
-import type { BulkCategory } from "@/types/bulkupload.types";
-import { bulkCategory, bulkUploadProducts } from "@/lib/essentials";
+import {  bulkUploadProducts } from "@/lib/essentials";
 import Pagination from "../Pagination";
 import type { BulkUploadProduct } from "@/types/bulkupload.types";
 

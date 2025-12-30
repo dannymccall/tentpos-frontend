@@ -14,7 +14,6 @@ import { Separator } from "@/components/ui/separator";
 // import { useSocket } from "@/context/SocketContext";
 import type { Notification } from "@/types/notification.types";
 // import useSocketEvents from "@/hooks/useSocketNotification";
-import { useNotification } from "@/context/NotificationContext";
 import api from "@/lib/api";
 import ProfileBadge from "../profile/ProfileBadge";
 import NotificationDropdown from "../Notifications";
@@ -30,7 +29,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
   const displayName = user?.username || user?.fullName?.split(" ")[0] || "User";
   const [notifications, setNotifications] = useState<Notification[]>([]);
   // const { socket, connected } = useSocket();
-  const { showToast } = useNotification();
   const fetchNotifications = async () => {
     const res = await api.get(`/api/notifications/get-notifications?unread=1`);
     setNotifications(res.data);

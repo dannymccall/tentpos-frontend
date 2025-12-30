@@ -1,15 +1,8 @@
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 import React, { useEffect, useState } from "react";
-import {
-
-  FaChevronDown,
-  FaChevronRight,
-
-} from "react-icons/fa";
-
-
-
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 // import { useLocation } from "react-router-dom";
 // import type { RootState } from "../redux/store";
@@ -17,6 +10,7 @@ import {
 
 const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
   const pathname = location.pathname;
+  const navigate = useNavigate();
 
   const [counts, setCounts] = useState<Record<string, number>>({
     pendingLoans: 0,
@@ -131,11 +125,17 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                 <div key={idx}>
                   {canView(item.code!) && (
                     <button
-                      onClick={() =>
-                        hasSublinks
-                          ? toggleMenu(item.label)
-                          : item.label.toLowerCase().includes("logout") ? logout() : (window.location.href = item.path!)
-                      }
+                        onClick={() => {
+                        if (hasSublinks) {
+                          toggleMenu(item.label);
+                        } else if (
+                          item.label.toLowerCase().includes("logout")
+                        ) {
+                          logout();
+                        } else if (item.path) {
+                          navigate(item.path);
+                        }
+                      }}
                       className={`w-full flex items-center rounded-md hover:bg-gray-800 transition-colors duration-200
                     ${isOpen ? "gap-4 px-5 py-3" : "justify-center py-3"} ${
                         isActive ? "bg-[#0f172b]" : ""
@@ -183,20 +183,16 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                           >
                             {canView(sub.code!) && (
                               <>
-                                <div className="flex items-center">
-                                  {sub.icon && sub.icon}
-                                  <a
-                                    key={subIdx}
-                                    href={sub.path}
-                                    className={`block text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
+                                 <div
+                                    onClick={() => navigate(sub.path!)}
+                                    className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
                                       subActive
                                         ? "bg-[#0f172b] text-white"
-                                        : "text-gray-300"
+                                        : "text-gray-300 hover:bg-gray-800"
                                     }`}
                                   >
                                     {sub.label}
-                                  </a>
-                                </div>
+                                  </div>
                                 {sub.badgeKey !== undefined && (
                                   <span className="text-[10px] bg-red-600 px-1 py-0.2 rounded-full">
                                     {counts[sub.badgeKey]}

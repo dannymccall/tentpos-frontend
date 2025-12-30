@@ -21,7 +21,6 @@ const RoleModal: React.FC<RoleModalProps> = ({
   role,
   mode,
   onDelete,
-  onSuccess,
 }) => {
   if (!role) return null;
   const [loading, setLoading] = useState(false);

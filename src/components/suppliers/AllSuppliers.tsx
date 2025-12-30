@@ -4,20 +4,17 @@ import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
 import { useExportPDF } from "@/hooks/useExportPDF";
 import DataTableWrapper from "../DataTableWrapper";
-import type { Product } from "@/types/product.types";
 import SupplierTable from "./SuppliersList";
 import type { Supplier } from "@/types/suppliers.types";
 const AllSuppliers = () => {
   const {
     data: suppliers,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Supplier[]>({ uri: "/api/suppliers" });

@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaFileInvoiceDollar, FaPlus, FaTruckLoading, FaUpload } from "react-icons/fa";
+import {  FaFileInvoiceDollar, FaPlus } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -21,7 +21,7 @@ const Sales = () => {
 
     const {permissions, businessProfile} = useAuth();
    
-  const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "suppliers.view");
+  const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "sales.view");
   
   console.log({isAllowed})
    if(!isAllowed) return <Unauthorized />
@@ -40,21 +40,21 @@ const Sales = () => {
           label: "All Sales",
           icon: <FaFileInvoiceDollar className="text-[#8a76f9]" />,
           panel:<AllSales />,
-          code: "suppliers.view"
+          code: "sales.view"
         },
         {
           key: "new_sale",
           label: "Add Sale",
           icon: <FaPlus className="text-[#8a76f9]" />,
           panel: <AddSale/>,
-          code: "suppliers.create"
+          code: "sales.create"
         },
         {
           key: "quick_sale",
           label: "Quick Sale",
           icon: <FaPlus className="text-[#8a76f9]" />,
           panel: <QuickSale />,
-          code: "suppliers.create"
+          code: "sales.create"
         },
       
       ]}

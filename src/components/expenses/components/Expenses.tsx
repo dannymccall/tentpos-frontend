@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { Expense, ExpenseProps } from "@/types/expense.types";
+import type {  ExpenseProps } from "@/types/expense.types";
 import { TableActions } from "@/components/TableActions";
 import ExpenseModal from "./ExpenseModal";
 import { currency } from "@/lib/helperFunctions";

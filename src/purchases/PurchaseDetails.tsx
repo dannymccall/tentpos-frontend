@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { FaFileInvoiceDollar, FaTruckLoading } from "react-icons/fa";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 import api from "@/lib/api";
 
 import { useApiMutation } from "@/hooks/useApiMutation";
@@ -15,7 +14,7 @@ import { useFetchSuppliers } from "@/hooks/useFetchSuppliers";
 const PurchaseDetails: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
   let query = "details";
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   query = params.get("query")!;
   const purchaseId = params.get("purchaseId");
     const {products} = useFetchProducts();
@@ -48,12 +47,12 @@ const PurchaseDetails: React.FC = () => {
   if (!data) return <NoDataFound />;
   return (
     <Tabs
-      defaultTab="details"
-      onChange={(key) => {
-        window.scroll({ top: 0, behavior: "smooth" });
+      defaultTab={query}
+      // onChange={(key) => {
+      //   window.scroll({ top: 0, behavior: "smooth" });
 
-        // navigate(`/clients/client-details?query=${key}`)
-      }}
+      //   // navigate(`/clients/client-details?query=${key}`)
+      // }}
       tabs={[
         {
           key: "details",

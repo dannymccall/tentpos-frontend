@@ -10,13 +10,11 @@ const AllSaleReturns = () => {
   const {
     data: returns,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Product[]>({ uri: "/api/sales/returns" });

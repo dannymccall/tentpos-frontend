@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { makeRequest } from "tenthub-request";
-import type { Branch } from "../types/branch.type";
 import { apiBase } from "@/lib/api";
 import type { Category } from "@/types/category.types";
 

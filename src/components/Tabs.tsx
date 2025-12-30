@@ -91,7 +91,7 @@ export default function Tabs({
           <TabsList
             ref={listRef}
             className={cn(
-              "relative flex items-center gap-2 overflow-x-auto scrollbar-hide px-4 sm:px-8 py-2 min-h-[3.5rem]",
+              "relative flex items-center gap-2 overflow-x-auto scrollbar-hide px-4 sm:px-8 py-2 min-h-14",
               variantClasses[variant].list
             )}
           >
@@ -123,7 +123,7 @@ export default function Tabs({
                   left: indicator.left,
                   width: indicator.width,
                 }}
-                className="pointer-events-none absolute bottom-0 h-[2px] bg-indigo-500 rounded-full"
+                className="pointer-events-none absolute bottom-0 h-0.5 bg-indigo-500 rounded-full"
               />
             )}
           </TabsList>

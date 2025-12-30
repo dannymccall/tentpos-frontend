@@ -111,6 +111,15 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+body,
+html {
+  font-family: 'Poppins', sans-serif;
+  color: #314162;
+  background: #f1f5f5;
+  height: 100vh;
+  width: 100%;
+  /* overflow-x: hidden; */
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;

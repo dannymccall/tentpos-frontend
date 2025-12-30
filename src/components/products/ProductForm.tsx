@@ -120,8 +120,9 @@ export default function ProductForm({
   } = useFieldArray({
     control: form.control,
     name: "tags",
-  });
+  } as any);
 
+  console.log(tagFields, appendTag, removeTag)
   const {
     fields: variantFields,
     append: appendVariant,
@@ -275,6 +276,8 @@ export default function ProductForm({
 
               {/* Category & Brand */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="md:col-span-2">
+
                 <FormField
                   control={form.control}
                   name="categoryId"
@@ -302,8 +305,9 @@ export default function ProductForm({
                     </FormItem>
                   )}
                 />
+                </div>
 
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="brand"
                   render={({ field }) => (
@@ -315,7 +319,7 @@ export default function ProductForm({
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
               </div>
 
               {/* Price block */}
@@ -334,7 +338,7 @@ export default function ProductForm({
                   )}
                 />
 
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="compareAtPrice"
                   render={({ field }) => (
@@ -346,7 +350,8 @@ export default function ProductForm({
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
+                <div className="md:col-span-2">
 
                 <FormField
                   control={form.control}
@@ -364,6 +369,7 @@ export default function ProductForm({
                     </FormItem>
                   )}
                 />
+                </div>
               </div>
 
               {/* Inventory & SKU */}
@@ -384,7 +390,7 @@ export default function ProductForm({
                 />
 
                 {/* Barcode */}
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="barcode"
                   render={({ field }) => (
@@ -396,7 +402,7 @@ export default function ProductForm({
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
                 {/* Barcode */}
                 <FormField
                   control={form.control}

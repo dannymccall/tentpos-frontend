@@ -3,7 +3,6 @@ import type { Category } from "@/types/category.types";
 import type { ActionProps } from "@/types/types";
 import React from "react";
 import BaseModal from "../BaseModal";
-import AddCategory from "./AddCategory";
 import FormLoading from "../loaders/FormLoading";
 import CategoryForm from "./CategoryForm";
 

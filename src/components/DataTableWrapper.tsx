@@ -16,13 +16,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Table } from "@/components/ui/table";
 import {
-  Loader2,
   Download,
   FileText,
   FileSpreadsheet,
-  RefreshCcw,
 } from "lucide-react";
 import Pagination from "./Pagination";
 import NoDataFound from "./NoDataFound";

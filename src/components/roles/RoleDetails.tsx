@@ -1,4 +1,3 @@
-import React from "react";
 import AddRoleForm from "./AddRole";
 import { useQuery } from "@tanstack/react-query";
 import { SpinnerCustom } from "../loaders/Spinner";

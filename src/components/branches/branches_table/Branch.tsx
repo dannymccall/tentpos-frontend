@@ -1,4 +1,3 @@
-import React from "react";
 import type { Branch, BranchProps } from "../../../types/branch.type";
 import { TableActions } from "../../TableActions";
 import BranchModal from "../BranchModal";

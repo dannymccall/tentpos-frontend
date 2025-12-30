@@ -1,4 +1,3 @@
-import React from "react";
 import ProductForm from "./ProductForm";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import api from "@/lib/api";

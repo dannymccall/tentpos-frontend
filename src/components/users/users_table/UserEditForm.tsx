@@ -34,7 +34,6 @@ const EditUserForm: React.FC<UserFormProps> = ({
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors, dirtyFields },
     reset,
   } = useForm<User>();

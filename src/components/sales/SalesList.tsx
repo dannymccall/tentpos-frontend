@@ -33,7 +33,11 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
         }}
         isOpen={isOpen}
       />
-      <ReturnSaleModal sale={sale!} open={returnModal} onClose={() => setReturnModal(false)}/>
+      <ReturnSaleModal
+        sale={sale!}
+        open={returnModal}
+        onClose={() => setReturnModal(false)}
+      />
       <Table>
         <TableHeader>
           <TableRow>
@@ -67,8 +71,16 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
               <TableCell>{sale.subtotal}</TableCell>
               <TableCell>{sale.amountPaid}</TableCell>
               <TableCell>{sale.balance}</TableCell>
-              <TableCell><Badge className={getSaleStatusColor(sale.status)}>{sale.status}</Badge></TableCell>
-              <TableCell><Badge className={getSaleStatusColor(sale.status)}>{sale.paymentStatus}</Badge></TableCell>
+              <TableCell>
+                <Badge className={getSaleStatusColor(sale.status)}>
+                  {sale.status}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                <Badge className={getSaleStatusColor(sale.status)}>
+                  {sale.paymentStatus}
+                </Badge>
+              </TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end gap-1">
                   <TableActions
@@ -76,33 +88,35 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
                     onView={() =>
                       navigate(`/sales/sale-details?saleId=${sale.id}`)
                     }
+                    viewPermission="sales.view"
                   />
-                  {
-                    sale.status !== "CANCELLED" &&
-                  <Button
-                    size={"sm"}
-                    variant={"secondary"}
-                    onClick={() => {
-                      setSale(sale);
-                      setIsOpen(true);
-                    }}
-                  >
-                    <X className="text-red-500"/>
-                  </Button>
-                  }
-                  {
-                    sale.status !== "RETURN" && 
+                  {sale.status !== "CANCELLED" && sale.status !== "RETURN" && (
+                   <>
+                   
                    <Button
-                    size={"sm"}
-                    variant={"secondary"}
-                    onClick={() => {
-                      setSale(sale);
-                      setReturnModal(true);
-                    }}
-                  >
-                    <Undo2 className="text-amber-500"/>
-                  </Button>
-                  }
+                      size={"sm"}
+                      variant={"secondary"}
+                      onClick={() => {
+                        setSale(sale);
+                        setIsOpen(true);
+                      }}
+                    >
+                      <X className="text-red-500" />
+                    </Button>
+                    <Button
+                      size={"sm"}
+                      variant={"secondary"}
+                      onClick={() => {
+                        setSale(sale);
+                        setReturnModal(true);
+                      }}
+                    >
+                      <Undo2 className="text-amber-500" />
+                    </Button>
+                   </>
+                  )}
+            
+                  
                 </div>
               </TableCell>
             </TableRow>

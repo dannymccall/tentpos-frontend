@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaFileInvoiceDollar, FaPlus, FaTruckLoading, FaUpload } from "react-icons/fa";
+import { FaFileInvoiceDollar, FaPlus } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -102,9 +102,6 @@ export default function KnowledgeBase() {
   const [selectedCategory, setSelectedCategory] = useState<any>(null);
   const [query, setQuery] = useState("");
 
-  const filteredCategories = kbData.filter((cat) =>
-    cat.title.toLowerCase().includes(query.toLowerCase())
-  );
 
   return (
     <div className="space-y-8 p-5">

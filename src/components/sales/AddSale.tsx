@@ -22,6 +22,14 @@ const AddSale = () => {
       return response;
     },
   });
+  // const { mutateAsync: holdSaleMutation, isPending:holdSalePending } = useApiMutation({
+  //   url: `/api/sales/complete-hold-sale`,
+  //   method: "POST",
+  //   invalidateKey: "/api/sales",
+  //   onSuccessCallback: (response) => {
+  //     return response;
+  //   },
+  // });
   const onSubmit = async (formData: any) => {
     const result = await salesMutation(formData);
     console.log({ result });

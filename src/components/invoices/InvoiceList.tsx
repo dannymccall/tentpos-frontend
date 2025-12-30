@@ -8,33 +8,33 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { TableActions } from "../TableActions";
-import type { Product } from "@/types/product.types";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
 import type { Invoice } from "@/types/sale.types";
 import { Badge } from "@/components/ui/badge";
 import { getSaleStatusColor } from "@/lib/helperFunctions";
 import { Button } from "../ui/button";
-
+import DialogModal from "../Dialog";
+import InvoiceView from "../sales/InvoiceView";
 const InvoiceTable: React.FC<{ invoices: Invoice[] }> = ({ invoices }) => {
-  const navigate = useNavigate();
   const [invoice, setInvoice] = useState<Invoice | null>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { businessProfile } = useAuth();
 
-  const isOwner = businessProfile?.appRole === "owner";
+
 
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-      {/* <ProductModal
-        product={product!}
-        onClose={() => {
-          setProduct(null);
-          setIsOpen(false);
-        }}
-        isOpen={isOpen}
-      /> */}
+      <DialogModal open={isOpen} setOpen={() => setIsOpen(false)} size="w-[300px]">
+        {invoice && (
+          <InvoiceView
+            invoice={invoice}
+            sale={invoice.saleInvoice}
+            tenant={{ name: "My Shop", logoUrl: "/logo.png" }}
+            onClose={() => setIsOpen(false)}
+            onPay={() => console.log("Pay")}
+            onDownload={() => console.log("Download PDF")}
+            onPrint={() => window.print()}
+          />
+        )}
+      </DialogModal>
       <Table>
         <TableHeader>
           <TableRow>
@@ -74,7 +74,7 @@ const InvoiceTable: React.FC<{ invoices: Invoice[] }> = ({ invoices }) => {
               <TableCell>{invoice.saleInvoice?.balance}</TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end">
-                  <Button variant={"secondary"} size={"sm"}>
+                  <Button variant={"secondary"} size={"sm"} onClick={() => {setInvoice(invoice), setIsOpen(true)}}>
                     Generate Receipt
                   </Button>{" "}
                 </div>

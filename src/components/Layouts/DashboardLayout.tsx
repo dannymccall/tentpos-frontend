@@ -3,17 +3,16 @@ import Header from "./Header";
 import Sidebar, { type SidebarSection } from "./Sidebar";
 import {
   FaBalanceScale,
-  FaBook,
   FaBoxOpen,
   FaBuilding,
   FaCalendarDay,
-  FaCashRegister,
+
   FaChartBar,
-  FaChartLine,
+
   FaChartPie,
+
   FaClipboardList,
   FaCog,
-  FaEdit,
   FaEnvelope,
   FaExchangeAlt,
   FaExclamationTriangle,
@@ -22,7 +21,6 @@ import {
  
   FaHome,
   FaMoneyBillWave,
-  FaPercent,
   FaPlus,
   FaQuestionCircle,
   FaSignOutAlt,
@@ -36,6 +34,7 @@ import {
   FaVideo,
 } from "react-icons/fa";
 import {  FaReceipt } from "react-icons/fa6";
+import { Receipt } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -53,18 +52,18 @@ const defaultSidebarItems: SidebarSection[] = [
         path: "/dashboard",
         code: "default",
       },
-      {
-        label: "Sales Summary",
-        icon: <FaChartPie />,
-        path: "/sales/summary",
-        code: "sales.view",
-      },
-      {
-        label: "Inventory Overview",
-        icon: <FaChartLine />,
-        path: "/inventory/overview",
-        code: "inventory.view",
-      },
+      // {
+      //   label: "Sales Summary",
+      //   icon: <FaChartPie />,
+      //   path: "/sales/summary",
+      //   code: "sales.view",
+      // },
+      // {
+      //   label: "Inventory Overview",
+      //   icon: <FaChartLine />,
+      //   path: "/inventory/overview",
+      //   code: "inventory.view",
+      // },
     ],
   },
 
@@ -72,12 +71,12 @@ const defaultSidebarItems: SidebarSection[] = [
     title: "Sales & Orders",
     code: "sales.view",
     links: [
-      {
-        label: "POS Terminal",
-        icon: <FaCashRegister />,
-        path: "/sales/pos",
-        code: "sales.create",
-      },
+      // {
+      //   label: "POS Terminal",
+      //   icon: <FaCashRegister />,
+      //   path: "/sales/pos",
+      //   code: "sales.create",
+      // },
       // {
       //   label: "Orders",
       //   icon: <FaReceipt />,
@@ -116,7 +115,7 @@ const defaultSidebarItems: SidebarSection[] = [
       // },
       {
         label: "Invoices",
-        icon: <FaUsers />,
+        icon: <Receipt  />,
         path: "/sales/invoices",
         code: "sales.view",
       },
@@ -308,12 +307,12 @@ const defaultSidebarItems: SidebarSection[] = [
   title: "Accounting",
   code: "accounting.view",
   links: [
-    {
-      label: "Accounting Dashboard",
-      icon: <FaChartLine />,
-      path: "/accounting/dashboard",
-      code: "accounting.view",
-    },
+    // {
+    //   label: "Accounting Dashboard",
+    //   icon: <FaChartLine />,
+    //   path: "/accounting/dashboard",
+    //   code: "accounting.view",
+    // },
     {
       label: "Income Statement",
       icon: <FaFileInvoiceDollar />,
@@ -323,34 +322,34 @@ const defaultSidebarItems: SidebarSection[] = [
     {
       label: "Cash Flow",
       icon: <FaMoneyBillWave />,
-      path: "/accounting/cashflow",
+      path: "/accounting/cash-flow",
       code: "accounting.view",
     },
     {
-      label: "Balance Summary",
+      label: "Profit Report",
       icon: <FaBalanceScale />,
-      path: "/accounting/balance",
+      path: "/accounting/profit",
       code: "accounting.view",
     },
-    {
-      label: "Ledgers",
-      icon: <FaBook />,
-      code: "accounting.ledgers",
-      sublinks: [
-        {
-          label: "All Ledgers",
-          path: "/accounting/ledgers",
-          icon: <FaBook size={12} />,
-          code: "accounting.ledgers",
-        },
-        {
-          label: "Journal Entries",
-          path: "/accounting/ledgers/journals",
-          icon: <FaEdit size={12} />,
-          code: "accounting.ledger.journals",
-        },
-      ],
-    },
+    // {
+    //   label: "Ledgers",
+    //   icon: <FaBook />,
+    //   code: "accounting.ledgers",
+    //   sublinks: [
+    //     {
+    //       label: "All Ledgers",
+    //       path: "/accounting/ledgers",
+    //       icon: <FaBook size={12} />,
+    //       code: "accounting.ledgers",
+    //     },
+    //     {
+    //       label: "Journal Entries",
+    //       path: "/accounting/ledgers/journals",
+    //       icon: <FaEdit size={12} />,
+    //       code: "accounting.ledger.journals",
+    //     },
+    //   ],
+    // },
   ],
 },
 

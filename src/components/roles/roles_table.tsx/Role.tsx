@@ -1,7 +1,7 @@
 import { TableActions } from "../../TableActions";
 import type { Role as RoleProps } from "../../../types/role.types";
 import RoleModal from "./RoleModal";
-
+import { useNavigate } from "react-router-dom";
 interface IRole {
   role: RoleProps;
   permissionCount: number;
@@ -19,7 +19,6 @@ interface IRole {
 const Role = ({
   role,
   permissionCount,
-  onView,
   isOpen,
   onClose,
   selectedRole,
@@ -29,6 +28,7 @@ const Role = ({
   onHandleDelete,
   onSuccess
 }: IRole) => {
+  const navigate = useNavigate();
   return (
     <>
       <RoleModal
@@ -50,8 +50,8 @@ const Role = ({
             showView
             showEdit
             showDelete
-            onView={() => window.location.assign(`/roles/role-details?id=${role.id}`)}
-            onEdit={() =>  window.location.assign(`/roles/role-details?id=${role.id}`)}
+            onView={() => navigate(`/operations/roles/role-details?id=${role.id}`)}
+            onEdit={() => navigate(`/operations/roles/role-details?id=${role.id}`)}
             onDelete={() => onDelete(role)}
           />
         </td>

@@ -1,5 +1,5 @@
 import React from "react";
-import type { User, UserProps } from "../../../types/staff.type";
+import type { User } from "../../../types/staff.type";
 import { toCapitalized } from "../../../lib/helperFunctions";
 import { TableActions } from "../../TableActions";
 import type { ActionProps } from "../../../types/types";
@@ -53,7 +53,7 @@ const UserRow: React.FC<IUser> = ({
             showView
             showEdit
             // showDelete
-            onView={() => navigate(`/staff/staff-details?id=${user.id}`)}
+            onView={() => navigate(`/operations/staff/staff-details?id=${user.id}`)}
             onEdit={() => onEdit(user)}
             // onDelete={() => onDelete(user)}
             permissionMode="disable"

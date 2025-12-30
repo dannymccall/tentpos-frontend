@@ -46,6 +46,7 @@ export type Invoice = {
   saleInvoice?: Sale;
   userSale: User;
   branchInvoice: Branch;
+  
 };
 
 export type Sale = {

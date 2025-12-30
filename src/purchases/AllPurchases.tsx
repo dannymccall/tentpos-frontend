@@ -10,13 +10,11 @@ const AllPurchases = () => {
   const {
     data: purchases,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Purchase[]>({ uri: "/api/purchases" });

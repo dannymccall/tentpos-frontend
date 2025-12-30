@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 import type { Category } from "@/types/category.types";
 import { useFetch } from "@/hooks/useFetch";
@@ -11,13 +11,11 @@ const AllCategories = () => {
   const {
     data: categories,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Category[]>({ uri: "/api/categories/get-categories" });

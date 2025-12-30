@@ -4,20 +4,17 @@ import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
 import { useExportPDF } from "@/hooks/useExportPDF";
 import DataTableWrapper from "../DataTableWrapper";
-import ProductTable from "./ProductList";
 import type { Product } from "@/types/product.types";
 import StockAdjustmentsTable from "./StockAdjustments";
 const AllStockAdjustments = () => {
   const {
     data: adjustments,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Product[]>({ uri: "/api/stock-adjustments/adjustments" });

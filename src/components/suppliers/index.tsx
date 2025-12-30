@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaPlus, FaTruckLoading, FaUpload } from "react-icons/fa";
+import {  FaPlus, FaTruckLoading, FaUpload } from "react-icons/fa";
 import Tabs from "../Tabs";
 
 import { useNavigate } from "react-router-dom";

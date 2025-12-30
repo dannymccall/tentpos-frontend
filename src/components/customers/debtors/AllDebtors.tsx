@@ -13,13 +13,11 @@ const AllDebtors = () => {
   const {
     data: debtors,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery,
   } = useFetch<Customer[]>({ uri: "/api/customers/debtors" });

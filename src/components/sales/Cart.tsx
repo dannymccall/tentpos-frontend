@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import  { useState, useRef,  } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ShoppingCart, Undo2, X } from "lucide-react";
+import {  Undo2, X } from "lucide-react";
 import type { CartProps } from "@/types/sale.types";
 import CartContent from "./CartContent";
 import EcommerceCheckoutPage from "./Checkout";

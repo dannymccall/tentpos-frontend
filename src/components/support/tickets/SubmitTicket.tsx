@@ -1,6 +1,5 @@
-import React from "react";
 import type { Ticket } from "@/types/ticket.types";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card,  CardTitle } from "@/components/ui/card";
 
 import {
   Select,
@@ -19,7 +18,6 @@ import { ticketCategories } from "./ticketCategories";
 const SubmitTicket = () => {
   const {
     register,
-    reset,
     formState: { errors },
     handleSubmit,
     control,
@@ -96,7 +94,7 @@ const SubmitTicket = () => {
                     <SelectTrigger className="w-full mt-2">
                       <SelectValue placeholder="Select Priority" />
                     </SelectTrigger>
-                    <SelectContent className="z-[9999]">
+                    <SelectContent className="z-9999">
                       <SelectItem value="high">High</SelectItem>
                       <SelectItem value="low">Low</SelectItem>
                       <SelectItem value="medium">Medium</SelectItem>
@@ -118,7 +116,7 @@ const SubmitTicket = () => {
                     <SelectTrigger className="w-full mt-2">
                       <SelectValue placeholder="Select Priority" />
                     </SelectTrigger>
-                    <SelectContent className="z-[9999]">
+                    <SelectContent className="z-9999">
                       {ticketCategories.map((c) => (
                         <SelectItem value={c.value} key={c.value}>
                           {c.key}

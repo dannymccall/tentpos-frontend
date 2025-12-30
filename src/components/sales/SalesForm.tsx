@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import  { useEffect, useMemo, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { set, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,11 +22,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import DialogModal from "../Dialog";
-import { DialogTitle } from "../ui/dialog";
 import type { Customer } from "@/types/customer.types";
 import InvoiceView from "./InvoiceView";
 import { formatDate } from "@/lib/helperFunctions";
-import { is } from "zod/v4/locales";
 // Schema
 const money = z.string().regex(/^\d+(?:\.\d{1,2})?$/, "Invalid amount");
 
@@ -46,6 +44,7 @@ const saleSchema = z.object({
   notes: z.string().optional().or(z.literal("")),
   date: z.string().optional(),
   amountPaid: z.string().or(z.literal("0.00")),
+  status: z.string().optional().or(z.null()),
 });
 
 type SaleFormValues = z.infer<typeof saleSchema>;
@@ -71,6 +70,8 @@ export default function SaleForm({
     isError: false,
     message: "",
   });
+
+  console.log(defaultValues)
   const form = useForm<SaleFormValues>({
     resolver: zodResolver(saleSchema),
     defaultValues: {
@@ -210,26 +211,38 @@ export default function SaleForm({
       (s, it) => s + Number(it.total || it.price * it.quantity),
       0
     );
-    const isPartial = payload.amountPaid < subtotal
-    // if (isPartial && type === "complete") {
-    //   console.log("partial");
-    //   setError({
-    //     isError: true,
-    //     message:
-    //       "Amount paid is less than total. For partial sales, please use the 'Partial Sale' button.",
-    //   });
-    //   return;
-    // }
+    const isPartial = payload.amountPaid < subtotal;
+    if (isPartial && type === "complete") {
+      console.log("partial");
+      setError({
+        isError: true,
+        message:
+          "Amount paid is less than total. For partial sales, please use the 'Partial Sale' button.",
+      });
+      return;
+    }
 
-    // if(isPartial && type === "partial" &&  payload.customerId == null) {
-    //   setError({
-    //     isError: true,
-    //     message:
-    //       "Please select a customer for partial payments.",
-    //   });
-    //   return;
-    // }
-    const result = await onSubmit(payload);
+    if (isPartial && type === "partial" && payload.customerId == null) {
+      setError({
+        isError: true,
+        message: "Please select a customer for partial payments.",
+      });
+      return;
+    }
+
+    let result;
+    if (defaultValues && defaultValues?.status === "HOLD") {
+      result = await onSubmit({
+        saleId: (defaultValues as any).id,
+        amountPaid: payload.amountPaid,
+        paymentMethod: payload.paymentMethod,
+        tax: payload.tax,
+        discount: payload.discount,
+        status: "HOLD"
+      });
+    } else {
+      result = await onSubmit(payload);
+    }
 
     // if result contains invoice, show modal
     if (result && result.invoice && result.sale) {
@@ -573,14 +586,17 @@ export default function SaleForm({
                 </Button>
 
                 {/* Hold the sale (partial/incomplete) */}
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  variant="outline"
-                  onClick={form.handleSubmit((data) => submit(data, true))}
-                >
-                  Hold Sale
-                </Button>
+                {((defaultValues && defaultValues!.status !== "HOLD" &&
+                  defaultValues!.status !== "COMPLETED") ||  mode === "add") && (
+                    <Button
+                      type="submit"
+                      disabled={loading}
+                      variant="outline"
+                      onClick={form.handleSubmit((data) => submit(data, true))}
+                    >
+                      Hold Sale
+                    </Button>
+                  )}
                 <Button
                   type="submit"
                   disabled={loading}
@@ -598,9 +614,9 @@ export default function SaleForm({
                   type="submit"
                   disabled={loading}
                   variant={
-                    mode === "edit"
+                    mode === "edit" && defaultValues?.status !== "HOLD"
                       ? "destructive"
-                      : defaultValues?.status === "HOLD"
+                      : (defaultValues as any)?.status === "HOLD"
                       ? "default"
                       : "default"
                   }
@@ -608,7 +624,7 @@ export default function SaleForm({
                     submit(data, false, "complete")
                   )}
                 >
-                  {getButtonLabel(mode, defaultValues?.status)}
+                  {getButtonLabel(mode, (defaultValues as any)?.status)}
                 </Button>
               </div>
             </form>

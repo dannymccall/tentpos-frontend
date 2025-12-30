@@ -15,7 +15,7 @@ const Branches = () => {
 
     const {permissions, businessProfile} = useAuth();
    
-  const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "operations.view.branches");
+  const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "");
  
    if(!isAllowed) return <Unauthorized />
   return (
@@ -31,14 +31,14 @@ const Branches = () => {
           label: "All Branches",
           icon: <FaBuilding className='text-[#8a76f9]' />,
           panel: <AllBranches />,
-          code: "operations.view.branches"
+          code: "default"
         },
         {
           key: "add_branch",
           label: "Add Branch",
           icon: <FaPlus className='text-[#8a76f9]' />,
           panel: <AddBranch />,
-          code: "operations.create.branch"
+          code: "default"
         },
       ]}
     />

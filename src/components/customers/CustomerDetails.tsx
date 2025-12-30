@@ -1,6 +1,5 @@
 import Tabs from "../Tabs";
-import { useNavigate } from "react-router-dom";
-import { FaTruckLoading, FaUser } from "react-icons/fa";
+import {  FaUser } from "react-icons/fa";
 import api from "@/lib/api";
 import { SpinnerCustom } from "../loaders/Spinner";
 import NoDataFound from "../NoDataFound";
@@ -10,9 +9,8 @@ import CustomerForm from "./CustomerForm";
 
 const CustomerDetails: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
-  let query = "details";
-  const navigate = useNavigate();
-  query = params.get("query")!;
+  // let query = "details";
+  // query = params.get("query")!;
   const customerId = params.get("customerId");
 
   const { data, isLoading } = useQuery({
@@ -42,11 +40,11 @@ const CustomerDetails: React.FC = () => {
   return (
     <Tabs
       defaultTab="details"
-      onChange={(key) => {
-        window.scroll({ top: 0, behavior: "smooth" });
+      // onChange={(key) => {
+      //   window.scroll({ top: 0, behavior: "smooth" });
 
-        // navigate(`/clients/client-details?query=${key}`)
-      }}
+      //   // navigate(`/clients/client-details?query=${key}`)
+      // }}
       tabs={[
         {
           key: "details",

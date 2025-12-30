@@ -1,4 +1,4 @@
-import { FaBoxOpen, FaPlus, FaUpload, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";

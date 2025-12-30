@@ -1,10 +1,11 @@
 import Tabs from "../Tabs";
 import { useNavigate } from "react-router-dom";
-import { FaTruckLoading } from "react-icons/fa";
 
 import AllInvoices from "./AllInvoices";
 import { useAuth } from "@/context/AuthContext";
 import { hasPermission } from "@/lib/permissions";
+import { Receipt } from "lucide-react";
+import { Unauthorized } from "../Unauthorzed";
 
 const Invoices: React.FC = () => {
   const params = new URLSearchParams(window.location.search);
@@ -15,12 +16,12 @@ const Invoices: React.FC = () => {
       const {permissions, businessProfile} = useAuth();
      
     const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "inventory.products.view");
-    
+    if(!isAllowed) return <Unauthorized />
 
   return (
     
     <Tabs
-      defaultTab="invoices"
+      defaultTab={query}
       onChange={(key) => {
         window.scroll({ top: 0, behavior: "smooth" });
 
@@ -30,7 +31,7 @@ const Invoices: React.FC = () => {
         {
           key: "invoices",
           label: "Invoices",
-          icon: <FaTruckLoading className="text-[#0f172b]" />,
+          icon: <Receipt className="text-[#0f172b]" />,
           panel: <AllInvoices />,
           code: "inventory.categories.view",
         },

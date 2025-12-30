@@ -41,3 +41,9 @@ export const bulkUploadCustomers: BulkUploadCustomers = {
     address: "",
     
 }
+
+export type AccountingFilterPayload = {
+  startDate: string | null;
+  endDate: string | null;
+  branchId?: number | string;
+};

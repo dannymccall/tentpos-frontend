@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFetch } from "../../../hooks/useFetch";
-import type { User, UserProps } from "../../../types/staff.type";
+import type { User } from "../../../types/staff.type";
 import UserList from "./UserList";
 
 import DataTableWrapper from "../../DataTableWrapper";
@@ -10,13 +10,11 @@ const AllUsers = () => {
   const {
     data: users,
     loading,
-    error,
     totalPages,
     currentPage,
     hasLoaded,
     setPage,
     query,
-    handleSearch,
     refetch,
     setQuery
   } = useFetch<User[]>({ uri: "/api/users/get-users" });

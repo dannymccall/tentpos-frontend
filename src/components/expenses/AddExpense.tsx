@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,6 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { useApiMutation } from "@/hooks/useApiMutation";
 import FormLoading from "../loaders/FormLoading";
 
@@ -35,7 +34,6 @@ const categories = [
   "Salaries",
   "Other",
 ];
-const frequencies = ["weekly", "monthly", "yearly"];
 
 export default function ExpenseCreation({
   expense,
@@ -48,7 +46,6 @@ export default function ExpenseCreation({
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
     reset,
   } = useForm<ExpenseFormData>({
