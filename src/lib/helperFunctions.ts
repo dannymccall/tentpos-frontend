@@ -95,6 +95,8 @@ export async function blobToFile(blobType: string, imageName: string) {
     console.log(e.message);
   }
 }
+
+console.log("helperFunctions loaded");
 export function formatDate(dob: any) {
   let date = new Date(dob);
 
