@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { makeRequest } from "tenthub-request";
 import { useDebounce } from "./useDebounce";
+import { makeRequest } from "@/lib/helperFunctions";
 
 type UseFetchOptions<T> = {
   uri: string;
@@ -29,7 +29,6 @@ export function useFetch<T>({
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState(initialSearch);
   const debouncedSearch = useDebounce(query, debounceMs);
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   const { data, error, isLoading, refetch, isFetching }: any = useQuery({
     queryKey: [uri, page, debouncedSearch, limit, additionalQuery],
@@ -37,7 +36,6 @@ export function useFetch<T>({
       const res = await makeRequest(
         `${uri}?page=${page}&limit=${limit}&searchTerm=${debouncedSearch}&${additionalQuery}`,
         { method: "GET", cache: "no-store" },
-        apiUrl
       );
 
       console.log(res.data.data);

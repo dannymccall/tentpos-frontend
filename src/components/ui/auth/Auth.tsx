@@ -41,12 +41,12 @@ const Auth = () => {
             onClick={handleLogin}
             className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg shadow-md transition-all duration-300"
           >
-            Sign in with TentHub
+            Sign in with App Center
           </button>
 
           <p className="mt-6 text-sm text-gray-500">
             Don’t have an account?{" "}
-            <a href="/register" className="text-green-600 hover:underline">
+             <a href={`${TENTHUB_FRONTEND_URL}/auth/signup`} className="text-green-600 hover:underline">
               Register now
             </a>
           </p>

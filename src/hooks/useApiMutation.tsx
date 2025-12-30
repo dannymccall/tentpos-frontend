@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "tenthub-request";
 import { useNotification } from "../context/NotificationContext";
-import { apiBase } from "@/lib/api";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface MutationOptions {
   url: string;
@@ -36,7 +35,7 @@ export function useApiMutation({
             : JSON.stringify(data)
           : undefined;
 
-      return makeRequest(endpoint, { method,  body: requestBody }, apiBase);
+      return makeRequest(endpoint, { method,  body: requestBody });
     },
     onSuccess: (response: any) => {
       if (!response || response.status === "error" || response.error) {

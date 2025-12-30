@@ -1,10 +1,10 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { makeRequest } from "tenthub-request";
 import type { User } from "../types/user.types";
 import { useNotification } from "./NotificationContext";
 import { useNavigate } from "react-router-dom";
 import type { BusinessProfile } from "../types/businessProfile.types";
 import type { Permission } from "../types/permissions.types";
+import { makeRequest } from "@/lib/helperFunctions";
 type PublicUser = Pick<
   User & {
     avatar?: string;
@@ -63,8 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   });
   const navigate = useNavigate();
   const { showToast } = useNotification();
-  const sessionId = localStorage.getItem("sessionId");
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const sessionId = localStorage.getItem("tentpos:sessionId");
   useEffect(() => {
     (async () => {
       try {
@@ -74,7 +73,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           const response = await makeRequest(
             `/api/auth/me`,
             { method: "GET", credentials: "include" },
-            apiUrl
           );
           console.log({ response });
           if (response.data.data) {
@@ -91,11 +89,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               logo: response.data.data.settings.logo || null,
             });
             localStorage.setItem(
-              "userData",
+              "tentpos:userData",
               JSON.stringify(response.data.data)
             );
           } else {
-            localStorage.setItem("userData", JSON.stringify(null));
+            localStorage.setItem("tentpos:userData", JSON.stringify(null));
           }
         }
       } catch (error) {
@@ -107,10 +105,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const login = async (userData: AuthContextType) => {
-    localStorage.setItem("userData", JSON.stringify(userData));
+    localStorage.setItem("tentpos:userData", JSON.stringify(userData));
 
     if (userData.sessionId) {
-      localStorage.setItem("sessionId", userData.sessionId);
+      localStorage.setItem("tentpos:sessionId", userData.sessionId);
     }
     setUser(userData as PublicUser);
     setProfilePicture(userData.avatar || "");
@@ -126,7 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = async () => {
     try {
-      const sessionId = localStorage.getItem("sessionId");
+      const sessionId = localStorage.getItem("tentpos:sessionId");
       console.log(sessionId);
       const response = await makeRequest(
         `/api/auth/signout`,
@@ -139,7 +137,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           },
           credentials: "include",
         },
-        apiUrl
       );
       console.log(response);
       const { status } = response;
@@ -150,14 +147,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.clear();
       setUser(null);
       setProfilePicture("");
-      navigate("/");
+      navigate("/auth/signin");
     } catch (error: any) {
       showToast(error.message, "error");
     }
   };
 
   const createSessionId = async (sessionId: string) => {
-    localStorage.setItem("sessionId", sessionId);
+    localStorage.setItem("tentpos:sessionId", sessionId);
   };
 
   const getSessionId = (name: string) => {
@@ -169,7 +166,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const newUser = { ...user, ...updatedUser };
       setUser(newUser);
       if (updatedUser.avatar) setProfilePicture(updatedUser.avatar);
-      localStorage.setItem("userData", JSON.stringify(newUser));
+      localStorage.setItem("tentpos:userData", JSON.stringify(newUser));
     }
   };
 
@@ -178,7 +175,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (user) {
       const updatedUser = { ...user, avatar: newPicture };
       setUser(updatedUser);
-      localStorage.setItem("userData", JSON.stringify(updatedUser));
+      localStorage.setItem("tentpos:userData", JSON.stringify(updatedUser));
     }
   };
 

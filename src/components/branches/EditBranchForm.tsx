@@ -2,11 +2,10 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { Branch } from "../../types/branch.type";
 import { useNotification } from "../../context/NotificationContext";
-import { makeRequest } from "tenthub-request";
 import FormLoading from "../loaders/FormLoading";
-import { apiBase } from "@/lib/api";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface BranchFormProps {
   mode: "add" | "view" | "edit";
@@ -76,7 +75,6 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
       const response = await makeRequest(
         `/api/branches/update-branch`,
         { method: "PUT", body: JSON.stringify({...data, id:branch?.id}) },
-        apiBase
       );
       if (response.status === "error") {
         showToast(response.error?.message!, "error");

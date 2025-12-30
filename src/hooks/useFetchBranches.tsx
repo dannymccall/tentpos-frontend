@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
 import type { Branch } from "../types/branch.type";
-import { apiBase } from "@/lib/api";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface UseFetchBranchesResult {
   branches: Branch[];
@@ -22,7 +21,7 @@ export function useFetchBranches(): UseFetchBranchesResult {
       const response = await makeRequest(
         "/api/branches/get-branches",
         { method: "GET" },
-apiBase      );
+      );
 
       if (response.status === "error") {
         setError(response.error?.message || "Failed to fetch branches");

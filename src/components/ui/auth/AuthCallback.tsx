@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { makeRequest } from "tenthub-request";
 import { SpinnerBadge } from "@/components/SpinnerBadge";
 import { useAuth } from "@/context/AuthContext";
+import { makeRequest } from "@/lib/helperFunctions";
 const AuthCallback = () => {
   const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
@@ -12,7 +12,6 @@ const AuthCallback = () => {
   const [progress, setProgress] = useState("Processing sign-in");
   const {login} = useAuth()
   async function makeExachange() {
-    const apiUrl = import.meta.env.VITE_API_URL;
     if (code) {
       const response = await makeRequest(
         "/api/auth/exchange",
@@ -21,7 +20,6 @@ const AuthCallback = () => {
           method: "POST",
           body: JSON.stringify({ code }),
         },
-        apiUrl
       );
 
       if (response.status === "error") {
@@ -30,7 +28,7 @@ const AuthCallback = () => {
 
       console.log(response)
 
-      localStorage.setItem("sessionId", response.data.data.sessionId);
+      localStorage.setItem("tentpos:sessionId", response.data.data.sessionId);
       login(response.data.data)
       navigate("/dashboard");
     }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
 import type { User } from "../types/staff.type";
-import { apiBase } from "@/lib/api";
+import { makeRequest } from "@/lib/helperFunctions";
 interface UseFetchUsersResult {
   users: User[];
   loading: boolean;
@@ -21,7 +20,6 @@ export function useFetchUsers(): UseFetchUsersResult {
       const response = await makeRequest(
         "/api/users/get-users",
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {

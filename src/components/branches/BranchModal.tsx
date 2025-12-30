@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useNotification } from "../../context/NotificationContext";
-import { makeRequest } from "tenthub-request";
 import EditBranchForm from "./EditBranchForm";
 import type { Branch } from "../../types/branch.type";
 import FormLoading from "../loaders/FormLoading";
-import { apiBase } from "@/lib/api";
 import BaseModal from "../BaseModal";
+import { makeRequest } from "@/lib/helperFunctions";
 interface BranchModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -33,7 +32,6 @@ const BranchModal: React.FC<BranchModalProps> = ({
       const response = await makeRequest(
         `/api/branches/delete-branch?id=${branch.id}`,
         { method: "DELETE" },
-       apiBase
       );
 
       if (response.status === "error") {

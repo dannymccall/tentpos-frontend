@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
-import { apiBase } from "@/lib/api";
 import type { Product } from "@/types/product.types";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface UseFetchBranchesResult {
   products: Product[];
@@ -22,7 +21,6 @@ export function useFetchProducts(): UseFetchBranchesResult {
       const response = await makeRequest(
         "/api/products/get-products",
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {

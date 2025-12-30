@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
-import { apiBase } from "@/lib/api";
 import type  { Customer } from "@/types/customer.types";
+import { makeRequest } from "@/lib/helperFunctions";
 interface UseFetchBranchesResult {
   customers: Customer[];
   loading: boolean;
@@ -21,7 +20,6 @@ export function useFetchCustomers(): UseFetchBranchesResult {
       const response = await makeRequest(
         "/api/customers",
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {

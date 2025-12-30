@@ -14,9 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { AnimatePresence, motion } from "framer-motion";
 import { useApiMutation } from "@/hooks/useApiMutation";
-import { makeRequest } from "tenthub-request";
-import { toCapitalized } from "@/lib/helperFunctions";
-import { apiBase } from "@/lib/api";
+import { makeRequest, toCapitalized } from "@/lib/helperFunctions";
 import FormLoading from "../loaders/FormLoading";
 
 type PermissionItem = { name: string; code_name: string; category: string };
@@ -64,7 +62,6 @@ const AddRoleForm = ({
       const response = await makeRequest(
         `/api/permissions/get-permissions`,
         { method: "GET" },
-        apiBase
       );
 
       const grouped = response.data.data.reduce((acc: any, role: any) => {

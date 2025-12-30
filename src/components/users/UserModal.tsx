@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import type { ActionProps } from "../../types/types";
 import type { User } from "../../types/staff.type";
 import { useNotification } from "../../context/NotificationContext";
-import { makeRequest } from "tenthub-request";
 import EditUserForm from "./users_table/UserEditForm";
 import FormLoading from "../loaders/FormLoading";
 import { useFetchBranches } from "../../hooks/useFetchBranches";
-import { apiBase } from "@/lib/api";
 // import BaseModal from "../BaseModal";
 import DialogModal from "../Dialog";
 import { SpinnerCustom } from "../loaders/Spinner";
+import { makeRequest } from "@/lib/helperFunctions";
 interface RoleModalProps extends ActionProps<User> {
   selectedUser:User
 }
@@ -32,7 +31,7 @@ const UserModal: React.FC<RoleModalProps> = ({
       const response = await makeRequest(
         `/api/roles/delete-role?id=${selectedUser.id}`,
         { method: "DELETE" },
-apiBase      );
+   );
 
       if (response.status === "error") {
         setLoading(false);

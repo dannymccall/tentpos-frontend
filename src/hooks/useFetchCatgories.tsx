@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
-import { apiBase } from "@/lib/api";
 import type { Category } from "@/types/category.types";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface UseFetchBranchesResult {
   categories: Category[];
@@ -22,7 +21,6 @@ export function useFetchCategories(): UseFetchBranchesResult {
       const response = await makeRequest(
         "/api/categories/get-categories",
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
-import { apiBase } from "@/lib/api";
 import type { Product } from "@/types/product.types";
+import { makeRequest } from "@/lib/helperFunctions";
 
 interface UseFetchSaleResult {
   products: Product[];
@@ -27,7 +26,6 @@ export function useFetchSaleProducts(
           categoryId ? `categoryId=${categoryId}` : ""
         }`,
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {

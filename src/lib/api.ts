@@ -6,7 +6,7 @@ async function jsonFetch<T = any>(url: string, opts: RequestInit = {}) {
   if (!(opts.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
-  headers["Authorization"] = `Bearer ${localStorage.getItem("sessionId") || ""}`;
+  headers["Authorization"] = `Bearer ${localStorage.getItem("tentpos:sessionId") || ""}`;
   const res = await fetch(`${apiBase}${url}`, { ...opts, headers });
   if (!res.ok) {
     const text = await res.text();

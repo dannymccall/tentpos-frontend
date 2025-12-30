@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import type { Role as RoleProps } from "../../../types/role.types";
-import { makeRequest } from "tenthub-request";
 import { useNotification } from "../../../context/NotificationContext";
 import FormLoading from "../../loaders/FormLoading";
 import BaseModal from "@/components/BaseModal";
-import { apiBase } from "@/lib/api";
+import { makeRequest } from "@/lib/helperFunctions";
 interface RoleModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,7 +30,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
       const response = await makeRequest(
         `/api/roles/delete-role?id=${role.id}`,
         { method: "DELETE" },
-apiBase      );
+      );
 
       if (response.status === "error") {
         setLoading(false);

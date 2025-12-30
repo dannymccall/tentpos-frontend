@@ -27,7 +27,7 @@ export default defineConfig({
    */
   server: {
     port: 5175,
-    open: "/tentpos",
+    open: "/tentpos/",
   },
 
   /**

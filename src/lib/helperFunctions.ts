@@ -1,3 +1,47 @@
+const apiUrl = import.meta.env.VITE_API_URL;
+export async function makeRequest(url: string, options: RequestInit) {
+  const sessionId = localStorage.getItem("tentpos:sessionId");
+  console.log({sessionId})
+  try {
+    const response = await fetch(`${apiUrl}${url}`, {
+      headers: {
+        Authorization: `Bearer ${sessionId}`,
+        "Content-Type": "application/json",
+      },
+      ...options,
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      return {
+        status: "error",
+        error: {
+          code: `HTTP_${response.status}`,
+          message: data?.message || response.statusText || "Unknown error",
+        },
+      };
+    }
+
+    return {
+      status: "success",
+      message: data?.message || "Request was successful.",
+      data,
+    };
+  } catch (error: any) {
+    console.log(error)
+    return {
+      status: "error",
+      error: {
+        code: "NETWORK_ERROR",
+        message:
+          error?.message ||
+          "Failed to connect to the server. Please try again later.",
+      },
+    };
+  }
+}
+
+
 export function getTimeAgo(dateInput: Date | string) {
   const now = new Date();
   const postDate = new Date(dateInput);

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { makeRequest } from "tenthub-request";
 import type { User } from "../../../types/staff.type";
 import type { Branch } from "../../../types/branch.type";
 import { useNotification } from "../../../context/NotificationContext";
 import FormLoading from "../../loaders/FormLoading";
-import { toCapitalized } from "../../../lib/helperFunctions";
+import { makeRequest, toCapitalized } from "../../../lib/helperFunctions";
 import RoleSelector from "../../roles/RoleSelector";
-import { apiBase } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -72,7 +70,6 @@ const EditUserForm: React.FC<UserFormProps> = ({
             role: selectedRoleId,
           }),
         },
-        apiBase
       );
 
       if (response.status === "error") {

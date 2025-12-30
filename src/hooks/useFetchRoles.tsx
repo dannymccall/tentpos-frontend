@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { makeRequest } from "tenthub-request";
 import type { Role } from "../types/role.types";
-import { apiBase } from "@/lib/api";
+import { makeRequest } from "@/lib/helperFunctions";
 interface UseFetchRolesResult {
   roles: Role[];
   loading: boolean;
@@ -21,7 +20,6 @@ export function useFetchRoles(): UseFetchRolesResult {
       const response = await makeRequest(
         "/api/roles/get-roles",
         { method: "GET" },
-        apiBase
       );
 
       if (response.status === "error") {
