@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from './components/Routes/Router.tsx';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename='/tentpos'>
+    <BrowserRouter basename='/tentpos/'>
     <Router />
     
     </BrowserRouter>

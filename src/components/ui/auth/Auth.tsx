@@ -1,11 +1,12 @@
 const Auth = () => {
   const APP_ID = import.meta.env.VITE_TENTPOS_APP_ID;
+  const APP_SECRET = import.meta.env.VITE_TENTPOS_APP_SECRET;
   const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
   const TENTHUB_FRONTEND_URL = import.meta.env.VITE_TENTHUB_FRONTEND_URL;
   
   const handleLogin = () => {
-    window.location.href = `${TENTHUB_FRONTEND_URL}/auth/signin?client_id=${APP_ID}&redirect_uri=${encodeURIComponent(
-      `${REDIRECT_URL}/auth/callback`
+    window.location.href = `${TENTHUB_FRONTEND_URL}/auth/signin?client_id=${APP_ID}&client_secret=${APP_SECRET}&redirect_uri=${encodeURIComponent(
+      `${REDIRECT_URL}/tentpos/auth/callback`
     )}&response_type=code&app_name=TentPOS&appLogo=/app_icons/tentCredit.png`;
   };
   return (

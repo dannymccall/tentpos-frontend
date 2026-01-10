@@ -58,7 +58,7 @@ export const ENTITIES = [
   "transactions",
   "ledgers",
   "financialStatements",
-
+  "tickets",
   "settings",
 ];
 

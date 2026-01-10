@@ -40,6 +40,8 @@ interface ItemProps<T> {
   onPageChange: (page: number) => void;
   exportCSV: () => void;
   exportPDF: () => void;
+      filters?: React.ReactNode; // 👈 NEW
+
 }
 
 const DataTableWrapper: React.FC<ItemProps<any>> = ({
@@ -57,6 +59,8 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
   onPageChange,
   exportCSV,
   exportPDF,
+    filters,
+
 }) => {
   const [search, setSearch] = useState(query);
 
@@ -97,7 +101,9 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
                   ))}
                 </SelectContent>
               </Select>
-
+ {filters && (
+                <div className="flex flex-wrap gap-3 w-full">{filters}</div>
+              )}
               {/* Search Bar */}
               <div className="relative w-full sm:w-64">
                 <Input

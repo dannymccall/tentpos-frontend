@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Tabs from "@/components/Tabs";
 import SubmitTicket from "./SubmitTicket";
 import { ClipboardList } from "lucide-react";
+import  AllTickets from "./AllTickets";
 
 const Tickets = () => {
   const params = new URLSearchParams(window.location.search);
@@ -24,7 +25,7 @@ const Tickets = () => {
           key: "tickets",
           label: "My Tickets",
           icon: <ClipboardList className="text-[#0f172b] " />,
-          panel: <h1>All tickets</h1>,
+          panel: <AllTickets />,
         },
         {
           key: "add_ticket",

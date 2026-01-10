@@ -20,7 +20,6 @@ import CustomerDetails from "../customers/CustomerDetails";
 import SaleDetails from "../sales/SaleDetails";
 import RoleDetails from "../roles/RoleDetails";
 import TentPOSFAQ from "../support/FAQs";
-import SubmitTicket from "../support/tickets/SubmitTicket";
 import Expenses from "../expenses";
 import Invoices from "../invoices";
 import SalesOnHold from "../sales/SalesOnHold";
@@ -34,6 +33,8 @@ import InventoryReportDashboard from "../reports/InventoryReport";
 import IncomeStatement from "../accounting/components/IncomeStatement";
 import ProfitReportTable from "../accounting/components/ProfitReport";
 import CashFlow from "../accounting/components/CashFlows";
+import Tickets from "../support/tickets";
+import TicketDetails from "../support/tickets/ticketDetails/TicketDetails";
 export default function AuthRoutes() {
   return (
     <Routes>
@@ -241,7 +242,7 @@ export default function AuthRoutes() {
         element={
           <DashboardLayout title="Submit Ticket">
             <ProtectedRoute>
-              <SubmitTicket />
+              <Tickets />
             </ProtectedRoute>
           </DashboardLayout>
         }
@@ -364,6 +365,16 @@ export default function AuthRoutes() {
               <CashFlow />
             </ProtectedRoute>
           </DashboardLayout>
+        }
+      />
+       <Route
+        path="/support/tickets/ticket"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="All Tickets">
+              <TicketDetails />
+            </DashboardLayout>
+          </ProtectedRoute>
         }
       />
     </Routes>

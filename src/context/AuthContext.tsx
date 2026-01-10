@@ -88,13 +88,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               companyName: response.data.data.settings.name || null,
               logo: response.data.data.settings.logo || null,
             });
-            localStorage.setItem(
-              "tentpos:userData",
-              JSON.stringify(response.data.data)
-            );
-          } else {
-            localStorage.setItem("tentpos:userData", JSON.stringify(null));
-          }
+           
+          } 
         }
       } catch (error) {
         console.error("Error retrieving session:", error);
@@ -105,7 +100,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const login = async (userData: AuthContextType) => {
-    localStorage.setItem("tentpos:userData", JSON.stringify(userData));
 
     if (userData.sessionId) {
       localStorage.setItem("tentpos:sessionId", userData.sessionId);
@@ -147,7 +141,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       localStorage.clear();
       setUser(null);
       setProfilePicture("");
-      navigate("/auth/signin");
+      navigate("/");
     } catch (error: any) {
       showToast(error.message, "error");
     }
@@ -166,7 +160,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const newUser = { ...user, ...updatedUser };
       setUser(newUser);
       if (updatedUser.avatar) setProfilePicture(updatedUser.avatar);
-      localStorage.setItem("tentpos:userData", JSON.stringify(newUser));
     }
   };
 
@@ -175,7 +168,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (user) {
       const updatedUser = { ...user, avatar: newPicture };
       setUser(updatedUser);
-      localStorage.setItem("tentpos:userData", JSON.stringify(updatedUser));
     }
   };
 
