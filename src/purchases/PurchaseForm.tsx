@@ -1,4 +1,4 @@
-import  { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +23,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toCapitalized } from "@/lib/helperFunctions";
-
+import { FaBucket } from "react-icons/fa6";
+import { Label } from "@radix-ui/react-label";
+import { SearchCommand } from "@/components/SearchCommand";
 // Schema
 const money = z.string().regex(/^\d+(?:\.\d{1,2})?$/, "Invalid amount");
 
@@ -35,7 +37,7 @@ const itemSchema = z.object({
 });
 
 const purchaseSchema = z.object({
-  supplierId: z.string().min(1),
+  supplierId: z.string().optional().or(z.null()),
   receiptNumber: z.string().optional(),
   purchaseDate: z.string().optional(),
   status: z.enum(["draft", "completed", "cancelled"]).optional(),
@@ -75,7 +77,7 @@ export default function PurchaseForm({
       discount: "",
       notes: "",
       amountPaid: "",
-      ...defaultValues, 
+      ...defaultValues,
     },
   });
 
@@ -83,21 +85,24 @@ export default function PurchaseForm({
     control: form.control,
     name: "items",
   });
+  const [productSearch, setProductSearch] = useState<
+    { id: number | null; searchValue: string }[]
+  >([{ id: 0, searchValue: "" }]);
 
   useEffect(() => {
-    if(!suppliers || suppliers.length === 0) return;
-    if(!products) return;
+    if (!suppliers || suppliers.length === 0) return;
+    if (!products) return;
     if (!defaultValues) return;
-      form.reset({
-        ...defaultValues,
-        supplierId: String(defaultValues.supplierId),
-        status: defaultValues.status,
-        items: defaultValues.items?.map((it) => ({
-          ...it,
-          productId: String(it.productId),
-          quantity: String(it.quantity)
-        })),
-      });
+    form.reset({
+      ...defaultValues,
+      supplierId: String(defaultValues.supplierId),
+      status: defaultValues.status,
+      items: defaultValues.items?.map((it) => ({
+        ...it,
+        productId: String(it.productId),
+        quantity: String(it.quantity),
+      })),
+    });
   }, [defaultValues, form.reset]);
   // when product selected, populate costPrice
   const onProductChange = (index: number, productId: string) => {
@@ -110,15 +115,15 @@ export default function PurchaseForm({
     const qty = Number(form.getValues(`items.${index}.quantity`));
     form.setValue(
       `items.${index}.total` as any,
-      (qty * Number(cost)).toFixed(2)
+      (qty * Number(cost)).toFixed(2),
     );
   };
 
   const calcTotals = useMemo(() => {
-    const items = form.getValues("items") || [];
+    const items = form.watch("items") || [];
     const subtotal = items.reduce(
       (s: number, it: any) => s + Number(it.total || 0),
-      0
+      0,
     );
     const tax = Number(form.getValues("tax") || 0);
     const discount = Number(form.getValues("discount") || 0);
@@ -127,7 +132,7 @@ export default function PurchaseForm({
     const balance = total - amountPaid;
     return { subtotal, tax, discount, total, amountPaid, balance };
   }, [
-    form.watch("items"),
+    JSON.stringify( form.watch("items")),
     form.watch("tax"),
     form.watch("discount"),
     form.watch("amountPaid"),
@@ -146,6 +151,7 @@ export default function PurchaseForm({
   }, []);
 
   const submit = async (vals: PurchaseFormValues) => {
+    console.log({ vals });
     // convert strings to numbers where necessary
     const items = vals.items.map((it) => ({
       productId: Number(it.productId),
@@ -155,7 +161,7 @@ export default function PurchaseForm({
     }));
 
     const header = {
-      supplierId: Number(vals.supplierId),
+      supplierId: vals.supplierId ? Number(vals.supplierId) : null,
       receiptNumber: vals.receiptNumber,
       purchaseDate: vals.purchaseDate,
       status: vals.status,
@@ -244,38 +250,83 @@ export default function PurchaseForm({
                     key={f.id}
                     className="grid grid-cols-12 gap-2 items-end border rounded p-3"
                   >
-                    <div className="col-span-5">
-                      <FormField
-                        control={form.control}
-                        name={`items.${idx}.productId` as any}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product</FormLabel>
-                            <FormControl>
-                              <Select
-                                value={String(field.value)}
-                                onValueChange={(v) => {
-                                  field.onChange(String(v));
-                                  onProductChange(idx, v);
-                                }}
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Select product" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {products.map((p) => (
-                                    <SelectItem key={p.id} value={String(p.id)}>
-                                      {p.title}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
+                    {mode === "edit" ? (
+                      <div className="col-span-5">
+                        <FormField
+                          control={form.control}
+                          name={`items.${idx}.productId` as any}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Product</FormLabel>
+                              <FormControl>
+                                <Select
+                                  value={String(field.value)}
+                                  onValueChange={(v) => {
+                                    field.onChange(String(v));
+                                    onProductChange(idx, v);
+                                  }}
+                                >
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select product" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {products.map((p) => (
+                                      <SelectItem
+                                        key={p.id}
+                                        value={String(p.id)}
+                                      >
+                                        {p.title}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    ) : (
+                      <div className="md:col-span-5">
+                        <Label className="mb-2">Product</Label>
+                        <SearchCommand
+                          placeholder="Search product by title..."
+                          value={productSearch[idx].searchValue}
+                          onValueChange={(value) => {
+                            console.log({ value });
+                            setProductSearch((prev) =>
+                              prev.map((p, i) =>
+                                i === idx ? { ...p, searchValue: value } : p,
+                              ),
+                            );
+                          }}
+                          items={products}
+                          loading={loading}
+                          error={false}
+                          getKey={(p) => p.id}
+                          getLabel={(p) => `${p.title}`}
+                          onSelect={(product) => {
+                            console.log(idx);
+                            setProductSearch((prev) =>
+                              prev.map((p, i) =>
+                                i === idx
+                                  ? {
+                                      ...p,
+                                      searchValue: product.title,
+                                      id: Number(product.id),
+                                    }
+                                  : p,
+                              ),
+                            );
+
+                            form.setValue(
+                              `items.${idx}.productId`,
+                              String(product.id),
+                            );
+                          }}
+                        />
+                      </div>
+                    )}
 
                     <div className="col-span-2">
                       <FormField
@@ -288,15 +339,15 @@ export default function PurchaseForm({
                               <Input
                                 {...field}
                                 onChange={(e) => {
-                                  field.onChange(String(e));
+                                  field.onChange(String(e.target.value));
                                   const qty = Number(e.target.value || 0);
                                   const cp = Number(
                                     form.getValues(`items.${idx}.costPrice`) ||
-                                      0
+                                      0,
                                   );
                                   form.setValue(
                                     `items.${idx}.total`,
-                                    (qty * cp).toFixed(2)
+                                    (qty * cp).toFixed(2),
                                   );
                                 }}
                               />
@@ -321,11 +372,12 @@ export default function PurchaseForm({
                                   field.onChange(e);
                                   const cp = Number(e.target.value || 0);
                                   const qty = Number(
-                                    form.getValues(`items.${idx}.quantity`) || 0
+                                    form.getValues(`items.${idx}.quantity`) ||
+                                      0,
                                   );
                                   form.setValue(
                                     `items.${idx}.total`,
-                                    (qty * cp).toFixed(2)
+                                    (qty * cp).toFixed(2),
                                   );
                                 }}
                               />
@@ -345,7 +397,8 @@ export default function PurchaseForm({
                             <FormLabel>Total</FormLabel>
                             <FormControl>
                               <Input
-                                {...field} readOnly
+                                {...field}
+                                readOnly
                                 onChange={(e) => field.onChange(e)}
                               />
                             </FormControl>
@@ -362,7 +415,7 @@ export default function PurchaseForm({
                         variant="destructive"
                         onClick={() => remove(idx)}
                       >
-                        Remove
+                        <FaBucket />
                       </Button>
                     </div>
                   </div>
@@ -372,14 +425,18 @@ export default function PurchaseForm({
                   <Button
                     type="button"
                     disabled={loading}
-                    onClick={() =>
+                    onClick={() => {
                       append({
                         productId: "",
                         quantity: "1",
                         costPrice: "0.00",
                         total: "0.00",
-                      })
-                    }
+                      });
+                      setProductSearch((prev) => {
+                        // const lastIndex = prev[prev.length - 1]?.id ?? 0;
+                        return [...prev, { id: null, searchValue: "" }];
+                      });
+                    }}
                   >
                     Add item
                   </Button>

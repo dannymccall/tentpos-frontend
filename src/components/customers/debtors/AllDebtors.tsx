@@ -74,7 +74,7 @@ const AllDebtors = () => {
         user.userRole || "N/A",
         user.branch ? user.branch.name : "N/A",
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (

@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
@@ -20,14 +20,12 @@ const AllSales = () => {
   } = useFetch<Invoice[]>({ uri: "/api/sales/invoices" });
   const [limit, setLimit] = useState<number>(10);
 
-
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();
   const onPageChange = (page: number) => {
     setPage(page);
   };
   console.log(loading, hasLoaded);
-
 
   const onSearch = (query: string) => {
     setQuery(query);
@@ -42,18 +40,37 @@ const AllSales = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = [
+    "ID",
+    "Invoice Number",
+    "Sales Number",
+    "Customer",
+    "Status",
+    "Payment Method",
+    "Total",
+    "Sub Total",
+    "Amount Paid",
+    "Balance",
+  ];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: invoices,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "invoices.csv",
+      mapRow: (i) => [
+        i.id,
+        i.invoiceNumber,
+        i.saleInvoice?.saleNumber,
+        i.saleInvoice?.customer
+          ? `${i.saleInvoice?.customer?.firstName} ${i.saleInvoice?.customer?.lastName}`
+          : "Walk-in Customer",
+        i.status,
+        i.saleInvoice.paymentMethod,
+        i.saleInvoice?.total,
+        i.saleInvoice?.subtotal,
+        i.saleInvoice?.amountPaid,
+        i.saleInvoice?.balance,
       ],
     });
   };
@@ -63,15 +80,22 @@ const AllSales = () => {
       headers,
       data: invoices,
       fileName: "invoices.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Invoices",
+      mapRow: (i: any) => [
+        i.id,
+        i.invoiceNumber,
+        i.saleInvoice?.saleNumber,
+        i.saleInvoice?.customer
+          ? `${i.saleInvoice?.customer?.firstName} ${i.saleInvoice?.customer?.lastName}`
+          : "Walk-in Customer",
+        i.status,
+        i.saleInvoice.paymentMethod,
+        i.saleInvoice?.total,
+        i.saleInvoice?.subtotal,
+        i.saleInvoice?.amountPaid,
+        i.saleInvoice?.balance,
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (
@@ -90,10 +114,7 @@ const AllSales = () => {
       exportCSV={handleExportCSV}
       exportPDF={handleExportPDF}
     >
-      <InvoiceTable
-        invoices={invoices || []}
-       
-      />
+      <InvoiceTable invoices={invoices || []} />
     </DataTableWrapper>
   );
 };

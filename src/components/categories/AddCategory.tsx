@@ -1,9 +1,6 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
-
 import { useApiMutation } from "@/hooks/useApiMutation";
 import CategoryForm from "./CategoryForm";
 
@@ -33,20 +30,12 @@ export default function AddCategory() {
 
   return (
     <div className="flex justify-center p-4 mb-auto">
-      <Card className="max-w-xl w-full shadow-lg rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold">
-            Add New Category
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+   
           <CategoryForm
             mode="add"
             loading={isPending}
             onSubmit={(data) => categoryMutation(data)}
           />
-        </CardContent>
-      </Card>
     </div>
   );
 }

@@ -33,4 +33,6 @@ export type BulkUploadCustomers = {
   email?: string | null;
   phone?: string | null;
   address?: string | null;
+  creditLimit?: number;
+  openingBalance?: number
 }

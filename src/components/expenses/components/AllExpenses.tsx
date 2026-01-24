@@ -6,6 +6,7 @@ import { useExportCSV } from "../../../hooks/useExportCSV";
 import { useExportPDF } from "../../../hooks/useExportPDF";
 import type { Expense } from "@/types/expense.types";
 import { ExpenseTable } from "./Expenses";
+import { formatDate } from "@/lib/helperFunctions";
 const AllExpenses = () => {
   const [limit, setLimit] = useState<number>(10);
   const {
@@ -37,14 +38,12 @@ const AllExpenses = () => {
   };
 
   const headers: string[] = [
-    "System ID",
-    "First name",
-    "Last name",
-    "Email",
-    "Phone",
-    "Address",
-    "Staff",
-    "Gender",
+    "ID",
+    "Title",
+    "Amount",
+    "Category",
+    "Description",
+    "Date",
     "Branch",
   ];
 
@@ -52,17 +51,15 @@ const AllExpenses = () => {
     exportCSV({
       headers,
       data: expense,
-      fileName: "clients.csv",
-      mapRow: (client) => [
-        client.systemId,
-        client.firstName,
-        client.lastName,
-        client.email,
-        client.phone,
-        client.address,
-        client.staff.fullName,
-        client.gender,
-        client.branch.name,
+      fileName: "expenses.csv",
+      mapRow: (e) => [
+        e.id,
+        e.title,
+        e.amount,
+        e.category,
+        e.description,
+        formatDate(e.date),
+        e.branchExpense.name
       ],
     });
   };
@@ -71,18 +68,16 @@ const AllExpenses = () => {
     exportPDF({
       headers,
       data: expense,
-      fileName: "clients.pdf",
-      title: "Clients",
-      mapRow: (client: any) => [
-        client.systemId,
-        client.firstName,
-        client.lastName,
-        client.email,
-        client.phone,
-        client.address,
-        client.staff.fullName,
-        client.gender,
-        client.branch.name,
+      fileName: "expenses.pdf",
+      title: "Expenses",
+      mapRow: (e: any) => [
+       e.id,
+        e.title,
+        e.amount,
+        e.category,
+        e.description,
+        formatDate(e.date),
+        e.branchExpense.name
       ],
       orientation: "landscape"
     });

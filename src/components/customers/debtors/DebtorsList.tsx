@@ -3,19 +3,22 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 
 import type { Debtor } from "@/types/customer.types";
-import { formatDate } from "@/lib/helperFunctions";
+import { currency, formatDate } from "@/lib/helperFunctions";
 import { Button } from "@/components/ui/button";
 import PayDebtModal from "./PayDebtModal";
 
 const DebtorsTable: React.FC<{ debtors: Debtor[] }> = ({ debtors }) => {
   const [debtor, setDebtor] = useState<Debtor | null>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const totalAmountOwed = debtors.reduce((sum, val) => sum +Number(val.totalOwed) , 0)
   return (
     <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <PayDebtModal
@@ -41,26 +44,25 @@ const DebtorsTable: React.FC<{ debtors: Debtor[] }> = ({ debtors }) => {
               <TableCell>{debtor.id}</TableCell>
               <TableCell>{`${debtor.customerDebtor.firstName} ${debtor.customerDebtor.firstName}`}</TableCell>
               <TableCell>{debtor.totalOwed}</TableCell>
-              <TableCell>{formatDate(debtor.oldestDebtDate)}</TableCell>
-              <TableCell>{formatDate(debtor.lastSaleDate)}</TableCell>
+              <TableCell>{debtor.oldestDebtDate ? formatDate(debtor.oldestDebtDate) : "No oldest sale date"}</TableCell>
+              <TableCell>{debtor.lastSaleDate ? formatDate(debtor.lastSaleDate) : "No latest sale"}</TableCell>
               <TableCell>{debtor.branchDebtor.name}</TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end">
-                  {/* <TableActions
-                    showDelete
-                    showEdit
-                    showView
-                    onDelete={() => {setCustomer(customer); setIsOpen(true)}}
-                    onView={() => navigate(`/customers/customer-details?customerId=${customer.id}`)}
-                    onEdit={() => navigate(`/customers/customer-details?customerId=${customer.id}`)}
-
-                  /> */}
                   <Button size={"sm"} onClick={() => {setIsOpen(true), setDebtor(debtor)}}>Pay</Button>
                 </div>
               </TableCell>
             </TableRow>
+
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+              <TableCell colSpan={2}>Total</TableCell>
+              <TableCell className="">{currency(Number(totalAmountOwed))}</TableCell>
+
+          </TableRow>
+        </TableFooter>
       </Table>
     </div>
   );

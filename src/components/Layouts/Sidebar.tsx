@@ -13,8 +13,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
   const navigate = useNavigate();
 
   const [counts, setCounts] = useState<Record<string, number>>({
-    pendingLoans: 0,
-    defaulters: 0,
+    debtors: 0,
   });
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
   const { settings, permissions, businessProfile, logout } = useAuth();
@@ -28,8 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
       try {
         const res = await api.get(`/api/dashboard/counts`);
         setCounts({
-          pendingApproval: res.data.pendingApproval ?? 0,
-          defaulters: res.data.defaultedLoans ?? 0,
+          debtors: res.data.debtors ?? 0,
         });
       } catch (e) {
         console.warn("Failed to fetch counts:", e);

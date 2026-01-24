@@ -1,44 +1,13 @@
-import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import { TableActions } from "../TableActions";
-
-import { useNavigate } from "react-router-dom";
-import type { Sale } from "@/types/sale.types";
-import { formatDate, getSaleStatusColor } from "@/lib/helperFunctions";
-import { Button } from "../ui/button";
-import SaleModal from "./SaleModal";
-import { Undo2, X } from "lucide-react";
-import ReturnSaleModal from "./ReturnSaleModal";
-import { Badge } from "../ui/badge";
-const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
-  const navigate = useNavigate();
-  const [sale, setSale] = useState<Sale | null>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [returnModal, setReturnModal] = useState<boolean>(false);
+import { TableActions } from '@/components/TableActions';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { formatDate, getSaleStatusColor } from '@/lib/helperFunctions';
+import type { Sale } from '@/types/sale.types';
+import { useNavigate } from 'react-router-dom';
+const UserRecentSales = ({sales}: {sales: Sale[]}) => {
+    const navigate = useNavigate()
   return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-      <SaleModal
-        sale={sale!}
-        onClose={() => {
-          setSale(null);
-          setIsOpen(false);
-        }}
-        isOpen={isOpen}
-      />
-      <ReturnSaleModal
-        sale={sale!}
-        open={returnModal}
-        onClose={() => setReturnModal(false)}
-      />
-      <Table>
+     <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="font-semibold">Id</TableHead>
@@ -90,41 +59,13 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
                     }
                     viewPermission="sales.view"
                   />
-                  {sale.status !== "CANCELLED" && sale.status !== "RETURN" && (
-                   <>
-                   
-                   <Button
-                      size={"sm"}
-                      variant={"secondary"}
-                      onClick={() => {
-                        setSale(sale);
-                        setIsOpen(true);
-                      }}
-                    >
-                      <X className="text-red-500" />
-                    </Button>
-                    <Button
-                      size={"sm"}
-                      variant={"secondary"}
-                      onClick={() => {
-                        setSale(sale);
-                        setReturnModal(true);
-                      }}
-                    >
-                      <Undo2 className="text-amber-500" />
-                    </Button>
-                   </>
-                  )}
-            
-                  
                 </div>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </div>
-  );
-};
+  )
+}
 
-export default SaleTable;
+export default UserRecentSales

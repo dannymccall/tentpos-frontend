@@ -44,18 +44,22 @@ const AllCustomers = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = ["ID", "First Name", "Last Name", "Email", "Phone", "Address", "Opening Balance", "Credit Limit"];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: customers,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "customers.csv",
+      mapRow: (c) => [
+        c.id,
+        c.firstName,
+        c.lastName,
+        c.email,
+        c.phone,
+        c.address,
+        c.openingBalance,
+        c.creditLimit
       ],
     });
   };
@@ -65,13 +69,16 @@ const AllCustomers = () => {
       headers,
       data: customers,
       fileName: "customers.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Customers",
+      mapRow: (c: any) => [
+        c.id,
+        c.firstName,
+        c.lastName,
+        c.email,
+        c.phone,
+        c.address,
+        c.openingBalance,
+        c.creditLimit
       ],
       orientation: "portrait",
     });

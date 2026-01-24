@@ -42,18 +42,22 @@ const AllSuppliers = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = ["ID", "Name", "Email", "Phone", "Address", "Contact Person", "Notes", "Opening Balance"];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: suppliers,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "suppliers.csv",
+      mapRow: (s) => [
+        s.id,
+        s.name,
+        s.email,
+        s.phone || "N/A",
+        s.address ? s.address : "N/A",
+        s.contactPerson,
+        s.notes,
+        s.openingBalance
       ],
     });
   };
@@ -63,15 +67,18 @@ const AllSuppliers = () => {
       headers,
       data: suppliers,
       fileName: "suppliers.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Suppliers",
+      mapRow: (s: any) => [
+        s.id,
+        s.name,
+        s.email,
+        s.phone || "N/A",
+        s.address ? s.address : "N/A",
+        s.contactPerson,
+        s.notes,
+        s.openingBalance
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (

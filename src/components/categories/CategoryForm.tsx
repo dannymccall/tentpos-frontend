@@ -89,7 +89,6 @@ export default function CategoryForm({
   }, [category, form.reset]);
 
   return (
-    <div className="flex justify-center p-4">
       <Card className="max-w-xl w-full shadow-lg rounded-2xl">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">
@@ -177,6 +176,5 @@ export default function CategoryForm({
           </Form>
         </CardContent>
       </Card>
-    </div>
   );
 }

@@ -29,7 +29,7 @@ interface AuthContextType {
   login: (userData: AuthContextType) => Promise<void>;
   logout: () => Promise<void>;
   permissions: Permission[];
-  updateUser: (updatedUser: Partial<User>) => void;
+  updateUser: () => void;
   createSessionId: (sessionId: string) => void;
   updateProfilePicture: (newPicture: string) => void;
   getSessionId: (name: string) => void;
@@ -64,55 +64,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const navigate = useNavigate();
   const { showToast } = useNotification();
   const sessionId = localStorage.getItem("tentpos:sessionId");
-  useEffect(() => {
-    (async () => {
-      try {
-        // const storedUser = localStorage.getItem("userData");
-        console.log(sessionId);
-        if (sessionId) {
-          const response = await makeRequest(
-            `/api/auth/me`,
-            { method: "GET", credentials: "include" },
-          );
-          console.log({ response });
-          if (response.data.data) {
-            setUser(response.data.data);
-            setProfilePicture(
-              response.data.avatar || response.data.avatar || ""
-            );
-            setBusinessProfile(response.data.data.businessProfile);
-             response.data.data.businessProfile.userRole && setPermissions(
+
+  const fetchMe = async () => {
+    try {
+      console.log(sessionId);
+      if (sessionId) {
+        const response = await makeRequest(`/api/auth/me`, {
+          method: "GET",
+          credentials: "include",
+        });
+        console.log({ response });
+        if (response.data.data) {
+          setUser(response.data.data);
+          setProfilePicture(response.data.avatar || "");
+          setBusinessProfile(response.data.data.businessProfile);
+          response.data.data.businessProfile.userRole &&
+            setPermissions(
               response.data.data.businessProfile.userRole.role.permissions
             );
-            response.data.data.settings &&  setSettings({
-              companyName: response.data.data.settings.name || null,
-              logo: response.data.data.settings.logo || null,
+          response.data.data.settings &&
+            setSettings({
+              companyName: response.data.data.settings.name || "",
+              logo: response.data.data.settings.logo || "",
             });
-           
-          } 
         }
-      } catch (error) {
-        console.error("Error retrieving session:", error);
-      } finally {
-        setLoading(false);
       }
-    })();
+    } catch (error) {
+      console.error("Error retrieving session:", error);
+    } finally {
+      setLoading(false); 
+    }
+  };
+
+  useEffect(() => {
+    fetchMe();
   }, []);
 
   const login = async (userData: AuthContextType) => {
-
     if (userData.sessionId) {
       localStorage.setItem("tentpos:sessionId", userData.sessionId);
     }
     setUser(userData as PublicUser);
     setProfilePicture(userData.avatar || "");
     setBusinessProfile(userData.businessProfile);
-     userData.businessProfile?.userRole && setPermissions(
-     userData.businessProfile?.userRole.role.permissions as any
-    );
+    userData.businessProfile?.userRole &&
+      setPermissions(
+        userData.businessProfile?.userRole.role.permissions as any
+      );
     setSettings({
-      companyName:(userData.settings as any).name,
-      logo:userData.settings.logo,
+      companyName: (userData.settings as any).name,
+      logo: userData.settings.logo,
     });
   };
 
@@ -120,25 +121,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const sessionId = localStorage.getItem("tentpos:sessionId");
       console.log(sessionId);
-      const response = await makeRequest(
-        `/api/auth/signout`,
-        {
-          method: "POST",
-          body: JSON.stringify({ sessionId }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${sessionId}`,
-          },
-          credentials: "include",
+      const response = await makeRequest(`/api/auth/signout`, {
+        method: "POST",
+        body: JSON.stringify({ sessionId }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionId}`,
         },
-      );
+        credentials: "include",
+      });
       console.log(response);
       const { status } = response;
       if (status === "error") {
         showToast(response.error?.message!, "error");
         return;
       }
-      localStorage.clear();
+      localStorage.removeItem("tentpos:sessionId");
       setUser(null);
       setProfilePicture("");
       navigate("/");
@@ -151,24 +149,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem("tentpos:sessionId", sessionId);
   };
 
-  const getSessionId = (name: string) => {
-    localStorage.getItem(name);
-  };
+  const getSessionId = (name: string) => localStorage.getItem(name);
 
-  const updateUser = (updatedUser: Partial<User>) => {
-    if (user) {
-      const newUser = { ...user, ...updatedUser };
-      setUser(newUser);
-      if (updatedUser.avatar) setProfilePicture(updatedUser.avatar);
-    }
-  };
+  const updateUser = () => fetchMe();
 
   const updateProfilePicture = (newPicture: string) => {
     setProfilePicture(newPicture);
-    if (user) {
-      const updatedUser = { ...user, avatar: newPicture };
-      setUser(updatedUser);
-    }
+    if (user) setUser({ ...user, avatar: newPicture });
   };
 
   return (

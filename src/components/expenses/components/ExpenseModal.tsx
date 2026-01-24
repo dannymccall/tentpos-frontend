@@ -22,7 +22,7 @@ const ExpenseModal: React.FC<DeleteModalProps> = ({
   mode,
 }) => {
   const { mutate: deleteClient, isPending } = useApiMutation({
-    url: `/api/expenses/${expense && expense.id}`,
+    url: `/api/expenses/delete?id=${expense && expense.id}`,
     method: "DELETE",
     invalidateKey: `api-expenses,${10}`,
     onSuccessCallback: () => {

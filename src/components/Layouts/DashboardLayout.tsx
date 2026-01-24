@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Sidebar, { type SidebarSection } from "./Sidebar";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
+
 import {
   FaBalanceScale,
   FaBoxOpen,
@@ -118,6 +120,12 @@ const defaultSidebarItems: SidebarSection[] = [
         icon: <Receipt  />,
         path: "/sales/invoices",
         code: "sales.view",
+      },
+      {
+        label: "Payments",
+        icon: <FaMoneyCheckDollar  />,
+        path: "/sales/payments",
+        code: "payments.view",
       },
       {
         label: "Hold Bills",
@@ -361,6 +369,12 @@ const defaultSidebarItems: SidebarSection[] = [
         label: "Sales Reports",
         icon: <FaChartPie />,
         path: "/reports/sales",
+        code: "reports.view",
+      },
+      {
+        label: "Purchases Reports",
+        icon: <FaChartPie />,
+        path: "/reports/purchases",
         code: "reports.view",
       },
       {

@@ -35,6 +35,9 @@ import ProfitReportTable from "../accounting/components/ProfitReport";
 import CashFlow from "../accounting/components/CashFlows";
 import Tickets from "../support/tickets";
 import TicketDetails from "../support/tickets/ticketDetails/TicketDetails";
+import UserDetails from "../users/UserDetails";
+import AllPayments from "../payments/AllPayments";
+import PurchaseReport from "../reports/PurchaseReport";
 export default function AuthRoutes() {
   return (
     <Routes>
@@ -83,6 +86,16 @@ export default function AuthRoutes() {
           <DashboardLayout title="Users">
             <ProtectedRoute>
               <Users />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+      <Route
+        path="operations/staff/staff-details"
+        element={
+          <DashboardLayout title="Staff Details">
+            <ProtectedRoute>
+              <UserDetails />
             </ProtectedRoute>
           </DashboardLayout>
         }
@@ -338,6 +351,16 @@ export default function AuthRoutes() {
         }
       />
         <Route
+        path="/reports/purchases"
+        element={
+          <DashboardLayout title="Purchases Report">
+            <ProtectedRoute>
+              <PurchaseReport />
+            </ProtectedRoute>
+          </DashboardLayout>
+        }
+      />
+        <Route
         path="/accounting/income-statement"
         element={
           <DashboardLayout title="Income Statement">
@@ -373,6 +396,16 @@ export default function AuthRoutes() {
           <ProtectedRoute>
             <DashboardLayout title="All Tickets">
               <TicketDetails />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/sales/payments"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="All Payments">
+              <AllPayments />
             </DashboardLayout>
           </ProtectedRoute>
         }

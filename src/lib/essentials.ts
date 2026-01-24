@@ -39,6 +39,8 @@ export const bulkUploadCustomers: BulkUploadCustomers = {
     email:"",
     phone: "",
     address: "",
+    creditLimit:0.00,
+    openingBalance: 0.00
     
 }
 

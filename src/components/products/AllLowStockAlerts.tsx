@@ -43,18 +43,19 @@ const AllLowStockAlerts = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = ["ID", "Product", "Branch", "Inventory", "Threshold"];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: lowStock,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "lowStock.csv",
+      mapRow: (p) => [
+        p.id,
+        p.product.title,
+        p.branchInfo.name,
+        p.inventory,
+        p.product.threshold
       ],
     });
   };
@@ -64,15 +65,15 @@ const AllLowStockAlerts = () => {
       headers,
       data: lowStock,
       fileName: "lowStock.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Low Stock Products",
+      mapRow: (p: any) => [
+         p.id,
+        p.product.title,
+        p.branchInfo.name,
+        p.inventory,
+        p.product.threshold
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (

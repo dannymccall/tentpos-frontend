@@ -1,4 +1,4 @@
-import  { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +25,10 @@ import DialogModal from "../Dialog";
 import type { Customer } from "@/types/customer.types";
 import InvoiceView from "./InvoiceView";
 import { formatDate } from "@/lib/helperFunctions";
+import { SearchCommand } from "../SearchCommand";
+import { Label } from "../ui/label";
+import { FaBucket } from "react-icons/fa6";
+
 // Schema
 const money = z.string().regex(/^\d+(?:\.\d{1,2})?$/, "Invalid amount");
 
@@ -48,6 +52,7 @@ const saleSchema = z.object({
 });
 
 type SaleFormValues = z.infer<typeof saleSchema>;
+type SubmitType = "hold" | "partial" | "complete";
 
 export default function SaleForm({
   mode = "add",
@@ -66,12 +71,16 @@ export default function SaleForm({
 }) {
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
   const [latestInvoice, setLatestInvoice] = useState<any>(null);
+  const [customerSearch, setCustomerSearch] = useState("");
+  const [productSearch, setProductSearch] = useState<
+    { id: number | null; searchValue: string }[]
+  >([{ id: 0, searchValue: "" }]);
   const [error, setError] = useState<{ isError: boolean; message: string }>({
     isError: false,
     message: "",
   });
 
-  console.log(defaultValues)
+  console.log(defaultValues);
   const form = useForm<SaleFormValues>({
     resolver: zodResolver(saleSchema),
     defaultValues: {
@@ -141,6 +150,7 @@ export default function SaleForm({
     control: form.control,
     name: "items",
   });
+  const [submitType, setSubmitType] = useState<SubmitType | null>(null);
 
   useEffect(() => {
     if (!fields.length) {
@@ -148,6 +158,25 @@ export default function SaleForm({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const watchedSaleItems = form.watch("items");
+
+  useEffect(() => {
+    if (!watchedItems?.length) return;
+
+    watchedItems.forEach((item, idx) => {
+      const qty = Number(item.quantity || 0);
+      const price = Number(item.price || 0);
+      const total = (qty * price).toFixed(2);
+
+      if (item.total !== total) {
+        form.setValue(`items.${idx}.total`, total, {
+          shouldDirty: true,
+          shouldValidate: false,
+        });
+      }
+    });
+  }, [JSON.stringify(watchedSaleItems)]);
 
   const onProductChange = (index: number, productId: string) => {
     const p = products.find((x) => String(x.id) === String(productId));
@@ -157,7 +186,7 @@ export default function SaleForm({
     const qty = Number(form.watch(`items.${index}.quantity`));
     form.setValue(
       `items.${index}.total` as any,
-      (qty * Number(price)).toFixed(2)
+      (qty * Number(price)).toFixed(2),
     );
   };
 
@@ -168,7 +197,7 @@ export default function SaleForm({
   const calcTotals = useMemo(() => {
     const subtotal = watchedItems.reduce(
       (s: number, it: any) => s + Number(it.total || 0),
-      0
+      0,
     );
 
     const total = subtotal + watchedTax - watchedDiscount;
@@ -182,12 +211,9 @@ export default function SaleForm({
     watchedAmountPaid,
   ]);
 
-  const submit = async (
-    vals: SaleFormValues,
-    hold: boolean,
-    type?: "partial" | "complete"
-  ) => {
+  const handleSubmitSale = async (vals: SaleFormValues, type: SubmitType) => {
     setError({ isError: false, message: "" });
+    console.log({type})
     const saleItems = vals.items.map((it) => ({
       productId: Number(it.productId),
       quantity: Number(it.quantity),
@@ -195,57 +221,47 @@ export default function SaleForm({
       total: Number(it.total || 0),
     }));
 
-    const payload = {
-      customerId: vals.customerId ? Number(vals.customerId) : null,
+    console.log("saleItems: ", saleItems)
+    const subtotal = saleItems.reduce(
+      (s, it) => s + (it.total || it.price * it.quantity),
+      0,
+    );
+
+    const amountPaid = Number(vals.amountPaid || 0);
+    const isPartial = amountPaid < subtotal;
+
+    // 🛑 Validation rules
+    if (type === "complete" && isPartial) {
+      setError({
+        isError: true,
+        message: "Amount paid is less than total. Use Partial Sale instead.",
+      });
+      return;
+    }
+
+    if (type === "partial" && isPartial && !vals.customerId) {
+      setError({
+        isError: true,
+        message: "Customer is required for partial payments.",
+      });
+      return;
+    }
+  
+     const result = await onSubmit({
+         customerId: vals.customerId ? Number(vals.customerId) : null,
       saleItems,
       tax: Number(vals.tax || 0),
       discount: Number(vals.discount || 0),
       paymentMethod: vals.paymentMethod || "",
       notes: vals.notes || "",
       date: vals.date,
-      amountPaid: Number(vals.amountPaid),
-      holdSale: hold,
-    };
-    console.log(payload);
-    const subtotal = saleItems?.reduce(
-      (s, it) => s + Number(it.total || it.price * it.quantity),
-      0
-    );
-    const isPartial = payload.amountPaid < subtotal;
-    if (isPartial && type === "complete") {
-      console.log("partial");
-      setError({
-        isError: true,
-        message:
-          "Amount paid is less than total. For partial sales, please use the 'Partial Sale' button.",
-      });
-      return;
-    }
+      amountPaid,
+      holdSale: type === "hold",
 
-    if (isPartial && type === "partial" && payload.customerId == null) {
-      setError({
-        isError: true,
-        message: "Please select a customer for partial payments.",
       });
-      return;
-    }
+   
 
-    let result;
-    if (defaultValues && defaultValues?.status === "HOLD") {
-      result = await onSubmit({
-        saleId: (defaultValues as any).id,
-        amountPaid: payload.amountPaid,
-        paymentMethod: payload.paymentMethod,
-        tax: payload.tax,
-        discount: payload.discount,
-        status: "HOLD"
-      });
-    } else {
-      result = await onSubmit(payload);
-    }
-
-    // if result contains invoice, show modal
-    if (result && result.invoice && result.sale) {
+    if (result?.invoice && result?.sale) {
       setLatestInvoice(result);
       setInvoiceModalOpen(true);
     }
@@ -275,37 +291,63 @@ export default function SaleForm({
         <CardContent>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit((data) => submit(data, false))}
+              onSubmit={form.handleSubmit((data) => {
+                if (!submitType) return;
+                handleSubmitSale(data, submitType);
+              })}
               className="space-y-6"
             >
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <FormField
-                  control={form.control}
-                  name="customerId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Customer</FormLabel>
-                      <FormControl>
-                        <Select
-                          value={String(field.value)}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select customer (optional)" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {customers.map((c) => (
-                              <SelectItem key={c.id} value={String(c.id)}>
-                                {`${c.firstName} ${c.lastName}`}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                {mode === "edit" ? (
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="customerId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Customer</FormLabel>
+                          <FormControl>
+                            <Select
+                              value={String(field.value)}
+                              onValueChange={field.onChange}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select customer (optional)" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {customers.map((c) => (
+                                  <SelectItem key={c.id} value={String(c.id)}>
+                                    {`${c.firstName} ${c.lastName}`}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                ) : (
+                  <div className="md:col-span-2">
+                    <Label className="mb-2">Customer</Label>
+                    <SearchCommand
+                      placeholder="Search customer by name..."
+                      value={customerSearch}
+                      onValueChange={setCustomerSearch}
+                      items={customers}
+                      loading={loading}
+                      error={false}
+                      getKey={(c) => c.id}
+                      getLabel={(c) => `${c.firstName} ${c.lastName}`}
+                      getSubLabel={(c) => c.phone!}
+                      onSelect={(c) => {
+                        form.setValue("customerId", String(c.id));
+                        setCustomerSearch(`${c.firstName} ${c.lastName}`);
+                      }}
+                    />
+                  </div>
+                )}
 
                 <FormField
                   control={form.control}
@@ -320,7 +362,7 @@ export default function SaleForm({
                     </FormItem>
                   )}
                 />
-                <div className="md:col-span-2">
+                <div className="">
                   <FormField
                     control={form.control}
                     name="paymentMethod"
@@ -356,39 +398,89 @@ export default function SaleForm({
                 {fields.map((f, idx) => (
                   <div
                     key={f.id}
-                    className="grid grid-cols-12 gap-2 items-end border rounded p-3"
+                    className="grid grid-cols-1 md:grid-cols-12 gap-4 border rounded p-3"
                   >
                     <div className="col-span-6">
-                      <FormField
-                        control={form.control}
-                        name={`items.${idx}.productId` as any}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Product</FormLabel>
-                            <FormControl>
-                              <Select
-                                value={String(field.value)}
-                                onValueChange={(v) => {
-                                  field.onChange(String(v));
-                                  onProductChange(idx, v);
-                                }}
-                              >
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Select product" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {products.map((p) => (
-                                    <SelectItem key={p.id} value={String(p.id)}>
-                                      {p.title}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+                      {mode === "edit" ? (
+                        <FormField
+                          control={form.control}
+                          name={`items.${idx}.productId` as any}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Product</FormLabel>
+                              <FormControl>
+                                <Select
+                                  value={String(field.value)}
+                                  onValueChange={(v) => {
+                                    field.onChange(String(v));
+                                    onProductChange(idx, v);
+                                  }}
+                                >
+                                  <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Select product" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {products.map((p) => (
+                                      <SelectItem
+                                        key={p.id}
+                                        value={String(p.id)}
+                                      >
+                                        {p.title}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      ) : (
+                        <div className="md:col-span-2">
+                          <Label className="mb-2">Product</Label>
+                          <SearchCommand
+                            placeholder="Search product by title..."
+                            value={productSearch[idx].searchValue}
+                            onValueChange={(value) => {
+                              console.log({ value });
+                              setProductSearch((prev) =>
+                                prev.map((p, i) =>
+                                  i === idx ? { ...p, searchValue: value } : p,
+                                ),
+                              );
+                            }}
+                            items={products}
+                            loading={loading}
+                            error={false}
+                            getKey={(p) => p.id}
+                            getLabel={(p) => `${p.title}`}
+                            getSubLabel={(p) => `¢${String(p.price)}`}
+                            onSelect={(product) => {
+                              console.log(idx);
+                              setProductSearch((prev) =>
+                                prev.map((p, i) =>
+                                  i === idx
+                                    ? {
+                                        ...p,
+                                        searchValue: product.title,
+                                        id: Number(product.id),
+                                      }
+                                    : p,
+                                ),
+                              );
+
+                              form.setValue(
+                                `items.${idx}.productId`,
+                                String(product.id),
+                              );
+                              form.setValue(
+                                `items.${idx}.price`,
+                                String(product.price),
+                              );
+                            }}
+                          />
+                        </div>
+                      )}
                     </div>
 
                     <div className="col-span-2">
@@ -399,26 +491,7 @@ export default function SaleForm({
                           <FormItem>
                             <FormLabel>Qty</FormLabel>
                             <FormControl>
-                              <Input
-                                {...field}
-                                onChange={(e) => {
-                                  const value = e.target.value;
-                                  field.onChange(value);
-                                  const qty = Number(value);
-                                  const price = Number(
-                                    form.getValues(`items.${idx}.price`) || 0
-                                  );
-                                  form.setValue(
-                                    `items.${idx}.total`,
-                                    (qty * price).toFixed(2),
-                                    {
-                                      shouldDirty: true,
-                                      shouldTouch: true,
-                                      shouldValidate: false,
-                                    }
-                                  );
-                                }}
-                              />
+                              <Input {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -434,25 +507,7 @@ export default function SaleForm({
                           <FormItem>
                             <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <Input
-                                {...field}
-                                onChange={(e) => {
-                                  const value = e.target.value;
-                                  field.onChange(value);
-                                  const price = Number(value);
-                                  const qty = Number(
-                                    form.getValues(`items.${idx}.quantity`) || 0
-                                  );
-                                  form.setValue(
-                                    `items.${idx}.total`,
-                                    (qty * price).toFixed(2),
-                                    {
-                                      shouldDirty: true,
-                                      shouldTouch: true,
-                                    }
-                                  );
-                                }}
-                              />
+                              <Input {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -476,15 +531,18 @@ export default function SaleForm({
                       />
                     </div>
 
-                    <div className="col-span-1 flex gap-2 justify-end">
+                    <div className="col-span-1 flex gap-2">
                       <Button
                         type="button"
                         disabled={loading}
                         variant="destructive"
-                        onClick={() => remove(idx)}
+                        onClick={() => {
+                          remove(idx);
+                          // setProductSearch(productSearch.filter((_,idx) => idx !== idx))
+                        }}
                         size={"sm"}
                       >
-                        Remove
+                        <FaBucket />
                       </Button>
                     </div>
                   </div>
@@ -494,15 +552,20 @@ export default function SaleForm({
                   <Button
                     type="button"
                     disabled={loading}
-                    size={"sm"}
-                    onClick={() =>
+                    size="sm"
+                    onClick={() => {
                       append({
                         productId: "",
                         quantity: "1",
                         price: "0.00",
                         total: "0.00",
-                      })
-                    }
+                      });
+
+                      setProductSearch((prev) => {
+                        // const lastIndex = prev[prev.length - 1]?.id ?? 0;
+                        return [...prev, { id: null, searchValue: "" }];
+                      });
+                    }}
                   >
                     Add item
                   </Button>
@@ -586,28 +649,30 @@ export default function SaleForm({
                 </Button>
 
                 {/* Hold the sale (partial/incomplete) */}
-                {((defaultValues && defaultValues!.status !== "HOLD" &&
-                  defaultValues!.status !== "COMPLETED") ||  mode === "add") && (
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      variant="outline"
-                      onClick={form.handleSubmit((data) => submit(data, true))}
-                    >
-                      Hold Sale
-                    </Button>
-                  )}
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  variant="outline"
-                  onClick={form.handleSubmit((data) =>
-                    submit(data, false, "partial")
-                  )}
-                  className="bg-amber-600 text-slate-100 hover:bg-amber-400"
-                >
-                  Partial Sale
-                </Button>
+                {((defaultValues &&
+                  defaultValues!.status !== "HOLD" &&
+                  defaultValues!.status !== "COMPLETED") ||
+                  mode === "add") && (
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    disabled={loading}
+                    onClick={() => setSubmitType("hold")}
+                  >
+                    Hold Sale
+                  </Button>
+                )}
+                {(mode === "add" ||
+                  (defaultValues && defaultValues.status === "HOLD")) && (
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    onClick={() => setSubmitType("partial")}
+                    className="bg-amber-600 text-white hover:bg-amber-500"
+                  >
+                    Partial Sale
+                  </Button>
+                )}
 
                 {/* Complete or cancel the sale depending on mode */}
                 <Button
@@ -617,12 +682,10 @@ export default function SaleForm({
                     mode === "edit" && defaultValues?.status !== "HOLD"
                       ? "destructive"
                       : (defaultValues as any)?.status === "HOLD"
-                      ? "default"
-                      : "default"
+                        ? "default"
+                        : "default"
                   }
-                  onClick={form.handleSubmit((data) =>
-                    submit(data, false, "complete")
-                  )}
+                  onClick={() => setSubmitType("complete")}
                 >
                   {getButtonLabel(mode, (defaultValues as any)?.status)}
                 </Button>

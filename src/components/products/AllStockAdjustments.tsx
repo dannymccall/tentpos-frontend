@@ -42,18 +42,21 @@ const AllStockAdjustments = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = ["ID", "Product", "Branch", "User", "Quantity", "Reason", "Note"];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: adjustments,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "adjustments.csv",
+      mapRow: (a) => [
+        a.id,
+        a.productStockAdjustment.title,
+        a.branchStockAdjustment.name,
+        a.userStockAdjustment.fullName,
+        a.qtyChange,
+        a.reason,
+        a.note
       ],
     });
   };
@@ -63,15 +66,17 @@ const AllStockAdjustments = () => {
       headers,
       data: adjustments,
       fileName: "adjustments.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Stock Adjustments",
+      mapRow: (a: any) => [
+        a.id,
+        a.productStockAdjustment.title,
+        a.branchStockAdjustment.name,
+        a.userStockAdjustment.fullName,
+        a.qtyChange,
+        a.reason,
+        a.note
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (

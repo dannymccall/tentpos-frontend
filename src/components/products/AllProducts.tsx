@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
@@ -6,6 +6,7 @@ import { useExportPDF } from "@/hooks/useExportPDF";
 import DataTableWrapper from "../DataTableWrapper";
 import ProductTable from "./ProductList";
 import type { Product } from "@/types/product.types";
+import { useAuth } from "@/context/AuthContext";
 const AllProducts = () => {
   const {
     data: products,
@@ -20,14 +21,15 @@ const AllProducts = () => {
   } = useFetch<Product[]>({ uri: "/api/products/get-products" });
   const [limit, setLimit] = useState<number>(10);
 
-
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();
   const onPageChange = (page: number) => {
     setPage(page);
   };
   console.log(loading, hasLoaded);
+  const { businessProfile } = useAuth();
 
+  const isOwner = businessProfile?.appRole === "owner";
 
   const onSearch = (query: string) => {
     setQuery(query);
@@ -42,36 +44,55 @@ const AllProducts = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const baseHeader: string[] = [
+    "ID",
+    "Product",
+    "Catgory",
+    "Description",
+    "Price",
+    "Cost",
+  ];
 
+  const headers = isOwner
+    ? [...baseHeader, "Total Iventory", "Total Qty Sold"]
+    : [...baseHeader, "Inventory", "Qty Sold"];
   const handleExportCSV = () => {
     exportCSV({
-      headers,
+      headers: [...headers, "Status"],
       data: products,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "products.csv",
+      mapRow: (p) => [
+        p.id,
+        p.title,
+        p.categoryProduct ? p.categoryProduct.name : "-",
+        p.description ? p.description : "-",
+        p.price,
+        p.cost,
+        isOwner ? p.totalInventory : p.branchInventory?.inventory,
+        isOwner ? p.qtySold : p.branchInventory?.qtySold,
+        p.status
       ],
     });
   };
 
   const handleExportPDF = () => {
     exportPDF({
-      headers,
+      headers: [...headers, "Status"],
       data: products,
       fileName: "products.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Products",
+      mapRow: (p: any) => [
+        p.id,
+        p.title,
+        p.categoryProduct ? p.categoryProduct.name : "-",
+        p.description ? p.description : "-",
+        p.price,
+        p.cost,
+        isOwner ? p.totalInventory : p.branchInventory?.inventory,
+        isOwner ? p.qtySold : p.branchInventory?.qtySold,
+        p.status
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (
@@ -90,10 +111,7 @@ const AllProducts = () => {
       exportCSV={handleExportCSV}
       exportPDF={handleExportPDF}
     >
-      <ProductTable
-        products={products}
-       
-      />
+      <ProductTable products={products} />
     </DataTableWrapper>
   );
 };

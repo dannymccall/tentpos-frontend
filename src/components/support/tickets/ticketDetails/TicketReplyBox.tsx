@@ -22,11 +22,11 @@ const TicketReplyBox = ({ ticketId }: { ticketId: number }) => {
         placeholder="Type your reply..."
         value={reply}
         onChange={(e) => setReply(e.target.value)}
-        // onKeyDown={(e) => {
-        //   if (e.key === "Enter") {
-        //     mutate({ message: reply });
-        //   }
-        // }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            mutate({ message: reply });
+          }
+        }}
       />
 
       <div className="flex justify-end">

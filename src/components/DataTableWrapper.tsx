@@ -16,11 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import {
-  Download,
-  FileText,
-  FileSpreadsheet,
-} from "lucide-react";
+import { Download, FileText, FileSpreadsheet } from "lucide-react";
 import Pagination from "./Pagination";
 import NoDataFound from "./NoDataFound";
 import { SpinnerCustom } from "./loaders/Spinner";
@@ -40,8 +36,7 @@ interface ItemProps<T> {
   onPageChange: (page: number) => void;
   exportCSV: () => void;
   exportPDF: () => void;
-      filters?: React.ReactNode; // 👈 NEW
-
+  filters?: React.ReactNode; // 👈 NEW
 }
 
 const DataTableWrapper: React.FC<ItemProps<any>> = ({
@@ -59,8 +54,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
   onPageChange,
   exportCSV,
   exportPDF,
-    filters,
-
+  filters,
 }) => {
   const [search, setSearch] = useState(query);
 
@@ -101,7 +95,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
                   ))}
                 </SelectContent>
               </Select>
- {filters && (
+              {filters && (
                 <div className="flex flex-wrap gap-3 w-full">{filters}</div>
               )}
               {/* Search Bar */}
@@ -145,8 +139,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
           <CardContent className="bg-white p-6">
             {loading ? (
               <div className="flex justify-center py-12">
-                <SpinnerCustom
-                 />
+                <SpinnerCustom />
               </div>
             ) : data && data.length > 0 ? (
               <>

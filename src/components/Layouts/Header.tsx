@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { FaBars, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import { Separator } from "@/components/ui/separator";
 // import { useSocket } from "@/context/SocketContext";
 import type { Notification } from "@/types/notification.types";
 // import useSocketEvents from "@/hooks/useSocketNotification";
-import api from "@/lib/api";
+// import api from "@/lib/api";
 import ProfileBadge from "../profile/ProfileBadge";
 import NotificationDropdown from "../Notifications";
 interface HeaderProps {
@@ -27,16 +27,18 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
   const { user, logout, businessProfile } = useAuth();
   const apiUrl = import.meta.env.VITE_API_URL;
   const displayName = user?.username || user?.fullName?.split(" ")[0] || "User";
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notifications, _] = useState<Notification[]>([]);
   // const { socket, connected } = useSocket();
-  const fetchNotifications = async () => {
-    const res = await api.get(`/api/notifications/get-notifications?unread=1`);
-    setNotifications(res.data);
-  };
+  // const fetchNotifications = async () => {
+  //   const res = await api.get(`/api/notifications/get-notifications?unread=1`);
+  //   setNotifications(res.data);
+  // };
 
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
+  // console.log(businessProfile)
+
+  // useEffect(() => {
+  //   fetchNotifications();
+  // }, []);
   // useSocketEvents(socket, connected, {
   //   notifyUser: (data) => {
   //     console.log("🔥 notifyUser:", data);

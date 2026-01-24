@@ -33,6 +33,8 @@ const CustomerTable: React.FC<{ customers: Customer[] }> = ({ customers }) => {
             <TableHead className="font-semibold">Email</TableHead>
             <TableHead className="font-semibold">Phone</TableHead>
             <TableHead className="font-semibold">Address</TableHead>
+            <TableHead className="font-semibold">Opening Balance</TableHead>
+            <TableHead className="font-semibold">Credit Limit</TableHead>
             <TableHead className="text-right font-semibold">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -45,6 +47,8 @@ const CustomerTable: React.FC<{ customers: Customer[] }> = ({ customers }) => {
               <TableCell>{customer.email}</TableCell>
               <TableCell>{customer.phone}</TableCell>
               <TableCell>{customer.address}</TableCell>
+              <TableCell>{customer.openingBalance}</TableCell>
+              <TableCell>{customer.creditLimit}</TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end">
                   <TableActions

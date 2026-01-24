@@ -6,6 +6,7 @@ import { useExportPDF } from "@/hooks/useExportPDF";
 import TicketsTable from "./Tickets";
 import DataTableWrapper from "@/components/DataTableWrapper";
 import TicketFilters from "./TicketFilters";
+import { formatDate } from "@/lib/helperFunctions";
 const AllTickets = () => {
   const [additionalQuery, setAdditionQuery] = useState("");
   const {
@@ -45,42 +46,46 @@ const AllTickets = () => {
     setLimit(value);
   };
 
- const onFilterChange = (newFilter: Partial<typeof filters>) => {
-  const updated = { ...filters, ...newFilter };
-  setFilters(updated);
+  const onFilterChange = (newFilter: Partial<typeof filters>) => {
+    const updated = { ...filters, ...newFilter };
+    setFilters(updated);
 
-  const params = new URLSearchParams();
+    const params = new URLSearchParams();
 
-  if (updated.status) {
-    params.set("status", updated.status);
-  }
+    if (updated.status) {
+      params.set("status", updated.status);
+    }
 
-  if (updated.priority) {
-    params.set("priority", updated.priority);
-  }
-  setPage(1)
-  setAdditionQuery(params.toString());
-};
+    if (updated.priority) {
+      params.set("priority", updated.priority);
+    }
+    setPage(1);
+    setAdditionQuery(params.toString());
+  };
 
   const headers: string[] = [
-    "Plan name",
-    "Billing Type",
-    "Frequency",
-    "Client Name",
-    "client Email",
+    "Date",
+    "Email",
+    "Tenant ID",
+    "Subject",
+    "Priority",
+    "Status",
+    "Category",
   ];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: tickets,
-      fileName: "subscriptions.csv",
-      mapRow: (s) => [
-        s.plan.name,
-        s.billingType,
-        s.tenantId,
-        s.client.user.fullName,
-        s.client.user.email,
+      fileName: "tickets.csv",
+      mapRow: (t) => [
+        formatDate(t.createdAt),
+        t.contactEmail,
+        t.tenantId,
+        t.subject,
+        t.priority,
+        t.status,
+        t.category
       ],
     });
   };
@@ -91,14 +96,16 @@ const AllTickets = () => {
       data: tickets,
       fileName: "subscriptions.pdf",
       title: "Subscriptions",
-      mapRow: (s: any) => [
-        s.plan.name,
-        s.billingType,
-        s.tenantId,
-        s.client.user.fullName,
-        s.client.user.email,
+      mapRow: (t: any) => [
+        formatDate(t.createdAt),
+        t.contactEmail,
+        t.tenantId,
+        t.subject,
+        t.priority,
+        t.status,
+        t.category
       ],
-      orientation: "portrait",
+      orientation: "landscape",
     });
   };
   return (

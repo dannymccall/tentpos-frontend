@@ -38,7 +38,7 @@ export default function InvoiceView({
         </div>
 
         {/* Invoice Title */}
-        <h1 className="text-xl font-bold text-center mb-4">Invoice</h1>
+        <h1 className="text-xl font-bold text-center mb-4">Receipt</h1>
 
         {/* Invoice Details */}
         <div className="flex justify-between mb-4 gap-2 text-sm">
@@ -65,7 +65,7 @@ export default function InvoiceView({
               <tr key={item.productId}>
                 <td className="p-2 border">{item.product.title || "-"}</td>
                 <td className="p-2 border">{item.quantity}</td>
-                <td className="p-2 border">${Number(item.total).toFixed(2)}</td>
+                <td className="p-2 border">¢{Number(item.total).toFixed(2)}</td>
                 {/* <td className="p-2 border">${sale.subtotal.toFixed(2)}</td> */}
               </tr>
             ))}
@@ -74,15 +74,34 @@ export default function InvoiceView({
               <td className="p-2 border text-right" colSpan={2}>
                 Subtotal
               </td>
+             
               <td className="p-2 border">
-                ${Number(sale.subtotal).toFixed(2)}
+                ¢{Number(sale.subtotal).toFixed(2)}
+              </td>
+            </tr>
+            <tr className="font-bold bg-gray-50">
+              <td className="p-2 border text-right" colSpan={2}>
+                Amount Paid
+              </td>
+             
+              <td className="p-2 border">
+                ¢{Number(sale.amountPaid).toFixed(2)}
+              </td>
+            </tr>
+            <tr className="font-bold bg-gray-50">
+              <td className="p-2 border text-right" colSpan={2}>
+                Balance
+              </td>
+             
+              <td className="p-2 border">
+                ¢{Number(sale.balance).toFixed(2)}
               </td>
             </tr>
           </tbody>
         </table>
         <div>
           <strong className="text-sm">
-            Invoice Date: {formatDate(sale.date)}
+            Receipt Date: {formatDate(sale.date ?? new Date())}
           </strong>
         </div>
         {/* Action Row */}

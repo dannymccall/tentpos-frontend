@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import FormLoading from "../loaders/FormLoading";
+import { Switch } from "../ui/switch";
 
 const customerSchema = z.object({
   firstName: z.string().min(1),
@@ -21,6 +22,8 @@ const customerSchema = z.object({
   phone: z.string().optional(),
   address: z.string().optional(),
   creditLimit: z.string().min(0).optional(),
+  creditLimitAllocated: z.boolean().default(false).optional(),
+  openingBalance: z.string().optional()
 });
 
 type CustomerFormValues = z.infer<typeof customerSchema>;
@@ -42,11 +45,15 @@ export default function CustomerForm({
   });
 
   const submit = async (vals: CustomerFormValues) => {
+    console.log(vals)
     await onSubmit({
       ...vals,
       creditLimit: vals.creditLimit ? parseFloat(vals.creditLimit) : 0,
+      openingBalance: vals.openingBalance ? parseFloat(vals.openingBalance) : 0
     });
   };
+
+  const creditLimitAllocated = form.watch("creditLimitAllocated");
 
   return (
     <Card className="max-w-xl mx-auto p-4">
@@ -124,19 +131,54 @@ export default function CustomerForm({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="creditLimit"
+              name="creditLimitAllocated"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Credit Limit</FormLabel>
+                <FormItem className="flex items-center justify-between">
+                  <div>
+                    <FormLabel>Allocate Credit Limit</FormLabel>
+                    <FormMessage />
+                  </div>
                   <FormControl>
-                    <Input {...field} />
+                    <Switch
+                      checked={!!field.value}
+                      onCheckedChange={(v) => field.onChange(v)}
+                    />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
+            {creditLimitAllocated && (
+              <FormField
+                control={form.control}
+                name="creditLimit"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Credit Limit</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+              <FormField
+                control={form.control}
+                name="openingBalance"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Opening Balance</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            
 
             <div className="flex justify-end gap-2">
               <Button type="submit" disabled={loading} className="flex-1">

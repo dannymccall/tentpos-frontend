@@ -13,8 +13,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import type { Purchase } from "@/types/purchase.types";
 import { TableActions } from "@/components/TableActions";
-import { formatDate } from "@/lib/helperFunctions";
+import { formatDate, getSaleStatusColor } from "@/lib/helperFunctions";
 import PurchaseModal from "./PurchaseModal";
+import { Badge } from "@/components/ui/badge";
 const PurchaseTable: React.FC<{ purchases: Purchase[] }> = ({ purchases }) => {
   const navigate = useNavigate();
 
@@ -48,12 +49,14 @@ const PurchaseTable: React.FC<{ purchases: Purchase[] }> = ({ purchases }) => {
               <TableCell>{purchase.id}</TableCell>
               <TableCell>{formatDate(purchase.createdAt!)}</TableCell>
               <TableCell>{(purchase.receiptNumber!)}</TableCell>
-              <TableCell>{purchase.supplier.name}</TableCell>
+              <TableCell>{purchase.supplier ?  purchase.supplier.name : "Random Supplier"}</TableCell>
               <TableCell>{purchase.tax}</TableCell>
               <TableCell>{purchase.total}</TableCell>
               <TableCell>{purchase.subtotal}</TableCell>
               <TableCell>{purchase.balance}</TableCell>
-              <TableCell>{purchase.status}</TableCell>
+              <TableCell> <Badge className={getSaleStatusColor(purchase.status)}>
+                  {purchase.status}
+                </Badge></TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end">
                   <TableActions

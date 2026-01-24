@@ -70,18 +70,18 @@ const AllCategories = () => {
     setLimit(value);
   };
 
-  const headers: string[] = ["Fuu Name", "App Role", "Company Role", "Branch"];
+  const headers: string[] = ["ID", "Name", "Parent Category", "Description"];
 
   const handleExportCSV = () => {
     exportCSV({
       headers,
       data: categories,
-      fileName: "accounts.csv",
-      mapRow: (user) => [
-        user.fullName,
-        user.appRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      fileName: "categories.csv",
+      mapRow: (c) => [
+        c.id,
+        c.name,
+        c.parentCategory,
+        c.description,
       ],
     });
   };
@@ -91,13 +91,12 @@ const AllCategories = () => {
       headers,
       data: categories,
       fileName: "categories.pdf",
-      title: "Accounts",
-      mapRow: (user: any) => [
-        user.fullName,
-        user.appRole,
-        user.userRole,
-        user.userRole || "N/A",
-        user.branch ? user.branch.name : "N/A",
+      title: "Categories",
+      mapRow: (c: any) => [
+        c.id,
+        c.name,
+        c.parentCategory,
+        c.description,
       ],
       orientation: "portrait",
     });

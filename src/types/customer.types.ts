@@ -9,6 +9,8 @@ export type Customer = {
   address?: string | null;
   tenantId: string;
   branchId?: number | null;
+     openingBalance: number;
+   creditLimit: number
 };
 export type Debtor = {
      customerId: number;
@@ -18,6 +20,7 @@ export type Debtor = {
    status: "ACTIVE" | "CLEARED" | "BLOCKED";
    tenantId: string;
    branchId:number;
+
    customerDebtor: Customer
    branchDebtor: Branch,
    id: number

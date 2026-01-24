@@ -40,9 +40,6 @@ export const ExpenseTable: React.FC<{
               <TableHead className="">Category</TableHead>
               <TableHead className="">Description</TableHead>
               <TableHead className="">Date</TableHead>
-              <TableHead className="">Recurring</TableHead>
-              <TableHead className="">Frequency</TableHead>
-              <TableHead className="">End Date</TableHead>
               <TableHead className="">Branch</TableHead>
               <TableHead className="">Actions</TableHead>
             </TableRow>
@@ -56,9 +53,6 @@ export const ExpenseTable: React.FC<{
                 <TableCell>{expense.category}</TableCell>
                 <TableCell>{expense.description || "-"}</TableCell>
                 <TableCell>{expense.date}</TableCell>
-                <TableCell>{expense.recurring ? "Yes" : "No"}</TableCell>
-                <TableCell>{expense.recurrenceFrequency || "-"}</TableCell>
-                <TableCell>{expense.recurrenceEndDate || "-"}</TableCell>
                 <TableCell>{expense.branchExpense.name}</TableCell>
                 <TableCell className="space-x-2">
                   <TableActions

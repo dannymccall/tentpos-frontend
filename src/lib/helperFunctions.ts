@@ -1,7 +1,7 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 export async function makeRequest(url: string, options: RequestInit) {
   const sessionId = localStorage.getItem("tentpos:sessionId");
-  console.log({sessionId})
+  console.log({ sessionId });
   try {
     const response = await fetch(`${apiUrl}${url}`, {
       headers: {
@@ -28,7 +28,7 @@ export async function makeRequest(url: string, options: RequestInit) {
       data,
     };
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     return {
       status: "error",
       error: {
@@ -40,7 +40,6 @@ export async function makeRequest(url: string, options: RequestInit) {
     };
   }
 }
-
 
 export function getTimeAgo(dateInput: Date | string) {
   const now = new Date();
@@ -127,7 +126,7 @@ const getRandomColor = () => {
 export const getPlaceholderSVG = (title: string) => {
   const color = getRandomColor();
   return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='${color}'/%3E%3Ctext x='50%' y='50%' font-size='32' text-anchor='middle' fill='white' dy='.3em'%3E${encodeURIComponent(
-    title
+    title,
   )}%3C/text%3E%3C/svg%3E`;
 };
 
@@ -143,6 +142,8 @@ export const toMoney = (n: number) =>
 export const getSaleStatusColor = (status: string) => {
   switch (status) {
     case "PAID":
+    case "COMPLETED":
+    case "completed":
       return "bg-emerald-600 text-white"; // payment completed
 
     case "PENDING":
@@ -152,6 +153,7 @@ export const getSaleStatusColor = (status: string) => {
       return "bg-orange-500 text-white"; // not paid at all
 
     case "CANCELLED":
+    case "cancelled":
       return "bg-red-500 text-white"; // sale cancelled
 
     case "VOID":
@@ -164,3 +166,24 @@ export const getSaleStatusColor = (status: string) => {
       return "bg-gray-300 text-black"; // fallback
   }
 };
+
+type Status = "success" | "error" | "warning" | "info";
+
+export function getResponseMessageBgColor(status: Status): string {
+  if (status === "success") {
+    return "bg-emerald-700"; // healthy / good
+  }
+
+  if (status === "error") {
+    return "bg-red-700"; // dead / stopped
+  }
+
+  if (status === "info") {
+    return "bg-blue-500"; // paused / warning
+  }
+
+  if (status === "warning") {
+    return "bg-yellow-500";
+  }
+  return "bg-slate-400"; // fallback (unknown)
+}

@@ -6,8 +6,8 @@ const Auth = () => {
   
   const handleLogin = () => {
     window.location.href = `${TENTHUB_FRONTEND_URL}/auth/signin?client_id=${APP_ID}&client_secret=${APP_SECRET}&redirect_uri=${encodeURIComponent(
-      `${REDIRECT_URL}/tentpos/auth/callback`
-    )}&response_type=code&app_name=TentPOS&appLogo=/app_icons/tentCredit.png`;
+      `${REDIRECT_URL}/auth/callback`
+    )}&response_type=code&app_name=TentPOS&appLogo=/app_icons/tentpos-blue.png`;
   };
   return (
     <main className="relative h-screen bg-[url(/background.png)] bg-cover bg-center">
@@ -21,7 +21,7 @@ const Auth = () => {
           <div className="relative flex flex-col items-center mb-6">
             <div className="absolute w-24 h-24 rounded-full bg-green-500/30 animate-ping"></div>
             <img
-              src="/app_icons/tentpos.png"
+              src="/app_icons/tentpos-blue.png"
               alt="TentCredit Logo"
               className="w-16 h-16 relative z-10"
             />

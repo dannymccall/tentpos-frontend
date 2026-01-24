@@ -7,22 +7,22 @@ import {
   HiExclamationCircle,
   HiInformationCircle,
 } from "react-icons/hi";
-
+import { getResponseMessageBgColor } from "@/lib/helperFunctions";
 const getIcon = (type: string) => {
   const iconClass = "w-5 h-5";
 
   switch (type) {
     case "success":
-      return <HiCheckCircle className={`${iconClass} text-green-500`} />;
+      return <HiCheckCircle className={`${iconClass} text-slate-100`} />;
     case "error":
-      return <HiXCircle className={`${iconClass} text-red-500`} />;
+      return <HiXCircle className={`${iconClass} text-slate-1000`} />;
     case "warning":
-      return <HiExclamationCircle className={`${iconClass} text-yellow-500`} />;
+      return <HiExclamationCircle className={`${iconClass} text-slate-100`} />;
     case "message":
-      return <MessageSquareMore className={`${iconClass} text-green-500`}/>
+      return <MessageSquareMore className={`${iconClass} text-slate-100`} />;
     case "info":
     default:
-      return <HiInformationCircle className={`${iconClass} text-blue-500`} />;
+      return <HiInformationCircle className={`${iconClass} text-slate-100`} />;
   }
 };
 
@@ -30,7 +30,7 @@ export default function ToastContainer() {
   const { toasts } = useNotification();
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999] space-y-2">
+    <div className="fixed top-4 right-4 z-[9999] space-y-2">
       <AnimatePresence initial={false}>
         {toasts.map(({ id, message, type }) => (
           <motion.div
@@ -39,10 +39,12 @@ export default function ToastContainer() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.3 }}
-            className="flex items-start text-slate-700 gap-3 bg-white border border-gray-200 shadow-lg rounded-lg px-4 py-3 w-[280px]"
+            className={`flex items-start text-slate-700 gap-3 ${getResponseMessageBgColor(
+              type as any
+            )} border border-gray-200 shadow-lg rounded-lg px-4 py-3 w-[280px]`}
           >
             {getIcon(type)}
-            <p className="text-sm text-gray-800">{message}</p>
+            <p className="text-sm text-slate-50">{message}</p>
           </motion.div>
         ))}
       </AnimatePresence>
