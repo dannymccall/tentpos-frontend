@@ -7,6 +7,8 @@ import DataTableWrapper from "../DataTableWrapper";
 import InvoiceTable from "./InvoiceList";
 import type { Invoice } from "@/types/sale.types";
 const AllSales = () => {
+    const [limit, setLimit] = useState<number>(10);
+
   const {
     data: invoices,
     loading,
@@ -17,8 +19,7 @@ const AllSales = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Invoice[]>({ uri: "/api/sales/invoices" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Invoice[]>({ uri: "/api/sales/invoices", limit });
 
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();

@@ -24,154 +24,183 @@ type FaqItem = {
 const FAQ_DATA: FaqItem[] = [
   // PRODUCT BASICS
   {
-    id: "faq-product-what",
-    question: "What is TentCore / Microfinance Module?",
+    id: "pos-what",
+    question: "What is TentPOS?",
     answer:
-      "TentCore is TentHub's microfinance module — it helps institutions manage clients, loans, savings, repayments, branches, and reporting from a single SaaS dashboard.",
+      "TentPOS is TentHub’s Point of Sale system that helps you manage products, inventory, sales, customers, payments, and reports from one dashboard for retail and wholesale businesses.",
     group: "Product Basics",
   },
   {
-    id: "faq-product-account-create",
-    question: "How do I create an account?",
+    id: "pos-login",
+    question: "How do I log in to TentPOS?",
     answer:
-      "To create an account, sign up via the App Center or contact your TentHub onboarding rep. For multi-branch organisations we’ll provision tenant accounts and staff roles for you.",
+      "Use the credentials provided by your admin or the App Center. If you forget your password, click 'Forgot password' on the login page or ask your admin to reset it.",
     group: "Product Basics",
   },
   {
-    id: "faq-product-reset-password",
-    question: "How do I reset my password?",
+    id: "pos-roles",
+    question: "Can I create staff accounts with limited permissions?",
     answer:
-      "Use the 'Forgot password' link on the login page. If your account is part of a managed tenant, contact your tenant admin to reset your password.",
+      "Yes. Go to Settings → Users & Roles. You can create cashiers, supervisors, or managers and restrict access to sensitive features like reports or refunds.",
     group: "Product Basics",
   },
 
-  // LOANS
+  // PRODUCTS & INVENTORY
   {
-    id: "faq-loans-register-client",
-    question: "How do I register a new client?",
+    id: "pos-add-product",
+    question: "How do I add a new product?",
     answer:
-      "Navigate to Clients → New Client, fill in the KYC details and attach required documents. Save to create the client profile. You can then proceed to create loan applications for the client.",
-    group: "Loans",
+      "Go to Products → Add Product. Enter the name, price, category, stock quantity, and save. You can also upload products in bulk using CSV import.",
+    group: "Products & Inventory",
   },
   {
-    id: "faq-loans-apply",
-    question: "How do I apply for a new loan?",
+    id: "pos-stock-update",
+    question: "How do I update stock levels?",
     answer:
-      "Open Loans → Create Application, select the borrower, set terms (principal, interest, duration), and submit for approval. The application will go through the configured approval workflow.",
-    group: "Loans",
+      "Use Inventory → Stock Adjustment or record a purchase under Purchases & Supply. Avoid manual edits unless correcting mistakes to keep reports accurate.",
+    group: "Products & Inventory",
   },
   {
-    id: "faq-loans-schedule",
-    question: "Why is my loan schedule not generating?",
+    id: "pos-low-stock",
+    question: "How do I know when stock is low?",
     answer:
-      "Schedules won't generate if required fields (principal, interest rate, repayment frequency, and start date) are missing. Check the application for missing values and try regenerating the schedule.",
-    group: "Loans",
+      "Enable low-stock alerts in Settings. TentPOS will highlight products that fall below the minimum quantity so you can restock early.",
+    group: "Products & Inventory",
   },
   {
-    id: "faq-loans-interest",
-    question: "How is interest calculated?",
+    id: "pos-barcode",
+    question: "Can I use barcodes or scanners?",
     answer:
-      "Interest calculation depends on the product configuration (flat, declining balance, or custom). Check the loan product settings or consult documentation for the product's calculation method.",
-    group: "Loans",
+      "Yes. TentPOS supports barcode scanners. Simply scan the product barcode during checkout to add it instantly to the cart.",
+    group: "Products & Inventory",
   },
 
-  // SAVINGS
+  // SALES & CHECKOUT
   {
-    id: "faq-savings-open",
-    question: "How do I open a savings account for a client?",
+    id: "pos-make-sale",
+    question: "How do I process a sale?",
     answer:
-      "Go to Savings → New Account, select the client, choose the savings product, and save. You can then post deposits or withdrawals against the account.",
-    group: "Savings",
+      "Open Sales → New Sale, add items to the cart, choose payment method, and confirm. A receipt will be generated automatically.",
+    group: "Sales & Checkout",
   },
   {
-    id: "faq-savings-deposit",
-    question: "How do I post a deposit or withdrawal?",
+    id: "pos-discount",
+    question: "How do I apply discounts?",
     answer:
-      "Open the client's savings account and click Post Transaction. Select Deposit or Withdrawal, enter the amount and reference, then confirm.",
-    group: "Savings",
+      "You can apply discounts per item or on the entire cart. Select the item or cart total and enter the discount value or percentage before checkout.",
+    group: "Sales & Checkout",
+  },
+  {
+    id: "pos-refund",
+    question: "How do I process a refund or return?",
+    answer:
+      "Open the original transaction from Sales History and choose Refund or Return. This ensures inventory and reports stay consistent.",
+    group: "Sales & Checkout",
+  },
+  {
+    id: "pos-receipt",
+    question: "Can I print or reprint receipts?",
+    answer:
+      "Yes. After each sale you can print immediately. You can also reprint anytime from Sales History → Select Transaction → Print Receipt.",
+    group: "Sales & Checkout",
+  },
+
+  // CUSTOMERS & DEBTORS
+  {
+    id: "pos-add-customer",
+    question: "How do I add a customer?",
+    answer:
+      "Navigate to Customers → New Customer. Add their name and contact details. You can assign credit or track their purchase history.",
+    group: "Customers & Debtors",
+  },
+  {
+    id: "pos-credit-sales",
+    question: "Does TentPOS support credit sales?",
+    answer:
+      "Yes. Enable credit mode during checkout. The system tracks outstanding balances and payments from customers automatically.",
+    group: "Customers & Debtors",
+  },
+  {
+    id: "pos-debtor-payments",
+    question: "How do I record payments from debtors?",
+    answer:
+      "Open the customer profile, view outstanding invoices, and post a payment. The balance will update instantly.",
+    group: "Customers & Debtors",
   },
 
   // REPORTS
   {
-    id: "faq-reports-export",
-    question: "How do I export reports to PDF or CSV?",
+    id: "pos-sales-report",
+    question: "Where can I see daily or monthly sales reports?",
     answer:
-      "Most reports include an Export button. Choose PDF or CSV depending on your needs. If export fails, check server logs or submit a ticket with the report name and date range.",
+      "Go to Reports → Sales Reports. Filter by date range, cashier, or branch to analyze performance.",
     group: "Reports",
   },
   {
-    id: "faq-reports-dashboard",
-    question: "Why is my dashboard not updating?",
+    id: "pos-export",
+    question: "Can I export reports to Excel or CSV?",
     answer:
-      "Dashboards may update on a schedule. Ensure your user has permission to view the data, and check for any data sync or caching warnings. If the issue persists, submit a ticket with screenshots.",
+      "Yes. Most reports include an Export button. Choose CSV or Excel to download for further analysis or accounting.",
     group: "Reports",
+  },
+  {
+    id: "pos-profit",
+    question: "How is profit calculated?",
+    answer:
+      "Profit is calculated using selling price minus cost price. Ensure cost prices are set correctly when adding products for accurate reporting.",
+    group: "Reports",
+  },
+
+  // PAYMENTS
+  {
+    id: "pos-payment-methods",
+    question: "What payment methods are supported?",
+    answer:
+      "TentPOS supports cash, mobile money, cards, and custom payment types. Integrations may vary depending on your region and provider setup.",
+    group: "Payments",
+  },
+  {
+    id: "pos-payment-failed",
+    question: "Why did a mobile money or card payment fail?",
+    answer:
+      "Failures may be caused by insufficient funds, provider downtime, or network issues. Retry the transaction or verify the provider status.",
+    group: "Payments",
   },
 
   // TECHNICAL
   {
-    id: "faq-tech-slow",
-    question: "What should I do if the system becomes slow or freezes?",
+    id: "pos-offline",
+    question: "Can TentPOS work offline?",
     answer:
-      "Try clearing your browser cache and logging in again. If the issue persists, capture the time, user, and steps to reproduce and submit a support ticket so we can investigate.",
+      "Some features may work offline temporarily, but an internet connection is required to sync sales and ensure accurate reporting.",
     group: "Technical & Usage",
   },
   {
-    id: "faq-tech-bug",
-    question: "How do I report a bug or issue?",
+    id: "pos-slow",
+    question: "What should I do if the POS becomes slow?",
     answer:
-      "Use the Support → Submit Ticket form in your app, include a clear description, screenshots, tenantId, affected module, and steps to reproduce. Attach logs if you have them.",
+      "Refresh the browser, clear cache, or check your internet connection. If the issue persists, contact support with details of the device and time of occurrence.",
     group: "Technical & Usage",
   },
   {
-    id: "faq-tech-security",
-    question: "Is my data secure?",
+    id: "pos-support",
+    question: "How do I get help or report a problem?",
     answer:
-      "Yes — TentHub uses encrypted storage, RBAC-based access, and secure transport (HTTPS). For enterprise customers we offer additional security options and audits.",
+      "Use Support → Submit Ticket in the app. Include screenshots, tenantId, and steps to reproduce so our team can assist quickly.",
     group: "Technical & Usage",
-  },
-
-  // PAYMENTS & INTEGRATIONS
-  {
-    id: "faq-payments-mm",
-    question: "How does mobile money integration work?",
-    answer:
-      "TentCore integrates with local mobile money providers via secure APIs. Payments are posted as transactions and reconciled automatically where supported.",
-    group: "Payments & Integrations",
-  },
-  {
-    id: "faq-payments-fail",
-    question: "Why did my payment fail?",
-    answer:
-      "Payment failures can be caused by insufficient funds, provider downtime, or incorrect payment details. Check the payment logs and provider response — if uncertain, submit a ticket with the payment reference.",
-    group: "Payments & Integrations",
-  },
-
-  // MISC
-  {
-    id: "faq-misc-feature",
-    question: "Can I request a new feature?",
-    answer:
-      "Yes — submit a Feature Request ticket via Support. Include the business case and expected benefit; our product team reviews requests during planning cycles.",
-    group: "Miscellaneous",
-  },
-  {
-    id: "faq-misc-training",
-    question: "Do you provide training?",
-    answer:
-      "Yes — TentHub provides onboarding and training packages for customers. Contact your account manager or submit a ticket to request a training session.",
-    group: "Miscellaneous",
   },
 ];
 
 const GROUP_ORDER = [
   "Product Basics",
-  "Loans",
-  "Savings",
+  "Products & Inventory",
+  "Sales & Checkout",
+  "Customers & Debtors",
   "Reports",
+  "Payments",
   "Technical & Usage",
-  "Payments & Integrations",
-  "Miscellaneous",
 ];
+
 
 export default function TentPOSFAQ() {
   const [query, setQuery] = useState("");
@@ -195,7 +224,7 @@ export default function TentPOSFAQ() {
     <div className="max-w-5xl mx-auto p-4">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Frequently Asked Questions — TentCore</CardTitle>
+          <CardTitle>Frequently Asked Questions — TentPOS</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">

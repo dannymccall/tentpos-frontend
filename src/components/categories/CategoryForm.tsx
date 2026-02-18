@@ -89,7 +89,7 @@ export default function CategoryForm({
   }, [category, form.reset]);
 
   return (
-      <Card className="max-w-xl w-full shadow-lg rounded-2xl">
+      <Card className="max-w-xl w-full  rounded-2xl">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">
             {mode === "add" ? "Add New Category" : ""}

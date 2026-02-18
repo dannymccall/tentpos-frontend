@@ -42,7 +42,7 @@ const DebtorsTable: React.FC<{ debtors: Debtor[] }> = ({ debtors }) => {
           {debtors.map((debtor) => (
             <TableRow key={debtor.id}>
               <TableCell>{debtor.id}</TableCell>
-              <TableCell>{`${debtor.customerDebtor.firstName} ${debtor.customerDebtor.firstName}`}</TableCell>
+              <TableCell>{`${debtor.customerDebtor.firstName} ${debtor.customerDebtor.lastName}`}</TableCell>
               <TableCell>{debtor.totalOwed}</TableCell>
               <TableCell>{debtor.oldestDebtDate ? formatDate(debtor.oldestDebtDate) : "No oldest sale date"}</TableCell>
               <TableCell>{debtor.lastSaleDate ? formatDate(debtor.lastSaleDate) : "No latest sale"}</TableCell>

@@ -22,4 +22,5 @@ export interface User {
   deletetionScheduleAt: Date;
   phone:string;
   status: 'active' | 'pending_deletion' | 'deleted'
+  tenantId: string
 }

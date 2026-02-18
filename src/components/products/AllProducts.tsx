@@ -8,6 +8,7 @@ import ProductTable from "./ProductList";
 import type { Product } from "@/types/product.types";
 import { useAuth } from "@/context/AuthContext";
 const AllProducts = () => {
+  const [limit, setLimit] = useState<number>(10);
   const {
     data: products,
     loading,
@@ -18,8 +19,7 @@ const AllProducts = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Product[]>({ uri: "/api/products/get-products" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Product[]>({ uri: "/api/products/get-products", limit });
 
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();

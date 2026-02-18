@@ -9,6 +9,7 @@ import type { Customer } from "@/types/customer.types";
 
 
 const AllCustomers = () => {
+  const [limit, setLimit] = useState<number>(10);
   const {
     data: customers,
     loading,
@@ -19,8 +20,7 @@ const AllCustomers = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Customer[]>({ uri: "/api/customers" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Customer[]>({ uri: "/api/customers", limit });
 
 
   const { exportCSV } = useExportCSV();

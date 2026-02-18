@@ -20,6 +20,7 @@ type PublicUser = Pick<
   | "role"
   | "username"
   | "mustResetPassword"
+  | "tenantId"
 >;
 
 interface AuthContextType {
@@ -104,7 +105,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (userData.sessionId) {
       localStorage.setItem("tentpos:sessionId", userData.sessionId);
     }
-    setUser(userData as PublicUser);
+    setUser(userData as any);
     setProfilePicture(userData.avatar || "");
     setBusinessProfile(userData.businessProfile);
     userData.businessProfile?.userRole &&

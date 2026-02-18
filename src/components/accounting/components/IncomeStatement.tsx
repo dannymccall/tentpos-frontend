@@ -179,7 +179,7 @@ function Row({
   return (
     <div className={`flex justify-between ${highlight ? "font-semibold" : ""}`}>
       <span>{label}</span>
-      <span>{currency(value)}</span>
+      <span>{currency( Number(value))}</span>
     </div>
   );
 }

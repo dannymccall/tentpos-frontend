@@ -158,7 +158,7 @@ export default function ProductForm({
       dimensions: product.dimensions ?? { width: "", height: "", depth: "" },
       variants: product.variants ?? [],
     });
-  }, [product, cat]);
+  }, [product, cat, form.reset]);
 
   // Image handling (local preview). In real app upload to CDN in onChange or onSubmit
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

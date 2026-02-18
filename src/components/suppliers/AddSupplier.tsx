@@ -10,7 +10,7 @@ const AddSupplier = () => {
     onSuccessCallback: () => {},
   });
   const onSubmit = async (formData: any) => {
-    supplierMutation(formData);
+    supplierMutation({...formData, openingBalance: formData.openingBalance ? Number(formData.openingBalance) : null });
   };
   return (
     <div>

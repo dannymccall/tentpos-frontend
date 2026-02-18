@@ -30,6 +30,8 @@ const SaleDetails: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
+  console.log(data)
+
   const { mutate: cancelSale, isPending } = useApiMutation({
     
     url: `/api/sales/cancel?id=${saleId}`,
@@ -49,8 +51,8 @@ const SaleDetails: React.FC = () => {
   const onSubmit = async (formData: any) => {
     console.log(saleId)
     console.log(formData)
-    if(formData && formData.status === "HOLD"){
-      const result = await completeHoldSale(formData);
+    if(data.status === "HOLD"){
+      const result = await completeHoldSale({...formData, id: data.id});
     return result.data.data;
     }else
     cancelSale(formData);

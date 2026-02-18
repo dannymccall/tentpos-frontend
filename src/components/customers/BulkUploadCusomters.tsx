@@ -93,6 +93,12 @@ export default function BulkUploadCustomers() {
                       <th className="p-2 border border-gray-300">
                         Address
                       </th>
+                      <th className="p-2 border border-gray-300">
+                        Opening Balance
+                      </th>
+                      <th className="p-2 border border-gray-300">
+                        Credit Limit
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,6 +118,12 @@ export default function BulkUploadCustomers() {
                         </td>
                         <td className="p-2 border border-gray-300">
                           {c.address}
+                        </td>
+                        <td className="p-2 border border-gray-300">
+                          {c.openingBalance}
+                        </td>
+                        <td className="p-2 border border-gray-300">
+                          {c.creditLimit}
                         </td>
                       </tr>
                     ))}

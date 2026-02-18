@@ -187,3 +187,17 @@ export function getResponseMessageBgColor(status: Status): string {
   }
   return "bg-slate-400"; // fallback (unknown)
 }
+
+
+export function getStatusColor(status: Status): string {
+  switch (status) {
+    case "success":
+      return "text-gray-100";
+    case "error":
+      return "text-gray-100 ";
+    case "info":
+      return "text-gray-100";
+    default:
+      return "text-gray-100";
+  }
+}

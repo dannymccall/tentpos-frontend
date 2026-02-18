@@ -67,7 +67,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
         transition={{ duration: 0.4 }}
         className="w-full px-4 md:px-8 h-screen"
       >
-        <Card className="shadow-lg border border-slate-200 py-0 ">
+        <Card className=" py-0 ">
           <CardHeader className="border-b bg-slate-900 rounded-md text-white flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 py-6">
             {/* Title Section */}
             <div>

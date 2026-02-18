@@ -23,7 +23,7 @@ const AllRoles = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Role[]>({ uri: "/api/roles/get-roles" });
+  } = useFetch<Role[]>({ uri: "/api/roles/get-roles", limit });
 
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();

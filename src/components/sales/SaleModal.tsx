@@ -1,19 +1,16 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import React from "react";
-import BaseModal from "../BaseModal";
 import FormLoading from "../loaders/FormLoading";
 import type { Sale } from "@/types/sale.types";
+import DialogModal from "../Dialog";
+import { DialogTitle } from "../ui/dialog";
 interface ProductProps {
-    sale: Sale,
-    isOpen: boolean;
-    onClose: () => void
+  sale: Sale;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const SaleModal: React.FC<ProductProps> = ({
-  isOpen,
-  onClose,
- sale
-}) => {
+const SaleModal: React.FC<ProductProps> = ({ isOpen, onClose, sale }) => {
   if (!sale) return null;
 
   const { mutate: cancelSale, isPending } = useApiMutation({
@@ -21,7 +18,7 @@ const SaleModal: React.FC<ProductProps> = ({
     method: "PUT",
     invalidateKey: "/api/sales",
     onSuccessCallback: () => {
-    //   onSuccess();
+      //   onSuccess();
     },
   });
 
@@ -31,13 +28,16 @@ const SaleModal: React.FC<ProductProps> = ({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={"Cancel Sale"}>
-
+    <DialogModal
+      open={isOpen}
+      setOpen={onClose}
+      title={<DialogTitle className="text-center">Cancel Sale</DialogTitle>}
+    >
       {sale && (
         <div className="flex flex-col gap-4 items-center">
           <p className="">
-            Are you sure you want to cancel the <strong>{sale.saleNumber}</strong>{" "}
-            sale ?
+            Are you sure you want to cancel the{" "}
+            <strong>{sale.saleNumber}</strong> sale ?
           </p>
           <div className="flex gap-2">
             <button
@@ -52,7 +52,7 @@ const SaleModal: React.FC<ProductProps> = ({
           </div>
         </div>
       )}
-    </BaseModal>
+    </DialogModal>
   );
 };
 

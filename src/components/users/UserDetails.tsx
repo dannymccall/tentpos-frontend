@@ -24,6 +24,7 @@ import type { Sale } from "@/types/sale.types";
 import UserRecentSales from "./users_table/UserRecentSales";
 import Pagination from "../Pagination";
 import { useState } from "react";
+import { SpinnerCustom } from "../loaders/Spinner";
 export interface MonthlyData {
   month: string;
   loansApplied: number;
@@ -37,16 +38,16 @@ interface StatsProps {
 }
 
 interface MonthlySales {
-    month:string,
-    totalDiscount: string,
-    totalTransaction: number,
-    totalSales: string
+  month: string;
+  totalDiscount: string;
+  totalTransaction: number;
+  totalSales: string;
 }
 export interface StaffDetailsProps {
   user: User;
   recentSales: Sale[];
   stats: StatsProps;
-  monthlySales: MonthlySales[]
+  monthlySales: MonthlySales[];
 }
 
 export default function UserDetails() {
@@ -63,17 +64,10 @@ export default function UserDetails() {
     },
     refetchOnWindowFocus: false,
   });
-
-  console.log({ data });
   const [currentPage, setCurrentPage] = useState(1);
 
-  if (isLoading || !data) {
-    return (
-      <div className="flex items-center justify-center h-[70vh]">
-        <span className="text-gray-500 text-lg">Loading staff details...</span>
-      </div>
-    );
-  }
+  console.log({ data });
+  if(!data) return null
 
   const { user, recentSales, stats, monthlySales } = data!;
   const totalPages = Math.ceil(recentSales.length / 10);
@@ -97,7 +91,7 @@ export default function UserDetails() {
     },
     {
       title: "Role",
-      value: user.userRole.role.name,
+      value: user.userRole?.role?.name,
       icon: Briefcase,
       color: "text-purple-600",
     },
@@ -127,6 +121,8 @@ export default function UserDetails() {
     },
   ];
 
+  if (isLoading || !data) return <SpinnerCustom />;
+
   return (
     <div className="space-y-8 p-6">
       {/* --- Staff Info Cards --- */}
@@ -136,7 +132,7 @@ export default function UserDetails() {
           return (
             <Card
               key={index}
-              className="shadow-md hover:shadow-xl transition-shadow rounded-2xl border border-gray-100"
+              className=" hover:shadow-xl transition-shadow rounded-2xl border border-gray-100"
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-gray-500">
@@ -155,7 +151,7 @@ export default function UserDetails() {
       </div>
 
       {/* --- Monthly Loans vs Recoveries Chart --- */}
-      <Card className="shadow-md hover:shadow-xl transition-shadow rounded-2xl border border-gray-100">
+      <Card className=" hover:shadow-xl transition-shadow rounded-2xl border border-gray-100">
         <CardHeader>
           <CardTitle className="text-gray-800 text-lg font-semibold flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-green-500" />

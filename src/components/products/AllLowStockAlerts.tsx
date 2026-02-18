@@ -7,6 +7,8 @@ import DataTableWrapper from "../DataTableWrapper";
 import type { ProductBranch } from "@/types/product.types";
 import LowStockAlertsTable from "./LowStockAlerts";
 const AllLowStockAlerts = () => {
+    const [limit, setLimit] = useState<number>(10);
+
   const {
     data: lowStock,
     loading,
@@ -18,7 +20,6 @@ const AllLowStockAlerts = () => {
     refetch,
     setQuery,
   } = useFetch<ProductBranch[]>({ uri: "/api/products/fetch-low-stock-products" });
-  const [limit, setLimit] = useState<number>(10);
 
   console.log({lowStock})
 

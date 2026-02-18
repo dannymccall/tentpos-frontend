@@ -31,7 +31,7 @@ const Invoices: React.FC = () => {
         {
           key: "invoices",
           label: "Invoices",
-          icon: <Receipt className="text-[#0f172b]" />,
+          icon: <Receipt className="text-[#8a76f9]" />,
           panel: <AllInvoices />,
           code: "inventory.categories.view",
         },

@@ -16,7 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
     debtors: 0,
   });
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
-  const { settings, permissions, businessProfile, logout } = useAuth();
+  const { settings, permissions, businessProfile, logout, user } = useAuth();
 
   console.log({ permissions });
   // Simulated API call for badges
@@ -50,10 +50,13 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
 
   const toggleMenu = (label: string) => {
     setOpenMenus((prev) => ({
-      ...Object.keys(prev).reduce((acc, key) => {
-        acc[key] = false;
-        return acc;
-      }, {} as Record<string, boolean>),
+      ...Object.keys(prev).reduce(
+        (acc, key) => {
+          acc[key] = false;
+          return acc;
+        },
+        {} as Record<string, boolean>,
+      ),
       [label]: !prev[label],
     }));
   };
@@ -97,9 +100,12 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
           </span>
 
           {isOpen && (
-            <p className="text-[10px] text-gray-500 font-semibold ">
-              powered by TentHub
-            </p>
+            <>
+              <h1 className="text-[10px] text-gray-300">ID: {user?.tenantId}</h1>
+              <p className="text-[10px] text-gray-500 font-semibold ">
+                powered by TentHub
+              </p>
+            </>
           )}
         </div>
       </div>
@@ -123,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                 <div key={idx}>
                   {canView(item.code!) && (
                     <button
-                        onClick={() => {
+                      onClick={() => {
                         if (hasSublinks) {
                           toggleMenu(item.label);
                         } else if (
@@ -136,8 +142,8 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                       }}
                       className={`w-full flex items-center rounded-md hover:bg-gray-800 transition-colors duration-200
                     ${isOpen ? "gap-4 px-5 py-3" : "justify-center py-3"} ${
-                        isActive ? "bg-[#0f172b]" : ""
-                      }`}
+                      isActive ? "bg-[#0f172b]" : ""
+                    }`}
                     >
                       <span className="text-lg">{item.icon}</span>
 
@@ -181,16 +187,16 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                           >
                             {canView(sub.code!) && (
                               <>
-                                 <div
-                                    onClick={() => navigate(sub.path!)}
-                                    className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
-                                      subActive
-                                        ? "bg-[#0f172b] text-white"
-                                        : "text-gray-300 hover:bg-gray-800"
-                                    }`}
-                                  >
-                                    {sub.label}
-                                  </div>
+                                <div
+                                  onClick={() => navigate(sub.path!)}
+                                  className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
+                                    subActive
+                                      ? "bg-[#0f172b] text-white"
+                                      : "text-gray-300 hover:bg-gray-800"
+                                  }`}
+                                >
+                                  {sub.label}
+                                </div>
                                 {sub.badgeKey !== undefined && (
                                   <span className="text-[10px] bg-red-600 px-1 py-0.2 rounded-full">
                                     {counts[sub.badgeKey]}

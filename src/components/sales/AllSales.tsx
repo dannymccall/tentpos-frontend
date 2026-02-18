@@ -9,6 +9,7 @@ import SaleTable from "./SalesList";
 import CustomerFilter from "./CustomerFilter";
 import { formatDate } from "@/lib/helperFunctions";
 const AllSales = () => {
+  const [limit, setLimit] = useState<number>(10);
   const [additionalQuery, setAdditionQuery] = useState("");
   const {
     data: sales,
@@ -20,8 +21,7 @@ const AllSales = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Product[]>({ uri: "/api/sales", additionalQuery });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Product[]>({ uri: "/api/sales", additionalQuery, limit });
   const [customerId, setCustomerId] = useState<number | "all">("all");
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();

@@ -38,6 +38,7 @@ import TicketDetails from "../support/tickets/ticketDetails/TicketDetails";
 import UserDetails from "../users/UserDetails";
 import AllPayments from "../payments/AllPayments";
 import PurchaseReport from "../reports/PurchaseReport";
+import TutorialVideos from "../support/TutorialVideos";
 export default function AuthRoutes() {
   return (
     <Routes>
@@ -406,6 +407,16 @@ export default function AuthRoutes() {
           <ProtectedRoute>
             <DashboardLayout title="All Payments">
               <AllPayments />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/support/tutorials"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="Tutorial Videos">
+              <TutorialVideos />
             </DashboardLayout>
           </ProtectedRoute>
         }

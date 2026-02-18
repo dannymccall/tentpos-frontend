@@ -32,3 +32,9 @@ export type Ticket = {
      visibility: "public" | "internal";
    createdByType: "user" | "agent";
 }
+
+export type TutorialVideoProps = {
+    title: string;
+    link: string;
+    description: string
+}

@@ -8,6 +8,8 @@ import DataTableWrapper from "../DataTableWrapper";
 import CategoryTable from "./CategoryList";
 
 const AllCategories = () => {
+    const [limit, setLimit] = useState<number>(10);
+
   const {
     data: categories,
     loading,
@@ -18,8 +20,7 @@ const AllCategories = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Category[]>({ uri: "/api/categories/get-categories" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Category[]>({ uri: "/api/categories/get-categories", limit });
 
   const [selectedCategory, setSelectedCategory] = useState<Category>();
   const [modalOpen, setModalOpen] = useState(false);

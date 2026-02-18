@@ -7,6 +7,7 @@ import DataTableWrapper from "../DataTableWrapper";
 import SupplierTable from "./SuppliersList";
 import type { Supplier } from "@/types/suppliers.types";
 const AllSuppliers = () => {
+  const [limit, setLimit] = useState<number>(10);
   const {
     data: suppliers,
     loading,
@@ -17,8 +18,7 @@ const AllSuppliers = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Supplier[]>({ uri: "/api/suppliers" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Supplier[]>({ uri: "/api/suppliers", limit });
 
 
   const { exportCSV } = useExportCSV();

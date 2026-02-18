@@ -7,6 +7,8 @@ import DataTableWrapper from "../../DataTableWrapper";
 import { useExportCSV } from "../../../hooks/useExportCSV";
 import { useExportPDF } from "../../../hooks/useExportPDF";
 const AllUsers = () => {
+    const [limit, setLimit] = useState<number>(10);
+
   const {
     data: users,
     loading,
@@ -17,8 +19,7 @@ const AllUsers = () => {
     query,
     refetch,
     setQuery
-  } = useFetch<User[]>({ uri: "/api/users/get-users" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<User[]>({ uri: "/api/users/get-users", limit });
 
   const [selectedUser, setSelectedUser] = useState<User>();
   const [modalOpen, setModalOpen] = useState(false);

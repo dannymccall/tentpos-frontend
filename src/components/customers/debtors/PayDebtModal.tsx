@@ -41,7 +41,7 @@ export default function PayDebtModal({
  const { mutate: makePayment, isPending } = useApiMutation({
     url: `/api/payments`,
     method: "POST",
-    invalidateKey: "/api/payments",
+    invalidateKey: "/api/customers/debtors",
     onSuccessCallback: () => {
       
     },

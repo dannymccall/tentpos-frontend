@@ -26,7 +26,7 @@ export default function Tabs({
   defaultTab,
   onChange,
   className = "",
-  variant = "underline",
+  variant = "segmented",
 }: TabsProps) {
   const [active, setActive] = React.useState<string>(defaultTab ?? tabs[0]?.key);
   const listRef = React.useRef<HTMLDivElement | null>(null);
@@ -68,13 +68,13 @@ export default function Tabs({
     },
     pill: {
       trigger:
-        "rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-indigo-600 data-[state=active]:text-white text-slate-600 hover:bg-indigo-50",
+        "rounded-md px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-indigo-600 data-[state=active]:text-white text-slate-600 hover:bg-indigo-50",
       list: "bg-gray-50 p-2 rounded-full",
     },
     segmented: {
       trigger:
-        "flex-1 text-center rounded-md px-4 py-2 text-sm font-medium transition-all data-[state=active]:bg-indigo-600 data-[state=active]:text-white text-slate-600 hover:bg-slate-100",
-      list: "bg-gray-100 p-1 rounded-lg flex w-full",
+        "flex-1 text-center  px-4 py-2 text-sm font-medium transition-all data-[state=active]:bg-[#0f172b] data-[state=active]:text-white text-slate-600 hover:bg-slate-100",
+      list: "bg-white p-1  flex w-full",
     },
   };
 

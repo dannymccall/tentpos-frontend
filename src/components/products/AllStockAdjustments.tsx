@@ -7,6 +7,8 @@ import DataTableWrapper from "../DataTableWrapper";
 import type { Product } from "@/types/product.types";
 import StockAdjustmentsTable from "./StockAdjustments";
 const AllStockAdjustments = () => {
+    const [limit, setLimit] = useState<number>(10);
+
   const {
     data: adjustments,
     loading,
@@ -17,8 +19,7 @@ const AllStockAdjustments = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Product[]>({ uri: "/api/stock-adjustments/adjustments" });
-  const [limit, setLimit] = useState<number>(10);
+  } = useFetch<Product[]>({ uri: "/api/stock-adjustments/adjustments", limit });
 
 
   const { exportCSV } = useExportCSV();
