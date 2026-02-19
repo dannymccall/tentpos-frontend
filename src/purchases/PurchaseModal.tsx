@@ -1,20 +1,20 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import React from "react";
-
-import BaseModal from "@/components/BaseModal";
 import FormLoading from "@/components/loaders/FormLoading";
 import type { Purchase } from "@/types/purchase.types";
+import DialogModal from "@/components/Dialog";
+import { DialogTitle } from "@/components/ui/dialog";
 
 interface PurchaseProps {
-    purchase: Purchase,
-    isOpen: boolean;
-    onClose: () => void
+  purchase: Purchase;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const PurchaseModal: React.FC<PurchaseProps> = ({
   isOpen,
   onClose,
- purchase
+  purchase,
 }) => {
   if (!purchase) return null;
 
@@ -23,7 +23,7 @@ const PurchaseModal: React.FC<PurchaseProps> = ({
     method: "DELETE",
     invalidateKey: "/api/purchases",
     onSuccessCallback: () => {
-    //   onSuccess();
+      //   onSuccess();
     },
   });
 
@@ -33,13 +33,18 @@ const PurchaseModal: React.FC<PurchaseProps> = ({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={"Delete Purchase"}>
-
+    <DialogModal
+      open={isOpen}
+      setOpen={onClose}
+      title={
+        <DialogTitle className="text-center">{"Delete Purchase"}</DialogTitle>
+      }
+    >
       {purchase && (
         <div className="flex flex-col gap-4 items-center">
           <p className="">
-            Are you sure you want to delete the <strong>{purchase.receiptNumber}</strong>{" "}
-            purchase
+            Are you sure you want to delete the{" "}
+            <strong>{purchase.receiptNumber}</strong> purchase
           </p>
           <div className="flex gap-2">
             <button
@@ -54,7 +59,7 @@ const PurchaseModal: React.FC<PurchaseProps> = ({
           </div>
         </div>
       )}
-    </BaseModal>
+    </DialogModal>
   );
 };
 

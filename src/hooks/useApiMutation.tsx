@@ -22,7 +22,7 @@ export function useApiMutation({
 }: MutationOptions) {
   const queryClient = useQueryClient();
   const { showToast } = useNotification();
-  console.log({query})
+  // console.log({query})
   const mutation = useMutation({
     mutationFn: async (payload?: any) => {
       const data = payload ?? body;

@@ -1,7 +1,7 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 export async function makeRequest(url: string, options: RequestInit) {
   const sessionId = localStorage.getItem("tentpos:sessionId");
-  console.log({ sessionId });
+  // console.log({ sessionId });
   try {
     const response = await fetch(`${apiUrl}${url}`, {
       headers: {
