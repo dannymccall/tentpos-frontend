@@ -25,7 +25,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
   const { user, logout, businessProfile } = useAuth();
-  const apiUrl = import.meta.env.VITE_API_URL;
   const displayName = user?.username || user?.fullName?.split(" ")[0] || "User";
   const [notifications, _] = useState<Notification[]>([]);
   // const { socket, connected } = useSocket();
@@ -93,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
             >
               <Avatar className="w-8 h-8 border border-gray-200 shadow-sm">
                 <AvatarImage
-                  src={user?.avatar ? `${apiUrl}${user.avatar}` : undefined}
+                  src={user?.avatar}
                   alt={displayName}
                 />
                 <AvatarFallback>

@@ -28,6 +28,7 @@ const Auth = () => {
       `&appLogo=/app_icons/tentpos-blue.png`;
     window.location.assign(url);
     window.location.assign(url.toString());
+    setLoading(false);
   };
 
   return (
