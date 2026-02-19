@@ -52,6 +52,8 @@ const UserRow: React.FC<IUser> = ({
           <TableActions
             showView
             showEdit
+            viewPermission="settings.users.view"
+            editPermission="settings.users.update"
             // showDelete
             onView={() => navigate(`/operations/staff/staff-details?id=${user.id}`)}
             onEdit={() => onEdit(user)}

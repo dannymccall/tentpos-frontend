@@ -58,7 +58,7 @@ export default function TentPOSDashboard() {
     },
     refetchOnWindowFocus: false,
   });
-  console.log(data)
+  // console.log(data)
   if(!data) return
   const KPIS = [
   {

@@ -16,7 +16,6 @@ const AllSales = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -28,7 +27,7 @@ const AllSales = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
 
   const onSearch = (query: string) => {
     setQuery(query);
@@ -106,11 +105,11 @@ const AllSales = () => {
   };
 
   const onChangeCustomer = (id: number | "all") => {
-    console.log(id);
+    // console.log(id);
     setCustomerId(id);
     const params = new URLSearchParams();
     params.set("customerId", String(id!));
-    console.log(customerId);
+    // console.log(customerId);
     setAdditionQuery(params.toString());
   };
   return (

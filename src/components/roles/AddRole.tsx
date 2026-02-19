@@ -105,7 +105,7 @@ const AddRoleForm = ({
 
   const toggleCategory = (cat: PermissionCategory) => {
     const catPerms = cat.permissions;
-    console.log({catPerms})
+    // console.log({catPerms})
     const current = getValues("permissions") ?? [];
     const allSelected = catPerms.every((perm) =>
       current.some((c: any) => c.code_name === perm.code_name)

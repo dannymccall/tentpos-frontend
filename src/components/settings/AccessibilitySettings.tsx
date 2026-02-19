@@ -93,7 +93,7 @@ export default function AccessibilitySettings() {
       .get(`/api/role-data-scope?roleId=${selectedRole.id}`)
       .then((res) => {
         // normalize
-        console.log(res);
+        // console.log(res);
         const existing = res?.data ? res?.data.scopes : [];
         // ensure all entities exist in state
         const merged = ENTITIES.map((e) => ({
@@ -114,7 +114,7 @@ export default function AccessibilitySettings() {
 
   const save = async () => {
     if (!selectedRole) return showToast("Select a role first");
-    console.log(scopes);
+    // console.log(scopes);
     setLoading(true);
     const payload = { roleId: selectedRole.id, scopes };
     await api.post("/api/role-data-scope/update", payload);

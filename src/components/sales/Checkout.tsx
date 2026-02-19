@@ -72,7 +72,7 @@ export default function EcommerceCheckoutPage({
       amountPaid: amountPaid
     };
     setLoading(true)
-    console.log("Submitting Checkout:", payload);
+    // console.log("Submitting Checkout:", payload);
     handleSubmitCheckout(payload);
   };
 

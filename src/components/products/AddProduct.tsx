@@ -28,7 +28,7 @@ const AddProduct = () => {
     },
   });
   const onSubmit = async (formData: any) => {
-    console.log(formData.get("price"))
+    // console.log(formData.get("price"))
     productMutation.mutate(formData)
   };
   return (

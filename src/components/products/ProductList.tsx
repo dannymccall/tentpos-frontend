@@ -16,6 +16,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
 import StockAdjustmentModal from "./StockAdjustmentModal";
+import { PermissionGate } from "../PermissionGate";
 
 const ProductTable: React.FC<{ products: Product[] }> = ({ products }) => {
   const navigate = useNavigate();
@@ -105,9 +106,12 @@ const ProductTable: React.FC<{ products: Product[] }> = ({ products }) => {
                       )
                     }
                   />
+                  <PermissionGate code="inventory.adjustments.view">
+
                   <Button  variant={"secondary"} size={"icon"} onClick={() => {setStockModal(true), setProduct(product)}}>
                     <ArrowUpDown className="text-emerald-500"/>
                   </Button>
+                  </PermissionGate>
                 </div>
               </TableCell>
             </TableRow>

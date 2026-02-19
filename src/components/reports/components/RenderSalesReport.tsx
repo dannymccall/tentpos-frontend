@@ -3,7 +3,7 @@ import ReportTable from "./ReportTable";
 import { toCapitalized } from "@/lib/helperFunctions";
 
 const RenderReport = ({ status, data }: { status: string; data: any }) => {
-  console.log({ data, status });
+  // console.log({ data, status });
   const getReportType = () => {
     switch (status) {
       case "summary":

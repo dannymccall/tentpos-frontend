@@ -24,6 +24,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import api from "@/lib/api";
+import { SpinnerCustom } from "../loaders/Spinner";
 
 export interface MonthlyData {
   month: string;
@@ -62,9 +63,7 @@ export default function StaffDetails() {
 
   if (isLoading || !data) {
     return (
-      <div className="flex items-center justify-center h-[70vh]">
-        <span className="text-gray-500 text-lg">Loading staff details...</span>
-      </div>
+     <SpinnerCustom />
     );
   }
 

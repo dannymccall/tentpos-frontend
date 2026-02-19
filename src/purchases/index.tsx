@@ -21,7 +21,7 @@ const Purchases = () => {
    
   const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "suppliers.view");
   
-  console.log({isAllowed})
+  // console.log({isAllowed})
    if(!isAllowed) return <Unauthorized />
 
   return (

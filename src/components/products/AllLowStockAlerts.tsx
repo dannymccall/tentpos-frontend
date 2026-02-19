@@ -14,21 +14,20 @@ const AllLowStockAlerts = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
     setQuery,
   } = useFetch<ProductBranch[]>({ uri: "/api/products/fetch-low-stock-products" });
 
-  console.log({lowStock})
+  // console.log({lowStock})
 
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
 
 
   const onSearch = (query: string) => {

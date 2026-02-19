@@ -23,7 +23,7 @@ const Sales = () => {
    
   const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "sales.view");
   
-  console.log({isAllowed})
+  // console.log({isAllowed})
    if(!isAllowed) return <Unauthorized />
 
   return (

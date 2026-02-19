@@ -22,7 +22,6 @@ const ProductDetails: React.FC = () => {
       const res = await api.get<{ data: any }>(
         `/api/products/get-product?id=${productId}`
       );
-      console.log(res.data.collaterals);
       return res.data;
     },
     refetchOnWindowFocus: false,

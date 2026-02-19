@@ -34,7 +34,7 @@ export default function PayDebtModal({
   const [method, setMethod] = useState<string>("CASH");
 
   const handleSubmit = async () => {
-    console.log(amount, method, debtor.customerId);
+    // console.log(amount, method, debtor.customerId);
     makePayment({amount, method, customerId: debtor.customerId});
    
   };

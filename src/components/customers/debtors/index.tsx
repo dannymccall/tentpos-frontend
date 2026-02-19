@@ -20,7 +20,7 @@ const Debtors = () => {
     businessProfile?.appRole === "owner" ||
     hasPermission(permissions, "inventory.products.view");
 
-  console.log({ isAllowed });
+  // console.log({ isAllowed });
   if (!isAllowed) return <Unauthorized />;
 
   return (

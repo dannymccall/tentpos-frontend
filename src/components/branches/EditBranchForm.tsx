@@ -69,7 +69,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
   }, [branch, mode]);
   const onSubmit = async (data: Branch) => {
     setLoading(true);
-    console.log("Branch data:", data);
+    // console.log("Branch data:", data);
 
     try {
       const response = await makeRequest(

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import type { Role as RoleProps } from "../../../types/role.types";
 import { useNotification } from "../../../context/NotificationContext";
 import FormLoading from "../../loaders/FormLoading";
-import BaseModal from "@/components/BaseModal";
 import { makeRequest } from "@/lib/helperFunctions";
+import DialogModal from "@/components/Dialog";
+import { DialogTitle } from "@/components/ui/dialog";
 interface RoleModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -49,17 +50,18 @@ const RoleModal: React.FC<RoleModalProps> = ({
   };
 
   return (
-    <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
+    <DialogModal
+      open={isOpen}
+      setOpen={onClose}
       title={
-        mode === "view"
-          ? "View Role"
-          : mode === "edit"
-          ? "Edit Role"
-          : "Delete Role"
+        <DialogTitle>
+          {mode === "view"
+            ? "View Role"
+            : mode === "edit"
+              ? "Edit Role"
+              : "Delete Role"}
+        </DialogTitle>
       }
-      maxWidth="max-w-[700px]"
     >
       {/* {mode === "view" && <RoleForm role={role} mode={mode} />}
 
@@ -86,7 +88,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
           </div>
         </div>
       )}
-    </BaseModal>
+    </DialogModal>
   );
 };
 

@@ -10,7 +10,6 @@ const categorySchema = z.object({
   parentCategory: z.string().optional(),
 });
 
-
 type addCategory = z.infer<typeof categorySchema>;
 
 export default function AddCategory() {
@@ -30,12 +29,11 @@ export default function AddCategory() {
 
   return (
     <div className="flex justify-center p-4 mb-auto">
-   
-          <CategoryForm
-            mode="add"
-            loading={isPending}
-            onSubmit={(data) => categoryMutation(data)}
-          />
+      <CategoryForm
+        mode="add"
+        loading={isPending}
+        onSubmit={(data) => categoryMutation(data)}
+      />
     </div>
   );
 }

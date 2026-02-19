@@ -37,7 +37,7 @@ export default function POSAdvancedDashboard() {
     to: new Date(),
   });
   const [user, setUser] = React.useState<number>();
-  const [branch, setBranch] = React.useState<number>();
+  const [_, setBranch] = React.useState<number>();
   const { branches } = useFetchBranches();
   const { users } = useFetchUsers();
   const [status, setStatus] = useState<string>("all");
@@ -50,7 +50,7 @@ export default function POSAdvancedDashboard() {
   const dateFormat = (date?: Date | null) =>
     date ? date.toISOString().split("T")[0] : null;
   const onSubmit = async () => {
-    console.log(dateRange, user, branch, status);
+    // console.log(dateRange, user, branch, status);
     try {
       const payLoad = {
         startDate: dateFormat(dateRange?.from),
@@ -63,13 +63,13 @@ export default function POSAdvancedDashboard() {
       console.log(payLoad)
 
       const res = await api.post("/api/reports/sales", payLoad);
-      console.log(res.data);
+      // console.log(res.data);
       if (status === "error") {
         showToast(res.message, "error");
         setPending(false);
         return;
       }
-      console.log(res);
+      // console.log(res);
       if (!res.data) {
         showToast("No report available for this filter");
         setPending(false);

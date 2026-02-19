@@ -80,7 +80,7 @@ export default function SaleForm({
     message: "",
   });
 
-  console.log(defaultValues);
+  // console.log(defaultValues);
   const form = useForm<SaleFormValues>({
     resolver: zodResolver(saleSchema),
     defaultValues: {

@@ -58,7 +58,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
 
   const onSubmit = async (data: User) => {
     setLoading(true);
-    console.log({ ...data, role: selectedRoleId, id: selectedUser?.id });
+    // console.log({ ...data, role: selectedRoleId, id: selectedUser?.id });
     try {
       const response = await makeRequest(
         `/api/users/update-user`,

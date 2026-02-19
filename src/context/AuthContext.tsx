@@ -68,13 +68,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const fetchMe = async () => {
     try {
-      console.log(sessionId);
+      // console.log(sessionId);
       if (sessionId) {
         const response = await makeRequest(`/api/auth/me`, {
           method: "GET",
           credentials: "include",
         });
-        console.log({ response });
+        // console.log({ response });
         if (response.data.data) {
           setUser(response.data.data);
           setProfilePicture(response.data.avatar || "");

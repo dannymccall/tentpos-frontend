@@ -38,7 +38,7 @@ export function useFetch<T>({
         { method: "GET", cache: "no-store" },
       );
 
-      console.log(res.data.data);
+      // console.log(res.data.data);
 
       return mapResponse
         ? mapResponse(res.data.data)

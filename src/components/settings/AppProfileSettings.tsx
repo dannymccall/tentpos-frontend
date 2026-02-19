@@ -42,7 +42,7 @@ export default function AppProfileSettings() {
     refetchOnWindowFocus: false,
   });
 
-  console.log( data );
+  // console.log( data );
   const {showToast} = useNotification()
   const form = useForm<AppProfileForm>({
     defaultValues: {
@@ -56,7 +56,7 @@ export default function AppProfileSettings() {
     },
   });
 
-  console.log(data)
+  // console.log(data)
   const {reset, formState:{}, } = form;
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function AppProfileSettings() {
     setIsSaving(true);
     await new Promise((r) => setTimeout(r, 1200)); // simulate API delay
     setIsSaving(false);
-    console.log({logoPreview})
+    // console.log({logoPreview})
     const file = await blobToFile(logoPreview!, "logo");
 
     const settings = { ...data, logo: file };
@@ -105,7 +105,7 @@ export default function AppProfileSettings() {
       }
     });
 
-    console.log(formData.get("logo"));
+    // console.log(formData.get("logo"));
     profileMutation.mutate(formData);
     // toast.success("Profile updated successfully!");
   };

@@ -30,7 +30,7 @@ const PurchaseDetails: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(data)
+  // console.log(data)
 
   const { mutate: purchaseMutation, isPending } = useApiMutation({
     url: `/api/purchases/update?id=${purchaseId}`,

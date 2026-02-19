@@ -14,7 +14,6 @@ const AllUsers = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -31,16 +30,16 @@ const AllUsers = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
   const handleView = (user: User) => {
-    console.log(user);
+    // console.log(user);
     setSelectedUser(user);
     setModalMode("view");
     setModalOpen(true);
   };
 
   const handleEdit = (user: User) => {
-    console.log(user);
+    // console.log(user);
     setSelectedUser(user);
     setModalMode("edit");
     setModalOpen(true);

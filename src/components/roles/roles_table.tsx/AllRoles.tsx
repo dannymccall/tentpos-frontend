@@ -31,7 +31,7 @@ const AllRoles = () => {
     setPage(page);
   };
 
-  console.log({roles})
+  // console.log({roles})
 
   const handleView = (role: Role) => {
     setSelectedRole(role);
@@ -40,7 +40,7 @@ const AllRoles = () => {
   };
 
   const handleEdit = (role: Role) => {
-    console.log(role);
+    // console.log(role);
     setSelectedRole(role);
     setModalMode("edit");
     setModalOpen(true);

@@ -32,17 +32,17 @@ const AddSale = () => {
   // });
   const onSubmit = async (formData: any) => {
     const result = await salesMutation(formData);
-    console.log({ result });
+    // console.log({ result });
     return result.data.data;
   };
 
   const onClickCategory = (categoryId: number | "ALL") => {
-    console.log("Clicked category:", categoryId);
+    // console.log("Clicked category:", categoryId);
     setCategoryId(categoryId);
   };
 
   const onSearch = async (value: string) => {
-    console.log("Search query:", value);
+    // console.log("Search query:", value);
     setQuery(value);
     if (debouncedQuery && debouncedQuery.length > 2) {
       refetch();

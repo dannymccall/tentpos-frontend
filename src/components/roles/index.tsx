@@ -18,7 +18,7 @@ const Roles = () => {
    
   const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "settings.roles.view");
   
-  console.log({isAllowed})
+  // console.log({isAllowed})
    if(!isAllowed) return <Unauthorized />
 
   return (

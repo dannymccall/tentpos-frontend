@@ -55,6 +55,9 @@ const CustomerTable: React.FC<{ customers: Customer[] }> = ({ customers }) => {
                     showDelete
                     showEdit
                     showView
+                    viewPermission="customers.view"
+                    editPermission="customers.update"
+                    deletePermission="customers.delete"
                     onDelete={() => {setCustomer(customer); setIsOpen(true)}}
                     onView={() => navigate(`/customers/customer-details?customerId=${customer.id}`)}
                     onEdit={() => navigate(`/customers/customer-details?customerId=${customer.id}`)}

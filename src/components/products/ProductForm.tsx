@@ -111,7 +111,7 @@ export default function ProductForm({
   const { categories: cat } = useFetchCategories();
   const [qty, setQty] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
-  console.log({ cat });
+  // console.log({ cat });
   // Field arrays for tags and variants
   const {
     fields: tagFields,
@@ -212,7 +212,7 @@ export default function ProductForm({
   };
 
   const handleUpdate = (value: string) => {
-    console.log(value);
+    // console.log(value);
     const inventory = form.getValues("inventory");
     const newqty = Number(inventory! as any) + Number(value);
     form.setValue("inventory", String(newqty));

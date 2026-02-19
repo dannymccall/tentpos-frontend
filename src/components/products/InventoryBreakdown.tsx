@@ -27,13 +27,12 @@ const InventoryBreakdown = ({}) => {
       const res = await api.get<{ data: any }>(
         `/api/products/inventory-breakdown?id=${productId}`
       );
-      console.log(res.data.collaterals);
       return res.data;
     },
     refetchOnWindowFocus: false,
   });
 
-  console.log(data);
+  // console.log(data);
   if (isLoading) return <SpinnerCustom />;
   if (data.length === 0) return null;
 

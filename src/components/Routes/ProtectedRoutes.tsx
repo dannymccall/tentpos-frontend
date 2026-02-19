@@ -12,7 +12,7 @@ export function ProtectedRoute({
 }: ProtectedRouteProps) {
   const { user } = useAuth();
 
-  console.log({ user });
+  // console.log({ user });
   if (user === null) {
     return <Navigate to={redirectPath} replace />;
   }

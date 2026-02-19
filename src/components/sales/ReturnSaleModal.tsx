@@ -115,12 +115,12 @@ export default function ReturnSaleModal({
       refundMethod: data.refundMethod,
       note: data.note,
     };
-    console.log(payload);
+    // console.log(payload);
     if (payload.items.length === 0) return;
     returnSale(payload);
   };
 
-  console.log(sale);
+  // console.log(sale);
 
   if (!sale) return null;
 

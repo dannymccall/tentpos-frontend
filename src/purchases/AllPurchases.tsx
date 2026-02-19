@@ -12,7 +12,6 @@ const AllPurchases = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -26,7 +25,7 @@ const AllPurchases = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
 
 
   const onSearch = (query: string) => {

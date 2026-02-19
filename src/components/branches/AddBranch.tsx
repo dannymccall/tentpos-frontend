@@ -18,7 +18,7 @@ const AddBranch: React.FC = () => {
   const {users} = useFetchUsers()
   const {permissions, businessProfile} = useAuth();
 
-  console.log(users)
+  // console.log(users)
 
   const isAuthorized =hasPermission(permissions, "CREATE_BRANCH") || businessProfile?.appRole === "owner"
   const filteredManagers = useMemo(() => {
@@ -44,7 +44,7 @@ const { mutate: addBranch, isPending } = useApiMutation({
 
   const onSubmit = async (data: Branch) => {
    addBranch(data);
-  console.log(data)
+  // console.log(data)
   };
 
   if(!isAuthorized) return <Unauthorized />

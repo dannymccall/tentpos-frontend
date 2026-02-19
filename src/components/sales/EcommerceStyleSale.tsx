@@ -36,7 +36,7 @@ export default function AddSalePage({
   const { categories } = useFetchCategories();
   const [scrolled, setScrolled] = useState<boolean>(false);
 
-  console.log("Products:", products);
+  // console.log("Products:", products);
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const exists = prev.find((p) => p.productId === product.id);

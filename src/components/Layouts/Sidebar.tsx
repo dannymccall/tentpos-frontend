@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
   const { settings, permissions, businessProfile, logout, user } = useAuth();
 
-  console.log({ permissions });
+  // console.log({ permissions });
   // Simulated API call for badges
   useEffect(() => {
     let interval;

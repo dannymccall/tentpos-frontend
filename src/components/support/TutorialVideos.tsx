@@ -12,7 +12,7 @@ const TutorialVideos = () => {
       const res = await api.get<{ data: TutorialVideoProps[] }>(
         `/api/tutorial/videos`,
       );
-      console.log(res);
+      // console.log(res);
       return res.data;
     },
     refetchOnWindowFocus: false,

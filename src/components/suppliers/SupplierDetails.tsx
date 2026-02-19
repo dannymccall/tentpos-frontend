@@ -21,7 +21,6 @@ const SupplierDetails: React.FC = () => {
       const res = await api.get<{ data: any }>(
         `/api/suppliers/get-supplier?id=${supplierId}`
       );
-      console.log(res.data.collaterals);
       return res.data;
     },
     refetchOnWindowFocus: false,

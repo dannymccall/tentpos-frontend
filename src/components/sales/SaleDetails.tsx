@@ -30,7 +30,7 @@ const SaleDetails: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(data)
+  // console.log(data)
 
   const { mutate: cancelSale, isPending } = useApiMutation({
     

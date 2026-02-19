@@ -26,7 +26,7 @@ const AllBranches = () => {
     refetch,
   } = useFetch<Branch[]>({ uri: "/api/branches/get-branches", limit });
 
-  console.log(branches);
+  // console.log(branches);
   const onPageChange = (page: number) => {
     setPage(page);
   };

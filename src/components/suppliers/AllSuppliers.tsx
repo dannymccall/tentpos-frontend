@@ -13,7 +13,6 @@ const AllSuppliers = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -26,7 +25,7 @@ const AllSuppliers = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
 
 
   const onSearch = (query: string) => {

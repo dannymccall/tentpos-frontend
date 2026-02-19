@@ -27,7 +27,7 @@ export function useApiMutation({
     mutationFn: async (payload?: any) => {
       const data = payload ?? body;
       const endpoint = query ? `${url}?${query}` : url;
-      console.log({endpoint})
+      // console.log({endpoint})
       const requestBody =
         method !== "GET"
           ? data instanceof FormData

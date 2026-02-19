@@ -13,7 +13,7 @@ const QuickSale = () => {
   });
   const onSubmit = async (formData: any) => {
    const result = await  salesMutation(formData);
-   console.log({result})
+  //  console.log({result})
    return result.data.data
   };
   return (

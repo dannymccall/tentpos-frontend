@@ -56,6 +56,9 @@ const SupplierTable: React.FC<{ suppliers: Supplier[] }> = ({ suppliers }) => {
                     showDelete
                     showEdit
                     showView
+                    viewPermission="suppliers.view"
+                    editPermission="suppliers.update"
+                    deletePermission="suppliers.delete"
                     onDelete={() => {setSupplier(supplier); setIsOpen(true)}}
                     onView={() => navigate(`/suppliers/supplier-details?supplierId=${supplier.id}`)}
                     onEdit={() => navigate(`/suppliers/supplier-details?supplierId=${supplier.id}`)}

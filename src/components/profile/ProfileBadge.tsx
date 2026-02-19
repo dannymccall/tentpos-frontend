@@ -8,7 +8,7 @@ interface ProfileBadgeProps {
 const ProfileBadge: React.FC<ProfileBadgeProps> = ({ branch, role }) => {
   const isComplete = Boolean(branch && role);
 
-  console.log({isComplete})
+  // console.log({isComplete})
   return (
     <div
       className={`ml-4 inline-flex items-center justify-center text-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${

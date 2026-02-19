@@ -18,6 +18,7 @@ import SaleModal from "./SaleModal";
 import { Undo2, X } from "lucide-react";
 import ReturnSaleModal from "./ReturnSaleModal";
 import { Badge } from "../ui/badge";
+import { PermissionGate } from "../PermissionGate";
 const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
   const navigate = useNavigate();
   const [sale, setSale] = useState<Sale | null>();
@@ -92,7 +93,8 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
                   />
                   {sale.status !== "CANCELLED" && sale.status !== "RETURN" && (
                    <>
-                   
+                   <PermissionGate code="sales.refund">
+
                    <Button
                       size={"sm"}
                       variant={"secondary"}
@@ -103,6 +105,9 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
                     >
                       <X className="text-red-500" />
                     </Button>
+                   </PermissionGate>
+                   <PermissionGate code="sales.refund">
+
                     <Button
                       size={"sm"}
                       variant={"secondary"}
@@ -113,6 +118,7 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
                     >
                       <Undo2 className="text-amber-500" />
                     </Button>
+                   </PermissionGate>
                    </>
                   )}
             

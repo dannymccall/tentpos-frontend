@@ -15,7 +15,6 @@ const AllCategories = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -32,16 +31,16 @@ const AllCategories = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
   const handleView = (user: Category) => {
-    console.log(user);
+    // console.log(user);
     setSelectedCategory(user);
     setModalMode("view");
     setModalOpen(true);
   };
 
   const handleEdit = (user: Category) => {
-    console.log(user);
+    // console.log(user);
     setSelectedCategory(user);
     setModalMode("edit");
     setModalOpen(true);

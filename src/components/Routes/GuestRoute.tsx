@@ -10,7 +10,7 @@ export function GuestRoute({
   redirectPath = "/dashboard",
 }: GuestRouteProps) {
   const { user } = useAuth();
-  console.log({ user });
+  // console.log({ user });
   if (user) {
     // Logged in users should NOT access guest routes, redirect them
     return <Navigate to={redirectPath} />;

@@ -66,7 +66,7 @@ export default function UserDetails() {
   });
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log({ data });
+  // console.log({ data });
   if(!data) return null
 
   const { user, recentSales, stats, monthlySales } = data!;

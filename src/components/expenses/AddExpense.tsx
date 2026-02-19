@@ -94,7 +94,7 @@ export default function ExpenseCreation({
     data: ExpenseFormData,
     submitType: "update" | "new"
   ) => {
-    console.log({ data, submitType });
+    // console.log({ data, submitType });
     if (submitType === "new") {
       // ignore expense id and submit as new
       createExpense({ ...data, id: undefined });

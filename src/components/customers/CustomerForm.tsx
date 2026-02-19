@@ -45,7 +45,7 @@ export default function CustomerForm({
   });
 
   const submit = async (vals: CustomerFormValues) => {
-    console.log(vals)
+    // console.log(vals)
     await onSubmit({
       ...vals,
       creditLimit: vals.creditLimit ? parseFloat(vals.creditLimit) : 0,
