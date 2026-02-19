@@ -213,7 +213,7 @@ export default function SaleForm({
 
   const handleSubmitSale = async (vals: SaleFormValues, type: SubmitType) => {
     setError({ isError: false, message: "" });
-    console.log({type})
+    // console.log({type})
     const saleItems = vals.items.map((it) => ({
       productId: Number(it.productId),
       quantity: Number(it.quantity),

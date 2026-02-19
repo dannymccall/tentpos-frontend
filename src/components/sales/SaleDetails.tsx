@@ -49,8 +49,8 @@ const SaleDetails: React.FC = () => {
   });
 
   const onSubmit = async (formData: any) => {
-    console.log(saleId)
-    console.log(formData)
+    // console.log(saleId)
+    // console.log(formData)
     if(data.status === "HOLD"){
       const result = await completeHoldSale({...formData, id: data.id});
     return result.data.data;

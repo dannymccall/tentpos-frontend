@@ -13,7 +13,6 @@ const SalesOnHold = () => {
     loading,
     totalPages,
     currentPage,
-    hasLoaded,
     setPage,
     query,
     refetch,
@@ -29,7 +28,7 @@ const SalesOnHold = () => {
   const onPageChange = (page: number) => {
     setPage(page);
   };
-  console.log(loading, hasLoaded);
+  // console.log(loading, hasLoaded);
 
   const onSearch = (query: string) => {
     setQuery(query);
