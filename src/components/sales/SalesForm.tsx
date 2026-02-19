@@ -221,7 +221,7 @@ export default function SaleForm({
       total: Number(it.total || 0),
     }));
 
-    console.log("saleItems: ", saleItems)
+    // console.log("saleItems: ", saleItems)
     const subtotal = saleItems.reduce(
       (s, it) => s + (it.total || it.price * it.quantity),
       0,
