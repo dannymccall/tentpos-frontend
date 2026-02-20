@@ -10,6 +10,9 @@ const Auth = () => {
   const SIGNUP_REDIRECT = import.meta.env.VITE_SIGNUP_REDIRECT;
   const BASENAME = import.meta.env.VITE_BASENAME;
 
+  const VITE_ENVIRONMENT = import.meta.env.VITE_ENVIROMENT;
+
+  const basename = VITE_ENVIRONMENT !== "development" ? "" : BASENAME
   const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
@@ -46,7 +49,7 @@ const Auth = () => {
 
               <div className="bg-indigo-300 p-4 rounded-full">
                 <img
-                  src={`${BASENAME}/app_icons/tentpos-blue.png`}
+                  src={`${basename}/app_icons/tentpos-blue.png`}
                   alt="TentPOS Logo"
                   className="w-16 h-16"
                 />
