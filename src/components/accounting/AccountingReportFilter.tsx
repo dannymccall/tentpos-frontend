@@ -39,10 +39,7 @@ export default function AccountingReportFilter({
   onGenerate,
   loading,
 }: Props) {
-  const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
-  });
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [branch, setBranch] = useState<number>();
   const { branches } = useFetchBranches();
 

@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-
+import { useNavigate } from "react-router-dom";
 /**
  * TentCore FAQ Page
  * - Self-contained, single-file React component (TypeScript/TSX)
@@ -34,14 +34,14 @@ const FAQ_DATA: FaqItem[] = [
     id: "pos-login",
     question: "How do I log in to TentPOS?",
     answer:
-      "Use the credentials provided by your admin or the App Center. If you forget your password, click 'Forgot password' on the login page or ask your admin to reset it.",
+      "Use the credentials provided by your admin or the App Center. If you forget your password, click 'Forgot password' on the login page.",
     group: "Product Basics",
   },
   {
     id: "pos-roles",
     question: "Can I create staff accounts with limited permissions?",
     answer:
-      "Yes. Go to Settings → Users & Roles. You can create cashiers, supervisors, or managers and restrict access to sensitive features like reports or refunds.",
+      "Yes. Go to Settings → Users & Roles. You can't create staff account on TentPOS, but you can create cashiers, supervisors, or managers and restrict access to sensitive features like reports or refunds.",
     group: "Product Basics",
   },
 
@@ -57,23 +57,23 @@ const FAQ_DATA: FaqItem[] = [
     id: "pos-stock-update",
     question: "How do I update stock levels?",
     answer:
-      "Use Inventory → Stock Adjustment or record a purchase under Purchases & Supply. Avoid manual edits unless correcting mistakes to keep reports accurate.",
+      "Use Inventory → Stock Adjustment. Avoid manual edits unless correcting mistakes to keep reports accurate.",
     group: "Products & Inventory",
   },
   {
     id: "pos-low-stock",
     question: "How do I know when stock is low?",
     answer:
-      "Enable low-stock alerts in Settings. TentPOS will highlight products that fall below the minimum quantity so you can restock early.",
+      "TentPOS will highlight products that fall below the minimum quantity so you can restock early.",
     group: "Products & Inventory",
   },
-  {
-    id: "pos-barcode",
-    question: "Can I use barcodes or scanners?",
-    answer:
-      "Yes. TentPOS supports barcode scanners. Simply scan the product barcode during checkout to add it instantly to the cart.",
-    group: "Products & Inventory",
-  },
+  // {
+  //   id: "pos-barcode",
+  //   question: "Can I use barcodes or scanners?",
+  //   answer:
+  //     "Yes. TentPOS supports barcode scanners. Simply scan the product barcode during checkout to add it instantly to the cart.",
+  //   group: "Products & Inventory",
+  // },
 
   // SALES & CHECKOUT
   {
@@ -87,7 +87,7 @@ const FAQ_DATA: FaqItem[] = [
     id: "pos-discount",
     question: "How do I apply discounts?",
     answer:
-      "You can apply discounts per item or on the entire cart. Select the item or cart total and enter the discount value or percentage before checkout.",
+      "You can apply discounts on the entire cart. Select the cart total and enter the discount value  before checkout.",
     group: "Sales & Checkout",
   },
   {
@@ -133,7 +133,7 @@ const FAQ_DATA: FaqItem[] = [
     id: "pos-sales-report",
     question: "Where can I see daily or monthly sales reports?",
     answer:
-      "Go to Reports → Sales Reports. Filter by date range, cashier, or branch to analyze performance.",
+      "Go to Reports → (Sales Reports, Purchases Report Inventory Reports, Daily Summary). Filter by date range, cashier, or branch to analyze performance.",
     group: "Reports",
   },
   {
@@ -156,25 +156,25 @@ const FAQ_DATA: FaqItem[] = [
     id: "pos-payment-methods",
     question: "What payment methods are supported?",
     answer:
-      "TentPOS supports cash, mobile money, cards, and custom payment types. Integrations may vary depending on your region and provider setup.",
+      "TentPOS supports cash, has mobile money payments but not an automation, it is just for reporting",
     group: "Payments",
   },
-  {
-    id: "pos-payment-failed",
-    question: "Why did a mobile money or card payment fail?",
-    answer:
-      "Failures may be caused by insufficient funds, provider downtime, or network issues. Retry the transaction or verify the provider status.",
-    group: "Payments",
-  },
+  // {
+  //   id: "pos-payment-failed",
+  //   question: "Why did a mobile money or card payment fail?",
+  //   answer:
+  //     "Failures may be caused by insufficient funds, provider downtime, or network issues. Retry the transaction or verify the provider status.",
+  //   group: "Payments",
+  // },
 
   // TECHNICAL
-  {
-    id: "pos-offline",
-    question: "Can TentPOS work offline?",
-    answer:
-      "Some features may work offline temporarily, but an internet connection is required to sync sales and ensure accurate reporting.",
-    group: "Technical & Usage",
-  },
+  // {
+  //   id: "pos-offline",
+  //   question: "Can TentPOS work offline?",
+  //   answer:
+  //     "Some features may work offline temporarily, but an internet connection is required to sync sales and ensure accurate reporting.",
+  //   group: "Technical & Usage",
+  // },
   {
     id: "pos-slow",
     question: "What should I do if the POS becomes slow?",
@@ -204,7 +204,7 @@ const GROUP_ORDER = [
 
 export default function TentPOSFAQ() {
   const [query, setQuery] = useState("");
-
+  const navigate = useNavigate()
   const filtered = FAQ_DATA.filter((f) => {
     if (!query) return true;
     const q = query.toLowerCase();
@@ -275,8 +275,8 @@ export default function TentPOSFAQ() {
         </div>
         <div className="flex gap-2">
           {/* Replace the href / onClick with your app's ticket modal or route */}
-          <Button variant="ghost" onClick={() => window?.location?.assign("/support/tickets?query=add_ticket")}>Open Support</Button>
-          <Button onClick={() => window?.location?.assign("/docs")}>View Docs</Button>
+          <Button variant="outline" onClick={() => navigate("/support/tickets?query=add_ticket")}>Open Support</Button>
+          {/* <Button onClick={() => navigate("/docs")}>View Docs</Button> */}
         </div>
       </div>
     </div>
