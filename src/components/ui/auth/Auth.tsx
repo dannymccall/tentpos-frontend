@@ -10,7 +10,7 @@ const Auth = () => {
   const SIGNUP_REDIRECT = import.meta.env.VITE_SIGNUP_REDIRECT;
   const BASENAME = import.meta.env.VITE_BASENAME;
 
-  const VITE_ENVIRONMENT = import.meta.env.VITE_ENVIROMENT;
+  const VITE_ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT;
 
   const basename = VITE_ENVIRONMENT !== "development" ? "" : BASENAME
   const [loading, setLoading] = useState(false);

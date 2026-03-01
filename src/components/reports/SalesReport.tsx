@@ -32,10 +32,7 @@ import { useNotification } from "@/context/NotificationContext";
 import RenderReport from "./components/RenderSalesReport";
 import FormLoading from "../loaders/FormLoading";
 export default function POSAdvancedDashboard() {
-  const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
-  });
+  const [dateRange, setDateRange] = React.useState<DateRange | undefined>();
   const [user, setUser] = React.useState<number>();
   const [_, setBranch] = React.useState<number>();
   const { branches } = useFetchBranches();
