@@ -15,7 +15,7 @@ const Invoices: React.FC = () => {
   
       const {permissions, businessProfile} = useAuth();
      
-    const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "inventory.products.view");
+    const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "sales.view");
     if(!isAllowed) return <Unauthorized />
 
   return (
@@ -33,7 +33,7 @@ const Invoices: React.FC = () => {
           label: "Invoices",
           icon: <Receipt className="text-[#8a76f9]" />,
           panel: <AllInvoices />,
-          code: "inventory.categories.view",
+          code: "sales.view",
         },
       ]}
     />

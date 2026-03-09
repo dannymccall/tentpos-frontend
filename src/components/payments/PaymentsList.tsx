@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 
 import type { PaymentProps } from "@/types/payment.type";
+import { toCapitalized } from "@/lib/helperFunctions";
 
 const Payments: React.FC<PaymentProps> = ({ payments }) => {
   return (
@@ -38,7 +39,7 @@ const Payments: React.FC<PaymentProps> = ({ payments }) => {
               </TableCell>
 
               <TableCell>{payment.amount}</TableCell>
-              <TableCell>{payment.method}</TableCell>
+              <TableCell>{toCapitalized(payment.method) }</TableCell>
               <TableCell>{payment.description}</TableCell>
               <TableCell>{payment.branchPayment.name}</TableCell>
               <TableCell>{payment.userPayment.fullName}</TableCell>
