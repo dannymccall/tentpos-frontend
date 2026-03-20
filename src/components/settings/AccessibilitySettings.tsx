@@ -20,7 +20,6 @@ export const ENTITIES = [
 
   // Sales
   "sales",
-  "orders",
   "returns",
   "discounts",
   "holdBills",
@@ -38,7 +37,7 @@ export const ENTITIES = [
   // Customers
   "customers",
   "debtors",
-
+  "payments",
   // Expenses
   "expenses",
   "expenseCategories",
@@ -59,7 +58,6 @@ export const ENTITIES = [
   "ledgers",
   "financialStatements",
   "tickets",
-  "settings",
 ];
 
 export const SCOPES = [
@@ -119,7 +117,7 @@ export default function AccessibilitySettings() {
     const payload = { roleId: selectedRole.id, scopes };
     await api.post("/api/role-data-scope/update", payload);
     setLoading(false);
-    showToast("Saved");
+    showToast("Saved", "success");
   };
 
   return (

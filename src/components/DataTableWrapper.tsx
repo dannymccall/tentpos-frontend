@@ -45,7 +45,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
   query,
   onSearch,
   handleOnSelect,
-  title,
+  // title,
   children,
   loading,
   onRefresh,
@@ -71,10 +71,13 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
           <CardHeader className="border-b bg-slate-900 rounded-md text-white flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 py-6">
             {/* Title Section */}
             <div>
-              <CardTitle className="text-2xl font-semibold">{title}</CardTitle>
-              <div className="text-sm text-slate-300 mt-1">
+              <CardTitle className="text-base font-semibold">
+                {" "}
                 Manage and review data efficiently
-              </div>
+              </CardTitle>
+              {/* <div className="text-sm text-slate-300 mt-1">
+                Manage and review data efficiently
+              </div> */}
             </div>
 
             {/* Controls */}
