@@ -5,35 +5,36 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import { Button } from "@/components/ui/button";
+
 interface DialogProps {
   title?: React.ReactNode;
   children?: React.ReactNode;
   actionChildren?: React.ReactNode;
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  size?: string
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  size?: string;
 }
+
 const DialogModal: React.FC<DialogProps> = ({
   title,
   children,
   actionChildren,
   open,
   setOpen,
-  size = "sm:max-w-[600px]"
+  size = "sm:max-w-sm",
 }) => {
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{actionChildren && actionChildren}</DialogTrigger>
+    <div className="max-w-sm w-full ">
 
-      <DialogContent className={`${size}`}>
-        <DialogHeader>
-          {title && title}
-        </DialogHeader>
+    <Dialog open={open} onOpenChange={setOpen}>
+      {actionChildren && <DialogTrigger asChild>{actionChildren}</DialogTrigger>}
+
+      <DialogContent className={`w-full ${size} px-4`}>
+        {title && <DialogHeader>{title}</DialogHeader>}
         {children}
       </DialogContent>
     </Dialog>
+    </div>
   );
 };
 

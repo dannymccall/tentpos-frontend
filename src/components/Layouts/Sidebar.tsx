@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 // import type { RootState } from "../redux/store";
 // import type { SidebarProps } from "../../types/sidebar.types";
 
-const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
   const pathname = location.pathname;
   const navigate = useNavigate();
 
@@ -63,10 +63,10 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
   return (
     <aside
       className={`fixed top-0 left-0 h-full bg-[#0f172b] text-white transition-all duration-300 z-40
-      ${isOpen ? "w-64" : "w-20"} shadow-lg flex flex-col`}
+      ${isOpen ? "w-64" : "w-0"} shadow-lg flex flex-col`}
     >
       {/* Header */}
-      <div className="flex items-center justify-center px-4 py-5 border-b border-gray-700">
+      <div className={`${isOpen ? "flex" : "hidden"}  items-center justify-between px-4 py-5 gap-3 border-b border-gray-700`}>
         <div
           className={`flex flex-col items-center justify-center space-y-1 ${
             isOpen ? "bg-[#152242] px-12" : ""
@@ -137,7 +137,11 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                         ) {
                           logout();
                         } else if (item.path) {
-                          navigate(item.path);
+                          setIsOpen(false);
+                          setTimeout(() => {
+
+                            navigate(item.path as any);
+                          },1)
                         }
                       }}
                       className={`w-full flex items-center rounded-md hover:bg-gray-800 transition-colors duration-200
@@ -188,7 +192,14 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen }) => {
                             {canView(sub.code!) && (
                               <>
                                 <div
-                                  onClick={() => navigate(sub.path!)}
+                                  onClick={() =>  {
+                                      setIsOpen(false);
+                                      setTimeout(() => {
+                                        
+                                        navigate(sub.path!)
+                                      },1)
+
+                                    }}
                                   className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
                                     subActive
                                       ? "bg-[#0f172b] text-white"
@@ -241,6 +252,7 @@ export interface SidebarSection {
 interface SidebarProps {
   items: SidebarSection[];
   isOpen: boolean;
+  setIsOpen:  React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default Sidebar;

@@ -3,8 +3,10 @@ import { useNotification } from "../../context/NotificationContext";
 import EditBranchForm from "./EditBranchForm";
 import type { Branch } from "../../types/branch.type";
 import FormLoading from "../loaders/FormLoading";
-import BaseModal from "../BaseModal";
+// import BaseModal from "../BaseModal";
 import { makeRequest } from "@/lib/helperFunctions";
+import DialogModal from "../Dialog";
+import { DialogTitle } from "../ui/dialog";
 interface BranchModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -21,7 +23,7 @@ const BranchModal: React.FC<BranchModalProps> = ({
   branch,
   mode,
   onDelete,
-  onSuccess
+  onSuccess,
 }) => {
   if (!branch) return null;
   const [loading, setLoading] = useState(false);
@@ -42,7 +44,7 @@ const BranchModal: React.FC<BranchModalProps> = ({
 
       showToast(response.message!, "success");
       setLoading(false);
-      onSuccess()
+      onSuccess();
     } catch (error: any) {
       showToast(error.message);
       setLoading(false);
@@ -52,20 +54,26 @@ const BranchModal: React.FC<BranchModalProps> = ({
   };
 
   return (
-    <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
+    <DialogModal
+      open={isOpen}
+      setOpen={onClose}
       title={
-        mode === "view"
-          ? "View Role"
-          : mode === "edit"
-          ? "Edit Role"
-          : "Delete Role"
+        <DialogTitle>
+          {mode === "view"
+            ? "View Branch"
+            : mode === "edit"
+              ? "Edit Branch"
+              : "Delete Branch"}
+        </DialogTitle>
       }
     >
-      {mode === "view" && <EditBranchForm branch={branch} mode={mode} onSuccess={onSuccess}/>}
+      {mode === "view" && (
+        <EditBranchForm branch={branch} mode={mode} onSuccess={onSuccess} />
+      )}
 
-      {mode === "edit" && <EditBranchForm branch={branch} mode={mode} onSuccess={onSuccess}/>}
+      {mode === "edit" && (
+        <EditBranchForm branch={branch} mode={mode} onSuccess={onSuccess} />
+      )}
 
       {mode === "delete" && (
         <div className="flex flex-col gap-4 items-center">
@@ -80,13 +88,16 @@ const BranchModal: React.FC<BranchModalProps> = ({
             >
               {loading ? <FormLoading /> : "Delete"}
             </button>
-            <button onClick={onClose} className="bg-gray-300 cursor-pointer px-4 py-2 rounded">
+            <button
+              onClick={onClose}
+              className="bg-gray-300 cursor-pointer px-4 py-2 rounded"
+            >
               Cancel
             </button>
           </div>
         </div>
       )}
-    </BaseModal>
+    </DialogModal>
   );
 };
 

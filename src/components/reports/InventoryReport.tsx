@@ -39,8 +39,8 @@ import RenderInventoryReport from "./components/RenderInventoryReport";
 
 export default function InventoryReportDashboard() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
+    from: undefined,
+    to: undefined,
   });
 
   const [branch, setBranch] = useState<number>();
@@ -91,9 +91,7 @@ export default function InventoryReportDashboard() {
       {/* HEADER & FILTERS */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6 rounded-xl border shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Inventory Report
-          </h1>
+         
           <p className="text-sm text-muted-foreground">
             Track stock levels, movements, and valuation
           </p>
@@ -106,13 +104,13 @@ export default function InventoryReportDashboard() {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-60 justify-start text-left font-normal",
+                  "md:w-40 w-full justify-start text-left font-normal",
                   !dateRange && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {dateRange
-                  ? `${formatDate(dateRange.from!)} - ${formatDate(
+                {(dateRange?.from || dateRange?.to )
+                   ? `${formatDate(dateRange?.from! )} - ${formatDate(
                       dateRange.to!
                     )}`
                   : "Pick a date range"}
@@ -130,7 +128,7 @@ export default function InventoryReportDashboard() {
 
           {/* Branch */}
           <Select onValueChange={(v) => setBranch(Number(v))}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="md:w-40 w-full">
               <Store className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="All Branches" />
             </SelectTrigger>
@@ -146,7 +144,7 @@ export default function InventoryReportDashboard() {
 
           {/* Product */}
           <Select onValueChange={(v) => setProduct(Number(v))}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="md:w-40 w-full">
               <Boxes className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="All Products" />
             </SelectTrigger>
@@ -161,7 +159,7 @@ export default function InventoryReportDashboard() {
           </Select>
 
           <Select onValueChange={(v) => setCategory(Number(v))}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="md:w-40 w-full">
               <FaTags className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="All Categories" />
             </SelectTrigger>
@@ -183,7 +181,7 @@ export default function InventoryReportDashboard() {
               setData(null);
             }}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="md:w-40 w-full">
               <Activity className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="Report Type" />
             </SelectTrigger>
@@ -202,7 +200,7 @@ export default function InventoryReportDashboard() {
       </div>
 
       {/* DATA AREA */}
-      <div className="grid gap-6">
+      <div className="grid gap-6 w-full overflow-x-auto">
         <Card className="min-h-[400px] flex border-dashed">
           {data ? (
             <RenderInventoryReport

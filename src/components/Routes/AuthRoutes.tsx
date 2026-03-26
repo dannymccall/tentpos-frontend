@@ -344,7 +344,7 @@ export default function AuthRoutes() {
         <Route
         path="/reports/inventory"
         element={
-          <DashboardLayout title="Sales Report">
+          <DashboardLayout title="Inventory Report">
             <ProtectedRoute>
               <InventoryReportDashboard />
             </ProtectedRoute>

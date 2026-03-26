@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Sidebar, { type SidebarSection } from "./Sidebar";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
@@ -443,20 +443,42 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
+   const [width, setWidth] = useState(0);
+
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+
+   useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      console.log(w)
+      setWidth(w);
+
+      if (w < 768) {
+        console.log("below")
+        setIsSidebarOpen(false); // phone → hide sidebar
+      }else{
+        setIsSidebarOpen(true)
+      }
+    };
+
+    handleResize(); // run once
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="flex h-full w-screen bg-[#f1f5f5]">
-      <Sidebar items={defaultSidebarItems} isOpen={isSidebarOpen} />
+      <Sidebar items={defaultSidebarItems} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen}/>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-col w-full">
         <Header
           toggleSidebar={toggleSidebar}
           title={title}
           className={`fixed top-0 h-16 transition-all duration-300 z-50 ${
             isSidebarOpen
               ? "ml-64 w-[calc(100%-16rem)]"
-              : "ml-24 w-[calc(100%-4rem)]"
+              : "w-full"
           }`}
         />
 
@@ -464,10 +486,20 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           className={`transition-all duration-300 pt-16 min-h-screen ${
             isSidebarOpen
               ? "ml-64 w-[calc(100%-16rem)]"
-              : "ml-16 w-[calc(100%-4rem)]"
+              : "w-full"
           }`}
         >
-          {children}
+          {isSidebarOpen && width < 768 ? (
+            <div className="flex flex-col items-center justify-center h-[80vh] text-gray-500">
+              <div className="text-5xl mb-4">📂</div>
+              <p className="text-lg font-medium">Nothing selected</p>
+              <p className="text-sm text-gray-400">
+                Choose an item from the sidebar to get started
+              </p>
+            </div>
+          ) : (
+            children
+          )}
         </main>
       </div>
     </div>

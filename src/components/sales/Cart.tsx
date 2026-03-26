@@ -1,9 +1,10 @@
-import  { useState, useRef,  } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import {  Undo2, X } from "lucide-react";
+import { Undo2, X } from "lucide-react";
 import type { CartProps } from "@/types/sale.types";
 import CartContent from "./CartContent";
 import EcommerceCheckoutPage from "./Checkout";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface CartPropsExtended extends CartProps {
   handleSubmitCheckout: (data: any) => Promise<any> | any;
@@ -35,7 +36,7 @@ export default function Cart({
   // }, [cartRef]);
   const subTotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
-    0
+    0,
   );
   const renderCartItems = () => {
     if (cart.length === 0) {
@@ -61,11 +62,13 @@ export default function Cart({
         );
       case "checkout":
         return (
-          <EcommerceCheckoutPage
-            handleSubmitCheckout={handleSubmitCheckout}
-            cartItems={cart}
-            customer={{}}
-          />
+          <ScrollArea className=" rounded-md border border-gray-200 p-4">
+            <EcommerceCheckoutPage
+              handleSubmitCheckout={handleSubmitCheckout}
+              cartItems={cart}
+              customer={{}}
+            />
+          </ScrollArea>
         );
       default:
         return null;
@@ -78,7 +81,7 @@ export default function Cart({
 
       {/* Dropdown Cart */}
       <div
-        className={`absolute right-0 mt-2 w-96 bg-white border rounded-lg shadow-lg transition-all duration-300 transform origin-top ${
+        className={`absolute max-h-[400px] overflow-y-auto -right-5 md:right-0   w-96 bg-white border rounded-lg shadow-lg transition-all duration-300  transform origin-top ${
           open
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95 pointer-events-none"

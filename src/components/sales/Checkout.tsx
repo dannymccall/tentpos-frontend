@@ -77,8 +77,9 @@ export default function EcommerceCheckoutPage({
   };
 
   return (
-    <div className=" w-full mt-6">
+    <div className="  mt-6 min-h-full overflow-y-auto">
      
+     <div className="overflow-y-auto min-h-full">
       {/* LEFT SECTION */}
       <div className="space-y-6">
 
@@ -180,6 +181,8 @@ export default function EcommerceCheckoutPage({
           {loading ? "Processing..." : "Complete Checkout"}
         </Button>
       </div>
+
+     </div>
     </div>
   );
 }
