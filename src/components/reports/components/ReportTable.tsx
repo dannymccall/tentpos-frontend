@@ -91,7 +91,9 @@ export default function ReportTable<T extends Record<string, any>>({
   };
 
   return (
-    <Card className="rounded-2xl shadow-none w-full border-none mb-0">
+    <div className="w-full overflow-x-auto">
+
+    <Card className="rounded-2xl shadow-none w-full border-none mb-0 overflow-x-auto">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
 
@@ -109,7 +111,8 @@ export default function ReportTable<T extends Record<string, any>>({
         </DropdownMenu>
       </CardHeader>
 
-      <CardContent className="overflow-x-auto">
+      <CardContent className="overflow-x-auto w-full">
+        <div className="w-full overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
@@ -157,7 +160,10 @@ export default function ReportTable<T extends Record<string, any>>({
             </TableRow>
           </TableFooter>
         </Table>
+        </div>
       </CardContent>
+
     </Card>
+    </div>
   );
 }

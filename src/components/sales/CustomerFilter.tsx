@@ -20,7 +20,7 @@ const CustomerFilter = ({ customerId, onChange }: Props) => {
         val === "all" ? onChange("all") : onChange(Number(val))
       }
     >
-      <SelectTrigger className="w-52">
+      <SelectTrigger className="md:w-52 w-full border-gray-800 bg-transparent">
         <SelectValue placeholder="Filter by customer" />
       </SelectTrigger>
 

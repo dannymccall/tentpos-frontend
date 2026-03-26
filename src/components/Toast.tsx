@@ -30,7 +30,7 @@ export default function ToastContainer() {
   const { toasts } = useNotification();
 
   return (
-    <div className="fixed top-4 right-4 z-[9999] space-y-2">
+    <div className="fixed top-4 right-4 z-9999 space-y-2">
       <AnimatePresence initial={false}>
         {toasts.map(({ id, message, type }) => (
           <motion.div

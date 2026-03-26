@@ -236,6 +236,7 @@ export default function SaleForm({
         isError: true,
         message: "Amount paid is less than total. Use Partial Sale instead.",
       });
+      window.scroll({ behavior: "smooth", top: 0 });
       return;
     }
 
@@ -246,9 +247,9 @@ export default function SaleForm({
       });
       return;
     }
-  
-     const result = await onSubmit({
-         customerId: vals.customerId ? Number(vals.customerId) : null,
+
+    const result = await onSubmit({
+      customerId: vals.customerId ? Number(vals.customerId) : null,
       saleItems,
       tax: Number(vals.tax || 0),
       discount: Number(vals.discount || 0),
@@ -257,13 +258,12 @@ export default function SaleForm({
       date: vals.date,
       amountPaid,
       holdSale: type === "hold",
-
-      });
-   
+    });
 
     if (result?.invoice && result?.sale) {
       setLatestInvoice(result);
       setInvoiceModalOpen(true);
+      window.scroll({ behavior: "smooth", top: 0 });
     }
 
     return result;
@@ -398,7 +398,7 @@ export default function SaleForm({
                 {fields.map((f, idx) => (
                   <div
                     key={f.id}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-4 border rounded p-3"
+                    className="grid grid-cols-2 md:grid-cols-12 gap-4 border rounded p-3"
                   >
                     <div className="col-span-6">
                       {mode === "edit" ? (
@@ -436,7 +436,7 @@ export default function SaleForm({
                           )}
                         />
                       ) : (
-                        <div className="md:col-span-2">
+                        <div className="col-span-1  md:col-span-2">
                           <Label className="mb-2">Product</Label>
                           <SearchCommand
                             placeholder="Search product by title..."
@@ -488,10 +488,10 @@ export default function SaleForm({
                         control={form.control}
                         name={`items.${idx}.quantity` as any}
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="">
                             <FormLabel>Qty</FormLabel>
                             <FormControl>
-                              <Input {...field} />
+                              <Input {...field} className="w-10" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -638,12 +638,16 @@ export default function SaleForm({
                 )}
               />
 
-              <div className="flex gap-2 justify-end">
+              <div className="flex gap-2 justify-end flex-wrap">
                 {/* Reset the form */}
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => form.reset()}
+                  onClick={() => {
+                    setError({ isError: false, message: "" });
+                    form.reset();
+                    window.scroll({ behavior: "smooth", top: 0 });
+                  }}
                 >
                   Reset
                 </Button>

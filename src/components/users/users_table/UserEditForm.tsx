@@ -88,7 +88,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center sm:max-w-sm w-full">
       <div className=" rounded-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Full Name */}

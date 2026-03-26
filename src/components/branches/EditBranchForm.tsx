@@ -96,7 +96,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         {/* <h1 className="text-center mb-5 font-semibold text-gray-600">
           Add New Branch
         </h1> */}
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 overflow-y-auto min-h-72 max-h-[80vh] p-4">
           {/* Name */}
           <div className="flex items-center flex-col md:flex-row gap-5">
             <label

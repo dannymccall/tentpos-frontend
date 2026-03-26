@@ -87,7 +87,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
                 value={limit.toString()}
                 onValueChange={(val) => handleOnSelect(Number(val))}
               >
-                <SelectTrigger className="w-40 bg-slate-800 text-white border-slate-700">
+                <SelectTrigger className="w-full md:w-40 bg-slate-800 text-white border-slate-700">
                   <SelectValue placeholder="Limit" />
                 </SelectTrigger>
                 <SelectContent>
@@ -125,7 +125,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
                     <Download className="mr-2 h-4 w-4" /> Export
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent align="end" className="md:w-48 w-full">
                   <DropdownMenuItem onClick={exportCSV}>
                     <FileSpreadsheet className="h-4 w-4 text-emerald-600 mr-2" />{" "}
                     Export CSV

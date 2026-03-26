@@ -14,8 +14,8 @@ import PurchasesReportTable from "./components/PurchasesReport";
 
 const PurchaseReport = () => {
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(),
+    from:  undefined,
+    to: undefined,
   });
   const [pending, setPending] = useState<boolean>(false);
 
@@ -58,9 +58,7 @@ const PurchaseReport = () => {
     <div className="flex flex-col gap-6  bg-slate-50/50 min-h-screen">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6 border shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Purchases Report
-          </h1>
+         
           <p className="text-sm text-muted-foreground">
             Monitor your purchases
           </p>
@@ -73,12 +71,12 @@ const PurchaseReport = () => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-60 justify-start text-left font-normal",
+                  "md:w-40 w-full justify-start text-left font-normal",
                   !dateRange && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {dateRange ? (
+                {(dateRange?.from || dateRange?.to) ? (
                   `${formatDate(dateRange.from!)} - ${formatDate(dateRange.to!)}`
                 ) : (
                   <span>Pick a date range</span>
@@ -112,7 +110,7 @@ const PurchaseReport = () => {
           </div>
         </div>
       </div>
-      <div className="grid gap-6 md:grid-cols-1">
+      <div className="grid gap-6 md:grid-cols-1 w-full overflow-x-auto">
         <Card className="min-h-[400px] flex  border-dashed">
           {data && (data.length > 0 || Object.keys(data).length > 0) ? (
             <div className="m-5">

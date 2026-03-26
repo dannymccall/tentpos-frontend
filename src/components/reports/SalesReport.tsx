@@ -80,11 +80,10 @@ export default function POSAdvancedDashboard() {
     }
   };
   return (
-    <div className="flex flex-col gap-6  bg-slate-50/50 min-h-screen">
+    <div className="flex flex-col gap-6  bg-slate-50/50 w-full">
       {/* HEADER & GLOBAL FILTERS */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6  border shadow-sm">
+      <div className="flex flex-col gap-4 w-full md:flex-row md:items-center md:justify-between bg-white p-6  border shadow-sm">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Sales Report</h1>
           <p className="text-sm text-muted-foreground">
             Monitor performance across branches
           </p>
@@ -97,7 +96,7 @@ export default function POSAdvancedDashboard() {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-60 justify-start text-left font-normal",
+                  "md:w-40 w-full justify-start text-left font-normal",
                   !dateRange && "text-muted-foreground"
                 )}
               >
@@ -128,7 +127,7 @@ export default function POSAdvancedDashboard() {
             defaultValue="all"
             onValueChange={(e) => setBranch(Number(e))}
           >
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="md:w-40 w-full">
               <Store className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="All Branches" />
             </SelectTrigger>
@@ -142,7 +141,7 @@ export default function POSAdvancedDashboard() {
 
           {/* 3. User/Staff Filter */}
           <Select defaultValue="all" onValueChange={(e) => setUser(Number(e))}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="md:w-40 w-full">
               <User className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="All Users" />
             </SelectTrigger>
@@ -156,7 +155,7 @@ export default function POSAdvancedDashboard() {
 
           {/* 4. Transaction Status Filter */}
           <Select defaultValue="all" onValueChange={(e) => {setData([]); setStatus(e)}}>
-            <SelectTrigger className="w-40">
+            <SelectTrigger className="md:w-40 w-full">
               <Activity className="mr-2 h-4 w-4 opacity-50" />
               <SelectValue placeholder="Status" />
             </SelectTrigger>
@@ -227,10 +226,10 @@ export default function POSAdvancedDashboard() {
       </div> */}
 
       {/* DATA AREA - Placeholder for Charts/Tables */}
-      <div className="grid gap-6 md:grid-cols-1">
-        <Card className="min-h-[400px] flex  border-dashed">
+      <div className="grid gap-6 md:grid-cols-1 w-full overflow-x-auto">
+        <Card className="min-h-[400px] flex  bg-transparent border-dashed w-full">
           {data && (data.length > 0 || Object.keys(data).length >0) ? (
-            <div className="m-5">
+            <div className="m-5 w-full">
 
               <RenderReport data={data} status={status} />
             </div>

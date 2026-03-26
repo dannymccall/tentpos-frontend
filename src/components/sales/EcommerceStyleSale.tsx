@@ -99,15 +99,26 @@ export default function AddSalePage({
     }
   };
 
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 120);
-    };
+useEffect(() => {
+  let ticking = false;
 
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        setScrolled((prev) => {
+          if (!prev && window.scrollY > 150) return true;
+          if (prev && window.scrollY < 100) return false;
+          return prev;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
 
+  window.addEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
   return (
     <div className="bg-white p-4 rounded-md">
       {/* Sections */}
@@ -131,7 +142,7 @@ export default function AddSalePage({
             handleSubmitCheckout={handleSubmit}
           />
 
-          <section className="mb-4">
+          <section className="mb-4  mt-4 md:mt-0">
             <div className="flex gap-2 overflow-x-auto pb-2">
               <Badge>Filter by Category</Badge>
               <Button

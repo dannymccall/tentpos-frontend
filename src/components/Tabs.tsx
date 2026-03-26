@@ -96,10 +96,10 @@ export default function Tabs({
         className="w-full"
       >
         {/* Mobile dropdown */}
-        <div className="sm:hidden relative mb-4">
+        <div className="sm:hidden  z-50 mb-4 fixed w-full">
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-left flex justify-between items-center shadow-sm"
+            className="w-full bg-white  border-t border-t-gray-300  px-4 py-4  text-left flex justify-between items-center shadow-sm"
           >
             {visibleTabs.find((t) => t.key === active)?.label}
             <svg
@@ -150,7 +150,7 @@ export default function Tabs({
           <TabsList
             ref={listRef}
             className={cn(
-              "relative flex items-center gap-2 overflow-x-auto scrollbar-hide px-4 sm:px-8 py-2 min-h-[3.5rem]",
+              "relative flex items-center gap-2 overflow-x-auto scrollbar-hide px-4 sm:px-8 py-2 min-h-14",
               variantClasses[variant].list,
             )}
           >
@@ -184,7 +184,7 @@ export default function Tabs({
                   left: indicator.left,
                   width: indicator.width,
                 }}
-                className="pointer-events-none absolute bottom-0 h-[2px] bg-indigo-500 rounded-full"
+                className="pointer-events-none absolute bottom-0 h-0.5 bg-indigo-500 rounded-full"
               />
             )}
           </TabsList>
@@ -196,7 +196,7 @@ export default function Tabs({
             <TabsContent
               key={tab.key}
               value={tab.key}
-              className="animate-fadeIn w-full"
+              className="animate-fadeIn w-full mt-20 md:mt-0"
             >
               {tab.panel}
             </TabsContent>
