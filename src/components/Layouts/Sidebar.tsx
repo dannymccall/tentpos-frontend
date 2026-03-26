@@ -17,7 +17,19 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
   });
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
   const { settings, permissions, businessProfile, logout, user } = useAuth();
+  const [width, setWidth] = useState(0);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      setWidth(w);
+    };
+
+    handleResize(); // run once
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   // console.log({ permissions });
   // Simulated API call for badges
   useEffect(() => {
@@ -66,7 +78,9 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
       ${isOpen ? "w-64" : "w-0"} shadow-lg flex flex-col`}
     >
       {/* Header */}
-      <div className={`${isOpen ? "flex" : "hidden"}  items-center justify-between px-4 py-5 gap-3 border-b border-gray-700`}>
+      <div
+        className={`${isOpen ? "flex" : "hidden"}  items-center justify-between px-4 py-5 gap-3 border-b border-gray-700`}
+      >
         <div
           className={`flex flex-col items-center justify-center space-y-1 ${
             isOpen ? "bg-[#152242] px-12" : ""
@@ -101,7 +115,9 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
 
           {isOpen && (
             <>
-              <h1 className="text-[10px] text-gray-300">ID: {user?.tenantId}</h1>
+              <h1 className="text-[10px] text-gray-300">
+                ID: {user?.tenantId}
+              </h1>
               <p className="text-[10px] text-gray-500 font-semibold ">
                 powered by TentHub
               </p>
@@ -137,11 +153,14 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
                         ) {
                           logout();
                         } else if (item.path) {
-                          setIsOpen(false);
-                          setTimeout(() => {
-
+                          if (width < 768) {
+                            setIsOpen(false);
+                            setTimeout(() => {
+                              navigate(item.path as any);
+                            }, 1);
+                          } else {
                             navigate(item.path as any);
-                          },1)
+                          }
                         }
                       }}
                       className={`w-full flex items-center rounded-md hover:bg-gray-800 transition-colors duration-200
@@ -192,14 +211,16 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
                             {canView(sub.code!) && (
                               <>
                                 <div
-                                  onClick={() =>  {
+                                  onClick={() => {
+                                    if (width < 768) {
                                       setIsOpen(false);
                                       setTimeout(() => {
-                                        
-                                        navigate(sub.path!)
-                                      },1)
-
-                                    }}
+                                        navigate(item.path as any);
+                                      }, 1);
+                                    } else {
+                                      navigate(item.path as any);
+                                    }
+                                  }}
                                   className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
                                     subActive
                                       ? "bg-[#0f172b] text-white"
@@ -252,7 +273,7 @@ export interface SidebarSection {
 interface SidebarProps {
   items: SidebarSection[];
   isOpen: boolean;
-  setIsOpen:  React.Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default Sidebar;
