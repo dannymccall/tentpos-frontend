@@ -42,7 +42,7 @@ const Auth = () => {
         )}
       >
         <div className="flex justify-center items-center w-full">
-          <div className="bg-gray-100 rounded-lg p-8 max-w-md w-3xl h-[500px] text-center">
+          <div className="bg-gray-100 rounded-lg p-8 max-w-sm w-full h-[500px] text-center">
             {/* Logo */}
             <div className="flex flex-col items-center mb-10 space-y-6">
               <div className="absolute w-24 h-24 rounded-full bg-blue-500/30 animate-ping"></div>
