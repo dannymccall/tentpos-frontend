@@ -8,12 +8,12 @@ type Props = {
 
 const TicketFilters = ({ status, priority, onChange }: Props) => {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3 w-full">
       <Select
         value={status}
         onValueChange={(val) => onChange({ status: val })}
       >
-        <SelectTrigger className="w-40">
+        <SelectTrigger className="md:w-40 w-full border-gray-600">
           <SelectValue placeholder="Status" />
         </SelectTrigger>
         <SelectContent>
@@ -28,7 +28,7 @@ const TicketFilters = ({ status, priority, onChange }: Props) => {
         value={priority}
         onValueChange={(val) => onChange({ priority: val })}
       >
-        <SelectTrigger className="w-40">
+        <SelectTrigger className="md:w-40 w-full border-gray-600">
           <SelectValue placeholder="Priority" />
         </SelectTrigger>
         <SelectContent>

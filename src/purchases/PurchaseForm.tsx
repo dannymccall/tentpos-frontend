@@ -222,7 +222,7 @@ export default function PurchaseForm({
                     <FormItem>
                       <FormLabel>Ref / Receipt #</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Purchase ref" />
+                        <Input {...field} placeholder="Purchase ref" className="text-sm"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -236,7 +236,7 @@ export default function PurchaseForm({
                     <FormItem>
                       <FormLabel>Purchase date</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} />
+                        <Input type="date" {...field} className="text-sm"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -248,7 +248,7 @@ export default function PurchaseForm({
                 {fields.map((f, idx) => (
                   <div
                     key={f.id}
-                    className="grid grid-cols-12 gap-2 items-end border rounded p-3"
+                    className="grid grid-cols-1  md:grid-cols-12 gap-2 items-end border rounded p-3"
                   >
                     {mode === "edit" ? (
                       <div className="col-span-5">
@@ -328,7 +328,7 @@ export default function PurchaseForm({
                       </div>
                     )}
 
-                    <div className="col-span-2">
+                    <div className="col-span-2 w-full">
                       <FormField
                         control={form.control}
                         name={`items.${idx}.quantity` as any}
@@ -350,6 +350,7 @@ export default function PurchaseForm({
                                     (qty * cp).toFixed(2),
                                   );
                                 }}
+                                className="text-sm"
                               />
                             </FormControl>
                             <FormMessage />
@@ -380,6 +381,7 @@ export default function PurchaseForm({
                                     (qty * cp).toFixed(2),
                                   );
                                 }}
+                                className="text-sm"
                               />
                             </FormControl>
                             <FormMessage />
@@ -400,6 +402,7 @@ export default function PurchaseForm({
                                 {...field}
                                 readOnly
                                 onChange={(e) => field.onChange(e)}
+                                className="text-sm"
                               />
                             </FormControl>
                             <FormMessage />
@@ -414,6 +417,7 @@ export default function PurchaseForm({
                         disabled={loading}
                         variant="destructive"
                         onClick={() => remove(idx)}
+                        size={"sm"}
                       >
                         <FaBucket />
                       </Button>
@@ -514,7 +518,7 @@ export default function PurchaseForm({
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 text-sm md:text-base">
                 <div>Subtotal: {calcTotals.subtotal.toFixed(2)}</div>
                 <div>Total: {calcTotals.total.toFixed(2)}</div>
                 <div>Balance: {calcTotals.balance.toFixed(2)}</div>

@@ -14,7 +14,7 @@ const CartContent = ({ cart, updateQuantity, removeFromCart,    }: CartProps) =>
           className="flex justify-between items-center mb-2"
         >
           <div>
-            <div className="font-medium">{item.title}</div>
+            <div className="font-medium text-sm md:text-base">{item.title}</div>
             <div className="text-sm text-gray-600">
               ${Number(item.total).toFixed(2)}
             </div>
@@ -24,7 +24,7 @@ const CartContent = ({ cart, updateQuantity, removeFromCart,    }: CartProps) =>
               type="number"
               min={1}
               value={item.quantity}
-              className="w-16"
+              className="w-16 text-sm md:text-base"
               onChange={(e) =>
                 updateQuantity(item.productId, Number(e.target.value))
               }

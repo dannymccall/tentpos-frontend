@@ -129,7 +129,7 @@ export default function Tabs({
                     setActive(tab.key);
                     setMobileOpen(false);
                   }}
-                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
+                  className={`w-full text-sm   text-left px-4 py-2 hover:bg-gray-100 ${
                     active === tab.key ? "font-semibold bg-gray-100" : ""
                   }`}
                 >

@@ -80,9 +80,9 @@ export default function POSAdvancedDashboard() {
     }
   };
   return (
-    <div className="flex flex-col gap-6  bg-slate-50/50 w-full">
+    <div className="flex flex-col gap-6  bg-slate-50/50 w-full p-2">
       {/* HEADER & GLOBAL FILTERS */}
-      <div className="flex flex-col gap-4 w-full md:flex-row md:items-center md:justify-between bg-white p-6  border shadow-sm">
+      <div className="flex flex-col gap-4 w-full md:flex-row md:items-center md:justify-between bg-white p-6   rounded-md">
         <div>
           <p className="text-sm text-muted-foreground">
             Monitor performance across branches

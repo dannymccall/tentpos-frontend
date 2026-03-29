@@ -1,9 +1,9 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import React from "react";
-import FormLoading from "@/components/loaders/FormLoading";
 import type { Purchase } from "@/types/purchase.types";
 import DialogModal from "@/components/Dialog";
 import { DialogTitle } from "@/components/ui/dialog";
+import ConfirmDialogContent from "@/components/confirmDialogContent";
 
 interface PurchaseProps {
   purchase: Purchase;
@@ -37,27 +37,26 @@ const PurchaseModal: React.FC<PurchaseProps> = ({
       open={isOpen}
       setOpen={onClose}
       title={
-        <DialogTitle className="text-center">{"Delete Purchase"}</DialogTitle>
+        <DialogTitle className="text-center">{""}</DialogTitle>
       }
     >
       {purchase && (
-        <div className="flex flex-col gap-4 items-center">
-          <p className="">
-            Are you sure you want to delete the{" "}
+         <ConfirmDialogContent
+          title="Delete Purchase"
+          description={
+            <>
+              {" "}
+               Are you sure you want to delete the{" "}
             <strong>{purchase.receiptNumber}</strong> purchase
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              {isPending ? <FormLoading /> : "Delete"}
-            </button>
-            <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
-              Cancel
-            </button>
-          </div>
-        </div>
+            </>
+          }
+          confirmText="Delete"
+          variant="danger"
+          isLoading={isPending}
+          onConfirm={handleDelete}
+          onCancel={onClose}
+        />
+       
       )}
     </DialogModal>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineWarning } from "react-icons/ai"; // 👈 choose your preferred icon
+import { Button } from "../ui/button";
 
 interface ErrorFallbackProps {
   error?: Error;
@@ -15,21 +16,22 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) => {
             <AiOutlineWarning className="h-10 w-10 text-red-600" />
           </div>
         </div>
-        <h1 className="text-2xl font-bold text-slate-800 mb-2">
+        <h1 className="text-base md:text-xl font-bold text-slate-800 mb-2">
           Oops! Something went wrong
         </h1>
-        <p className="text-slate-500 mb-6">
+        <p className="text-slate-500 mb-6 text-sm">
           We ran into an unexpected error while loading this page. You can try
           refreshing, or go back to safety.
         </p>
 
         <div className="space-y-3">
-          <button
+          <Button
             onClick={reset || (() => window.location.reload())}
             className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+            size={"sm"}
           >
             🔄 Refresh Page
-          </button>
+          </Button>
           <a
             href="/dashboard"
             className="block w-full border border-slate-300 py-2 rounded-lg font-semibold text-slate-600 hover:bg-slate-100 transition"
@@ -40,7 +42,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, reset }) => {
 
         {import.meta.env.VITE_ENVIRONMENT === "development" && error && (
           <div className="mt-6 text-left text-sm text-red-500 bg-red-50 p-3 rounded-lg overflow-auto max-h-48">
-            <p className="font-semibold">Error Details:</p>
+            <p className="font-semibold text-sm">Error Details:</p>
             <pre>{error.message}</pre>
           </div>
         )}

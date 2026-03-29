@@ -30,7 +30,7 @@ const PurchaseTable: React.FC<{ purchases: Purchase[] }> = ({ purchases }) => {
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm"> 
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Purchase Date</TableHead>
             <TableHead className="font-semibold">Ref / Receipt # Date</TableHead>
@@ -45,7 +45,7 @@ const PurchaseTable: React.FC<{ purchases: Purchase[] }> = ({ purchases }) => {
         </TableHeader>
         <TableBody>
           {purchases.map((purchase) => (
-            <TableRow key={purchase.id}>
+            <TableRow key={purchase.id} className="text-xs md:text-sm">
               <TableCell>{purchase.id}</TableCell>
               <TableCell>{formatDate(purchase.createdAt!)}</TableCell>
               <TableCell>{(purchase.receiptNumber!)}</TableCell>

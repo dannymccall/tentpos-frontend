@@ -1,9 +1,7 @@
-import {  useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
+
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
@@ -21,6 +19,7 @@ import {
 import type { Sale, SaleItem } from "@/types/sale.types";
 import { useApiMutation } from "@/hooks/useApiMutation";
 import FormLoading from "../loaders/FormLoading";
+import DialogModal from "../Dialog";
 
 interface ReturnSaleModalProps {
   open: boolean;
@@ -125,140 +124,133 @@ export default function ReturnSaleModal({
   if (!sale) return null;
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl">
-        <DialogHeader>
-          <DialogTitle>Return Items — Sale #{sale.saleNumber}</DialogTitle>
-        </DialogHeader>
+    <DialogModal
+      open={open}
+      setOpen={onClose}
+      title={<DialogTitle className="text-sm">Return Items — Sale #{sale.saleNumber}</DialogTitle>}
+    >
+      <div className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          ⚠️ This action will create a <strong>return record</strong>, adjust
+          inventory, and may issue a refund. This cannot be undone.
+        </p>
 
-        <div className="space-y-4">
-          <p className="text-sm text-muted-foreground">
-            ⚠️ This action will create a <strong>return record</strong>, adjust
-            inventory, and may issue a refund. This cannot be undone.
-          </p>
+        {/* Sale Items */}
+        <div className="space-y-3">
+          {fields.map((field, index) => {
+            const saleItem = sale.saleItems?.find(
+              (i) => i.id === field.saleItemId,
+            ) as SaleItem;
 
-          {/* Sale Items */}
-          <div className="space-y-3">
-            {fields.map((field, index) => {
-              const saleItem = sale.saleItems?.find(
-                (i) => i.id === field.saleItemId
-              ) as SaleItem;
-
-              return (
-                <div
-                  key={field.id}
-                  className="grid grid-cols-5 gap-3 items-end border p-3 rounded-lg"
-                >
-                  <div className="col-span-2">
-                    <Label>Product</Label>
-                    <Input
-                      value={saleItem && saleItem.product.title}
-                      disabled
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Sold</Label>
-                    <Input value={saleItem && saleItem.quantity} disabled />
-                  </div>
-
-                  <div>
-                    <Label>Return Qty</Label>
-                    <Input
-                      type="number"
-                      min={0}
-                      max={saleItem && saleItem.quantity}
-                      {...register(`items.${index}.quantityToReturn`, {
-                        valueAsNumber: true,
-                        min: 0,
-                        max: saleItem && saleItem.quantity,
-                      })}
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Condition</Label>
-                    <Controller
-                      control={control}
-                      name={`items.${index}.condition`}
-                      render={({ field }) => (
-                        <Select
-                          value={field.value}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="RESALEABLE">
-                              Resaleable
-                            </SelectItem>
-                            <SelectItem value="DAMAGED">Damaged</SelectItem>
-                            <SelectItem value="EXPIRED">Expired</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </div>
+            return (
+              <div
+                key={field.id}
+                className="grid grid-cols-5 gap-3 items-end border p-3 rounded-lg"
+              >
+                <div className="col-span-2">
+                  <Label>Product</Label>
+                  <Input value={saleItem && saleItem.product.title} disabled />
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Reason */}
+                <div>
+                  <Label>Sold</Label>
+                  <Input value={saleItem && saleItem.quantity} disabled />
+                </div>
+
+                <div>
+                  <Label>Return Qty</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={saleItem && saleItem.quantity}
+                    {...register(`items.${index}.quantityToReturn`, {
+                      valueAsNumber: true,
+                      min: 0,
+                      max: saleItem && saleItem.quantity,
+                    })}
+                  />
+                </div>
+
+                <div>
+                  <Label>Condition</Label>
+                  <Controller
+                    control={control}
+                    name={`items.${index}.condition`}
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="RESALEABLE">Resaleable</SelectItem>
+                          <SelectItem value="DAMAGED">Damaged</SelectItem>
+                          <SelectItem value="EXPIRED">Expired</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Reason */}
+        <div>
+          <Label>Reason for return</Label>
+          <Input
+            {...register("reason", { required: true })}
+            placeholder="e.g. Defective product"
+          />
+        </div>
+
+        {/* Refund */}
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <Label>Reason for return</Label>
-            <Input
-              {...register("reason", { required: true })}
-              placeholder="e.g. Defective product"
+            <Label>Refund Method</Label>
+            <Controller
+              control={control}
+              name="refundMethod"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="CASH">Cash</SelectItem>
+                    <SelectItem value="MOMO">MoMo</SelectItem>
+                    <SelectItem value="BANK">Bank</SelectItem>
+                    <SelectItem value="STORE_CREDIT">Store Credit</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
             />
           </div>
 
-          {/* Refund */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>Refund Method</Label>
-              <Controller
-                control={control}
-                name="refundMethod"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="CASH">Cash</SelectItem>
-                      <SelectItem value="MOMO">MoMo</SelectItem>
-                      <SelectItem value="BANK">Bank</SelectItem>
-                      <SelectItem value="STORE_CREDIT">Store Credit</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </div>
-
-            <div>
-              <Label>Total Refund</Label>
-              <Input value={totalRefund?.toFixed(2)} disabled />
-            </div>
-          </div>
-
-          {/* Note */}
           <div>
-            <Label>Note (optional)</Label>
-            <Input {...register("note")} />
+            <Label>Total Refund</Label>
+            <Input value={totalRefund?.toFixed(2)} disabled />
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit(onSubmit)} disabled={isPending}>
-            {isPending ? <FormLoading /> : "Process Return"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        {/* Note */}
+        <div>
+          <Label>Note (optional)</Label>
+          <Input {...register("note")} />
+        </div>
+      </div>
+
+      <DialogFooter>
+        <Button variant="outline" onClick={onClose}>
+          Cancel
+        </Button>
+        <Button onClick={handleSubmit(onSubmit)} disabled={isPending}>
+          {isPending ? <FormLoading /> : "Process Return"}
+        </Button>
+      </DialogFooter>
+    </DialogModal>
   );
 }

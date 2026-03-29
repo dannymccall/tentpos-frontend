@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import type { BulkUploadSupplier } from "@/types/bulkupload.types";
 import {  bulkUploadSupplier } from "@/lib/essentials";
 import Pagination from "../Pagination";
+import ExcelUploadField from "../ExcelUploadField";
 
 export default function BulkUploadSuppliers() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,37 +43,23 @@ export default function BulkUploadSuppliers() {
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
+        className="p-2"
       >
-        <div className="p-6 bg-white rounded-md shadow-md">
-          <h2 className="text-lg font-bold mb-4">
-            Bulk Upload Suppliers (Excel)
-          </h2>
+        <div className="p-6 bg-white rounded-md ">
 
-          <div className="flex items-center gap-4 mb-4">
-            {/* File Upload */}
-            <input
-              type="file"
-              accept=".xlsx,.xls"
-              onChange={handleFileUpload}
-              className="block w-full px-4 py-2 border border-gray-300 rounded-md text-sm"
-            />
 
-            {/* Download Template */}
-            <button
-              onClick={() =>
-                handleDownloadTemplate(bulkUploadSupplier, "suppliers-template.xlsx")
-              }
-              className="px-4 py-2 bg-[#1d3449] text-white text-[15px] rounded-md hover:bg-gray-700"
-            >
-              Download Template
-            </button>
-          </div>
+            <ExcelUploadField
+            onFileUpload={handleFileUpload}
+            onDownloadTemplate={() =>
+              handleDownloadTemplate(bulkUploadSupplier, "suppliers-template.xlsx")
+            }
+          />
 
           {error && <p className="text-red-500">{error}</p>}
 
           {/* Preview Table */}
           {products.length > 0 && (
-            <div>
+            <div className="mt-5">
               <h3 className="font-semibold mb-2">
                 Preview ({products.length} products)
               </h3>

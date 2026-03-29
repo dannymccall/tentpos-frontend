@@ -19,6 +19,7 @@ import { Undo2, X } from "lucide-react";
 import ReturnSaleModal from "./ReturnSaleModal";
 import { Badge } from "../ui/badge";
 import { PermissionGate } from "../PermissionGate";
+import { cn } from "@/lib/utils";
 const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
   const navigate = useNavigate();
   const [sale, setSale] = useState<Sale | null>();
@@ -41,7 +42,7 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Sales #</TableHead>
             <TableHead className="font-semibold">Invoice #</TableHead>
@@ -58,7 +59,7 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
         </TableHeader>
         <TableBody>
           {sales.map((sale) => (
-            <TableRow key={sale.id}>
+            <TableRow key={sale.id} className="text-xs md:text-sm">
               <TableCell>{sale.id}</TableCell>
               <TableCell>{sale.saleNumber}</TableCell>
               <TableCell>{sale.invoice?.invoiceNumber}</TableCell>
@@ -73,12 +74,12 @@ const SaleTable: React.FC<{ sales: Sale[] }> = ({ sales }) => {
               <TableCell>{sale.amountPaid}</TableCell>
               <TableCell>{sale.balance}</TableCell>
               <TableCell>
-                <Badge className={getSaleStatusColor(sale.status)}>
+                <Badge className={cn(getSaleStatusColor(sale.status), "text-[10px] md:text-[12px]")}>
                   {sale.status}
                 </Badge>
               </TableCell>
               <TableCell>
-                <Badge className={getSaleStatusColor(sale.paymentStatus)}>
+                <Badge className={cn(getSaleStatusColor(sale.paymentStatus), "text-[10px] md:text-[12px]")}>
                   {sale.paymentStatus}
                 </Badge>
               </TableCell>

@@ -304,7 +304,7 @@ export default function AuthRoutes() {
         <Route
         path="/inventory/low-stock"
         element={
-          <DashboardLayout title="Stock Adjustments">
+          <DashboardLayout title="Low Stock Alerts">
             <ProtectedRoute>
               <AllLowStockAlerts />
             </ProtectedRoute>

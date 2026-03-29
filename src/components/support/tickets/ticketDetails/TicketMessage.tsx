@@ -8,10 +8,10 @@ const TicketMessage = ({ message }: { message: TicketMessageProps }) => {
       {/* Message bubble */}
       <div
         className={`max-w-[75%] rounded-lg px-4 py-3 text-sm ${
-          isUser ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-800"
+          isUser ? "bg-blue-800 text-white" : "bg-slate-100 text-slate-800"
         }`}
       >
-        <p className="break-words">{message.message}</p>
+        <p className="wrap-break-word text-[13px] md:text-sm">{message.message}</p>
         <span className="block mt-1 text-xs opacity-70">
           {new Date(message.createdAt).toLocaleString()}
         </span>
@@ -24,7 +24,7 @@ const TicketMessage = ({ message }: { message: TicketMessageProps }) => {
             <img
               key={idx}
               src={a.fileUrl}
-              className="rounded-md max-h-64 object-cover"
+              className="rounded-md max-h-64 object-cover text-sm"
               alt="attachment"
             />
           ))}

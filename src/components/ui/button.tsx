@@ -39,7 +39,7 @@ const buttonVariants = cva(
 function Button({
   className,
   variant,
-  size,
+  size = "sm",
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &

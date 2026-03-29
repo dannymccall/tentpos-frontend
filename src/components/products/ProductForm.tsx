@@ -248,7 +248,7 @@ export default function ProductForm({
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Product title" {...field} />
+                      <Input placeholder="Product title" {...field} className="text-sm md:text-base"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -267,6 +267,7 @@ export default function ProductForm({
                         rows={6}
                         placeholder="Long description or HTML"
                         {...field}
+                        className="text-sm md:text-base"
                       />
                     </FormControl>
                     <FormMessage />
@@ -331,7 +332,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="0.00" />
+                        <Input {...field} placeholder="0.00" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -363,6 +364,7 @@ export default function ProductForm({
                         <Input
                           {...field}
                           placeholder="Cost to you (optional)"
+                          className="text-sm md:text-base"
                         />
                       </FormControl>
                       <FormMessage />
@@ -382,7 +384,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>SKU</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="SKU (optional)" />
+                        <Input {...field} placeholder="SKU (optional)" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -411,7 +413,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Threshold</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Threshold" />
+                        <Input {...field} placeholder="Threshold" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -429,7 +431,7 @@ export default function ProductForm({
                           <FormItem>
                             <FormLabel>Inventory</FormLabel>
                             <FormControl>
-                              <Input type="number" {...field} disabled/>
+                              <Input type="number" {...field} disabled className="text-sm md:text-base"/>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -498,6 +500,7 @@ export default function ProductForm({
                         (e.target as HTMLInputElement).value = "";
                       }
                     }}
+                    className="text-sm md:text-base"
                   />
                 </div>
               </FormItem>
@@ -607,7 +610,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Weight</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="e.g. 1.2 kg" />
+                        <Input {...field} placeholder="e.g. 1.2 kg" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -621,7 +624,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Width</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="cm" />
+                        <Input {...field} placeholder="cm" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -635,7 +638,7 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Height</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="cm" />
+                        <Input {...field} placeholder="cm" className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

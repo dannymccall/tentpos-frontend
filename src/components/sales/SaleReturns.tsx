@@ -29,7 +29,7 @@ const SaleReturnTable: React.FC<{ saleReturn: SaleReturn[] }> = ({
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Sales #</TableHead>
             <TableHead className="font-semibold">Date</TableHead>
@@ -44,7 +44,7 @@ const SaleReturnTable: React.FC<{ saleReturn: SaleReturn[] }> = ({
         </TableHeader>
         <TableBody>
           {saleReturn.map((r) => (
-            <TableRow key={r.id}>
+            <TableRow key={r.id} className="text-xs md:text-sm">
               <TableCell>{r.id}</TableCell>
               <TableCell>{r.sale.saleNumber}</TableCell>
               <TableCell>{formatDate(r.createdAt)}</TableCell>

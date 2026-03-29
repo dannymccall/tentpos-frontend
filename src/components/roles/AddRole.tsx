@@ -170,11 +170,11 @@ const AddRoleForm = ({
         initial={{ opacity: 0, y: 25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="flex justify-center"
+        className="flex justify-center p-2"
       >
-        <Card className="w-full m-10  m rounded-2xl">
+        <Card className="w-full   rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-gray-700">
+            <CardTitle className="text-sm md:text-base font-semibold text-gray-700">
               Add New Role
             </CardTitle>
           </CardHeader>

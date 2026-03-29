@@ -16,7 +16,7 @@ const Payments: React.FC<PaymentProps> = ({ payments }) => {
     <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Sales Number</TableHead>
             <TableHead className="font-semibold">Customer</TableHead>
@@ -29,7 +29,7 @@ const Payments: React.FC<PaymentProps> = ({ payments }) => {
         </TableHeader>
         <TableBody>
           {payments.map((payment) => (
-            <TableRow key={payment.id}>
+            <TableRow key={payment.id} className="text-xs md:text-sm">
               <TableCell>{payment.id}</TableCell>
               <TableCell>{payment.salePayment ? payment.salePayment.saleNumber : "No sale made"}</TableCell>
               <TableCell>

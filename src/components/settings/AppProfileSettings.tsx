@@ -152,7 +152,7 @@ export default function AppProfileSettings() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
                     God is Good
                   </h2>
                   <p className="text-sm text-gray-500 dark:text-gray-400">

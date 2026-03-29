@@ -29,7 +29,7 @@ const DialogModal: React.FC<DialogProps> = ({
     <Dialog open={open} onOpenChange={setOpen}>
       {actionChildren && <DialogTrigger asChild>{actionChildren}</DialogTrigger>}
 
-      <DialogContent className={`w-full ${size} px-4`}>
+      <DialogContent className={`w-full ${size} px-4 text-sm md:text-base`}>
         {title && <DialogHeader>{title}</DialogHeader>}
         {children}
       </DialogContent>

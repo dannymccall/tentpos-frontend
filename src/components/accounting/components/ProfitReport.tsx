@@ -139,7 +139,7 @@ export default function ProfitReportTable() {
   };
 
   return (
-    <div>
+    <div className="p-2">
       <AccountingReportFilter
         title=""
         description="Profit breakdown by product"
@@ -148,10 +148,10 @@ export default function ProfitReportTable() {
       />
 
       {report ? (
-        <Card className="rounded-2xl shadow-sm mt-5">
+        <Card className="rounded-2xl mt-5">
           <CardHeader className="flex flex-row items-center justify-between">
             {/* <CardTitle className="text-lg">Profit Breakdown</CardTitle> */}
-            Period: {report?.period}
+              Period: {report?.period.includes("null") ? "- to -" : report?.period}
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={exportPDF}>
                 <Download className="h-4 w-4 mr-1" /> PDF
@@ -214,7 +214,7 @@ export default function ProfitReportTable() {
           </CardContent>
         </Card>
       ) : (
-        <Card className="max-w-3xl mx-auto min-h-[400px] translate-y-1/3">
+        <Card className="max-w-3xl mx-auto translate-y-1/3">
           <div className="m-auto text-center">
             <Filter className="mx-auto h-12 w-12 text-muted-foreground/50" />
             <h3 className="mt-4 text-lg font-semibold">

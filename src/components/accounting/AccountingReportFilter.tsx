@@ -55,7 +55,7 @@ export default function AccountingReportFilter({
   };
 
   return (
-    <Card className="p-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between rounded-none">
+    <Card className="p-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between rounded-md">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
         {description && (
@@ -108,7 +108,7 @@ export default function AccountingReportFilter({
           </SelectContent>
         </Select>
 
-        <Button onClick={handleGenerate} disabled={loading}>
+        <Button onClick={handleGenerate} disabled={loading} size={"sm"}>
           {loading ? <FormLoading /> : "Generate"}
         </Button>
       </div>

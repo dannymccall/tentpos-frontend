@@ -163,16 +163,16 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
                           }
                         }
                       }}
-                      className={`w-full flex items-center rounded-md hover:bg-gray-800 transition-colors duration-200
+                      className={`w-full  flex items-center  rounded-md hover:bg-gray-800 transition-colors duration-200
                     ${isOpen ? "gap-4 px-5 py-3" : "justify-center py-3"} ${
                       isActive ? "bg-[#0f172b]" : ""
                     }`}
                     >
-                      <span className="text-lg">{item.icon}</span>
+                      <span className="text-xs md:text-sm">{item.icon}</span>
 
                       {isOpen && (
                         <div className="flex justify-between items-center w-full">
-                          <span className="text-sm font-medium">
+                          <span className="text-xs md:text-sm font-medium">
                             {item.label}
                           </span>
                           {hasSublinks && (
@@ -215,13 +215,13 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
                                     if (width < 768) {
                                       setIsOpen(false);
                                       setTimeout(() => {
-                                        navigate(item.path as any);
+                                        navigate(sub.path as any);
                                       }, 1);
                                     } else {
-                                      navigate(item.path as any);
+                                      navigate(sub.path as any);
                                     }
                                   }}
-                                  className={`block cursor-pointer text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
+                                  className={`block cursor-pointer text-xs md:text-sm py-2 pl-4 pr-2 rounded-md transition-colors duration-150 ${
                                     subActive
                                       ? "bg-[#0f172b] text-white"
                                       : "text-gray-300 hover:bg-gray-800"
