@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import React from "react";
 import NoImage from "../../../public/no-image.png";
+import { FaPlus } from "react-icons/fa";
 
 export interface Product {
   id: number;
@@ -48,16 +49,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
 
         {/* Price & Add to Cart */}
         <div className="p-3 flex flex-col gap-2">
-          <div className="text-gray-600 text-sm md:text-base font-medium">
+          <div className="text-gray-600 flex text-sm md:text-base font-medium w-full justify-between items-center">
             ${Number(product.price).toFixed(2)}
+            <Button
+              size="sm"
+              className=" bg-[#082163] hover:bg-emerald-700 text-white text-xs"
+              onClick={() => addToCart(product)}
+            >
+              <span className="text-[9px]">
+                {" "}
+                <FaPlus className="" />
+              </span>
+              Add to Cart
+            </Button>
           </div>
-          <Button
-            size="sm"
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
-            onClick={() => addToCart(product)}
-          >
-            Add to Cart
-          </Button>
         </div>
       </CardContent>
     </Card>

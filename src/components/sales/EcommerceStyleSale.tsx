@@ -170,7 +170,7 @@ export default function AddSalePage({
         <div
           className="
       fixed top-0 right-0 z-50 w-full
-      bg-neutral-900/80 backdrop-blur
+      bg-[#0f172b]/80 backdrop-blur
       shadow-lg
       transition-all duration-300 ease-in-out
       animate-in slide-in-from-top
