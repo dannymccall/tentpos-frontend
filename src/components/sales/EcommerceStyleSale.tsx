@@ -228,7 +228,7 @@ export default function AddSalePage({
             <h2 className="text-base md:text-lg font-bold mb-4 text-center">
               Top Products
             </h2>
-            <div className="grid grid-cols-1  md:grid-cols-5 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {products.mostPurchasedProducts
                 .sort(
                   (a, b) =>
@@ -241,17 +241,19 @@ export default function AddSalePage({
           </section>
         )}
 
-      <section className="mb-6 w-full">
-        <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6  ">
-          {Object.values(products).length > 0 &&
-            products.products
-              // .filter((p) => p.recent)
-              .map((p) => (
-                <ProductCard product={p} addToCart={() => addToCart(p)} />
-              ))}
-        </div>
-      </section>
+     <section className="mb-6 w-full">
+  <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
+
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {products?.products?.map((p) => (
+      <ProductCard
+        key={p.id}
+        product={p}
+        addToCart={() => addToCart(p)}
+      />
+    ))}
+  </div>
+</section>
 
       <DialogModal
         open={invoiceModalOpen}

@@ -5,10 +5,15 @@ interface EcommerceHeaderProps {
   cartCount: number;
   searchValue?: string;
   onSearch?: (value: string) => void;
-  onClickCart: () => void
+  onClickCart: () => void;
 }
 
-export default function EcommerceHeader({ cartCount, searchValue = "", onSearch, onClickCart }: EcommerceHeaderProps) {
+export default function EcommerceHeader({
+  cartCount,
+  searchValue = "",
+  onSearch,
+  onClickCart,
+}: EcommerceHeaderProps) {
   return (
     <div className="w-full flex  md:justify-end justify-start">
       <div className="flex gap-3 items-center w-full md:w-auto">
@@ -22,10 +27,12 @@ export default function EcommerceHeader({ cartCount, searchValue = "", onSearch,
         />
 
         {/* Shopping cart */}
-        <div className="flex items-center gap-2 bg-[#eff2f7] p-2 rounded-lg cursor-pointer hover:bg-[#e0e5f2] transition"    onClick={onClickCart}>
+        <div
+          className="flex items-center gap-2 bg-[#eff2f7] p-2 rounded-lg cursor-pointer hover:bg-[#e0e5f2] transition"
+          onClick={onClickCart}
+        >
           <span className="text-xs">
-
-          <ShoppingCart size={20} className="text-gray-700" />
+            <ShoppingCart size={20} className="text-gray-700" />
           </span>
           <span className="font-medium text-gray-800">{cartCount}</span>
         </div>
