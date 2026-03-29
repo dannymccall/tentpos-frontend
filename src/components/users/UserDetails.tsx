@@ -153,7 +153,7 @@ export default function UserDetails() {
       {/* --- Monthly Loans vs Recoveries Chart --- */}
       <Card className=" hover:shadow-xl transition-shadow rounded-2xl border border-gray-100">
         <CardHeader>
-          <CardTitle className="text-gray-800 text-lg font-semibold flex items-center gap-2">
+          <CardTitle className="text-gray-800 text-sm md:text-base font-semibold flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-green-500" />
             Monthly Sales vs Transactions vs Discounts
           </CardTitle>
@@ -212,7 +212,7 @@ export default function UserDetails() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-gray-800 text-lg font-semibold flex items-center gap-2">
+          <CardTitle className="text-gray-800 text-sm md:text-base font-semibold flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-green-500" />
             Recent Sales
           </CardTitle>
