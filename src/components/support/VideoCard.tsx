@@ -46,7 +46,7 @@ const VideoCard = ({ video }: { video: TutorialVideoProps }) => {
               className="w-32 h-20 object-cover rounded-md text-red-600"
             />
             <div>
-              <CardDescription className="font-semibold">
+              <CardDescription className="font-semibold text-sm md:text-base">
                 {video.description}
               </CardDescription>
             </div>

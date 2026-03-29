@@ -42,7 +42,7 @@ const ProductTable: React.FC<{ products: Product[] }> = ({ products }) => {
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-base">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Product</TableHead>
             <TableHead className="font-semibold">Category</TableHead>
@@ -62,7 +62,7 @@ const ProductTable: React.FC<{ products: Product[] }> = ({ products }) => {
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.id}>
+            <TableRow key={product.id} className="text-xs md:text-base">
               <TableCell>{product.id}</TableCell>
               <TableCell>{product.title}</TableCell>
               <TableCell>

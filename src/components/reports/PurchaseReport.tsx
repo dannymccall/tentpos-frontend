@@ -55,8 +55,8 @@ const PurchaseReport = () => {
     }
   };
   return (
-    <div className="flex flex-col gap-6  bg-slate-50/50 min-h-screen">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6 border shadow-sm">
+    <div className="flex flex-col gap-6  bg-slate-50/50 min-h-screen rounded-md p-2">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6">
         <div>
          
           <p className="text-sm text-muted-foreground">

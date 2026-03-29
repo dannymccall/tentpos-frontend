@@ -2,9 +2,10 @@ import { useApiMutation } from "@/hooks/useApiMutation";
 import type { Category } from "@/types/category.types";
 import type { ActionProps } from "@/types/types";
 import React from "react";
-import BaseModal from "../BaseModal";
-import FormLoading from "../loaders/FormLoading";
+
 import CategoryForm from "./CategoryForm";
+import ConfirmDialogContent from "../confirmDialogContent";
+import DialogModal from "../Dialog";
 
 interface CategoryProps extends ActionProps<Category> {
   category: Category;
@@ -44,7 +45,7 @@ const CategoryModal: React.FC<CategoryProps> = ({
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={"Edit Category"}>
+    <DialogModal open={isOpen} setOpen={onClose} title={""}>
       {mode === "edit" && (
         <CategoryForm
           mode="edit"
@@ -57,25 +58,23 @@ const CategoryModal: React.FC<CategoryProps> = ({
       )}
 
       {mode === "delete" && (
-        <div className="flex flex-col gap-4 items-center">
-          <p className="">
-            Are you sure you want to delete the <strong>{category.name}</strong>{" "}
-            category
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              {isPending ? <FormLoading /> : "Delete"}
-            </button>
-            <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
-              Cancel
-            </button>
-          </div>
-        </div>
+        <ConfirmDialogContent
+          title="Delete Category"
+          description={
+            <>
+              {" "}
+              Are you sure you want to delete the{" "}
+              <strong>{category.name}</strong> category ?
+            </>
+          }
+          confirmText="Delete"
+          variant="danger"
+          isLoading={isPending}
+          onConfirm={handleDelete}
+          onCancel={onClose}
+        />
       )}
-    </BaseModal>
+    </DialogModal>
   );
 };
 

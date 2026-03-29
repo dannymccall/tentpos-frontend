@@ -147,7 +147,7 @@ export default function CashFlow() {
   };
 
   return (
-    <div>
+    <div className="p-2">
       <AccountingReportFilter
         title=""
         description="Profit breakdown by product"
@@ -162,7 +162,7 @@ export default function CashFlow() {
             <div className="flex items-center justify-between">
 
             <p className="text-sm text-muted-foreground font-semibold">
-              Period: {data?.period}
+              Period: {data?.period.includes("null") ? "- to -" : data?.period}
             </p>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={exportPDF}>
@@ -232,7 +232,7 @@ export default function CashFlow() {
             {/* Net Cash Flow */}
             <h3 className="text-lg font-semibold mb-2">Net Cash Flow</h3>
             <p
-              className={`text-xl font-bold ${
+              className={`text-base md:text-lg font-bold ${
                 data?.netCashFlow! < 0 ? "text-red-600" : "text-green-600"
               }`}
             >
@@ -241,8 +241,8 @@ export default function CashFlow() {
           </CardContent>
         </Card>
       ) : (
-        <Card className="max-w-3xl mx-auto min-h-[400px] translate-y-1/3">
-          <div className="m-auto text-center">
+        <Card className="max-w-3xl mx-auto  translate-y-1/3">
+          <div className=" text-center">
             <Filter className="mx-auto h-12 w-12 text-muted-foreground/50" />
             <h3 className="mt-4 text-lg font-semibold">
               Ready to generate profit report

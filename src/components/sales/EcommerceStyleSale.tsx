@@ -1,15 +1,14 @@
 import { useState, useMemo, useEffect } from "react";
 import type { Product, CartItem, Invoice, Sale } from "../../types/sale.types";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 import EcommerceHeader from "./EcommerceHeader";
 import Cart from "./Cart";
-import NoImage from "../../../public/no-image.png";
 import DialogModal from "../Dialog";
 import InvoiceView from "./InvoiceView";
 import { useFetchCategories } from "@/hooks/useFetchCatgories";
 import { Badge } from "../ui/badge";
+import ProductCard from "./ProductCard";
 
 interface AddSalePageProps {
   products: { products: Product[]; mostPurchasedProducts: Product[] };
@@ -48,7 +47,7 @@ export default function AddSalePage({
                 quantity: p.quantity + 1,
                 total: (p.quantity + 1) * p.price,
               }
-            : p
+            : p,
         );
       }
       return [
@@ -72,10 +71,9 @@ export default function AddSalePage({
       prev.map((p) =>
         p.productId === productId
           ? { ...p, quantity: qty, total: qty * p.price }
-          : p
-      )
+          : p,
+      ),
     );
-
 
   const totals = useMemo(() => {
     const subtotal = cart.reduce((sum, p) => sum + p.total, 0);
@@ -99,26 +97,26 @@ export default function AddSalePage({
     }
   };
 
-useEffect(() => {
-  let ticking = false;
+  useEffect(() => {
+    let ticking = false;
 
-  const onScroll = () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        setScrolled((prev) => {
-          if (!prev && window.scrollY > 150) return true;
-          if (prev && window.scrollY < 100) return false;
-          return prev;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled((prev) => {
+            if (!prev && window.scrollY > 150) return true;
+            if (prev && window.scrollY < 100) return false;
+            return prev;
+          });
+          ticking = false;
         });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  };
+        ticking = true;
+      }
+    };
 
-  window.addEventListener("scroll", onScroll);
-  return () => window.removeEventListener("scroll", onScroll);
-}, []);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
     <div className="bg-white p-4 rounded-md">
       {/* Sections */}
@@ -144,7 +142,7 @@ useEffect(() => {
 
           <section className="mb-4  mt-4 md:mt-0">
             <div className="flex gap-2 overflow-x-auto pb-2">
-              <Badge>Filter by Category</Badge>
+              <Badge className="text-xs">Filter by Category</Badge>
               <Button
                 size="sm"
                 variant={activeCategory === "ALL" ? "default" : "outline"}
@@ -179,23 +177,23 @@ useEffect(() => {
     "
         >
           <div className="mr-10 mt-2">
-          <EcommerceHeader
-            cartCount={cart.length}
-            onClickCart={() => setOpen((p) => !p)}
-            onSearch={onSearch}
-            searchValue={searchValue}
-          />
-          </div>
-            <Cart
-              cart={cart}
-              totals={totals}
-              removeFromCart={removeFromCart}
-              updateQuantity={updateQuantity}
-              loading={loading}
-              open={open}
-              setOpen={setOpen}
-              handleSubmitCheckout={handleSubmit}
+            <EcommerceHeader
+              cartCount={cart.length}
+              onClickCart={() => setOpen((p) => !p)}
+              onSearch={onSearch}
+              searchValue={searchValue}
             />
+          </div>
+          <Cart
+            cart={cart}
+            totals={totals}
+            removeFromCart={removeFromCart}
+            updateQuantity={updateQuantity}
+            loading={loading}
+            open={open}
+            setOpen={setOpen}
+            handleSubmitCheckout={handleSubmit}
+          />
 
           <section className="mb-2 md:ml-64 mt-3 md:mt-0 transition-all duration-300">
             <div className="flex gap-2 overflow-x-auto pb-2">
@@ -226,84 +224,31 @@ useEffect(() => {
 
       {Object.values(products).length > 0 &&
         products.mostPurchasedProducts.length > 0 && (
-          <section className="mb-6">
-            <h2 className="text-xl font-bold mb-4">Top Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6">
+          <section className="mb-6 w-full">
+            <h2 className="text-base md:text-lg font-bold mb-4 text-center">
+              Top Products
+            </h2>
+            <div className="grid grid-cols-1  md:grid-cols-5 gap-5">
               {products.mostPurchasedProducts
                 .sort(
                   (a, b) =>
-                    Number((a as any).totalSold) - Number((b as any).totalSold)
+                    Number((a as any).totalSold) - Number((b as any).totalSold),
                 )
                 .map((p) => (
-                  <Card
-                    key={p.id}
-                    className="hover:shadow-lg shadow-none transition cursor-pointer bg-[#eff2f7]"
-                  >
-                    <CardContent>
-                      <div className="flex justify-end mb-3">
-                        <Badge>Stock: {p.branches[0].inventory}</Badge>
-                      </div>
-                      <img
-                        src={
-                          p && p.images.length > 0 ? p.images[0].url : NoImage
-                        }
-                        className="w-full h-40 object-cover mb-2 rounded"
-                      />
-                      <div className="font-semibold">{p.title}</div>
-                      <div className="text-gray-600 mb-2">
-                        ${Number(p.price).toFixed(2)}
-                      </div>
-                      <Button
-                        size="sm"
-                        className="w-full"
-                        onClick={() => addToCart(p)}
-                      >
-                        Add to Cart
-                      </Button>
-                    </CardContent>
-                  </Card>
+                  <ProductCard product={p} addToCart={() => addToCart(p)} />
                 ))}
             </div>
           </section>
         )}
 
-      <section className="mb-6">
-        <h2 className="text-xl font-bold mb-4">Products</h2>
+      <section className="mb-6 w-full">
+        <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-6  ">
           {Object.values(products).length > 0 &&
             products.products
               // .filter((p) => p.recent)
               .map((p) => (
-                <Card
-                  key={p.id}
-                  className="hover:shadow-lg transition cursor-pointer bg-[#eff2f7] shadow-none"
-                >
-                  <CardContent>
-                    <div className="flex justify-end mb-3">
-                      <Badge>
-                        Stock:{" "}
-                        {p && p.branches.length > 0
-                          ? p.branches[0].inventory
-                          : 0}
-                      </Badge>
-                    </div>
-                    <img
-                      src={p && p.images.length > 0 ? p.images[0].url : NoImage}
-                      className="w-full h-40 object-cover mb-2 rounded"
-                    />
-                    <div className="font-semibold">{p.title}</div>
-                    <div className="text-gray-600 mb-2">
-                      ${Number(p.price).toFixed(2)}
-                    </div>
-                    <Button
-                      size="sm"
-                      className="w-full"
-                      onClick={() => addToCart(p)}
-                    >
-                      Add to Cart
-                    </Button>
-                  </CardContent>
-                </Card>
+                <ProductCard product={p} addToCart={() => addToCart(p)} />
               ))}
         </div>
       </section>

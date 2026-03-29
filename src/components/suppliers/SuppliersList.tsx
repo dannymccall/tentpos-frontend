@@ -27,7 +27,7 @@ const SupplierTable: React.FC<{ suppliers: Supplier[] }> = ({ suppliers }) => {
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Name</TableHead>
             <TableHead className="font-semibold">Email</TableHead>
@@ -41,7 +41,7 @@ const SupplierTable: React.FC<{ suppliers: Supplier[] }> = ({ suppliers }) => {
         </TableHeader>
         <TableBody>
           {suppliers.map((supplier) => (
-            <TableRow key={supplier.id}>
+            <TableRow key={supplier.id} className="text-xs md:text-sm">
               <TableCell>{supplier.id}</TableCell>
               <TableCell>{supplier.name}</TableCell>
               <TableCell>{supplier.email}</TableCell>

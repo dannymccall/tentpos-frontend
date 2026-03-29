@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import type { Role as RoleProps } from "../../../types/role.types";
 import { useNotification } from "../../../context/NotificationContext";
-import FormLoading from "../../loaders/FormLoading";
 import { makeRequest } from "@/lib/helperFunctions";
 import DialogModal from "@/components/Dialog";
 import { DialogTitle } from "@/components/ui/dialog";
+import ConfirmDialogContent from "@/components/confirmDialogContent";
 interface RoleModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -59,7 +59,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
             ? "View Role"
             : mode === "edit"
               ? "Edit Role"
-              : "Delete Role"}
+              : ""}
         </DialogTitle>
       }
     >
@@ -70,23 +70,22 @@ const RoleModal: React.FC<RoleModalProps> = ({
       )} */}
 
       {mode === "delete" && (
-        <div className="flex flex-col gap-4 items-center">
-          <p className="">
-            Are you sure you want to delete the <strong>{role.name}</strong>{" "}
+        <ConfirmDialogContent
+          title="Delete Role"
+          description={
+            <>
+              {" "}
+             Are you sure you want to delete the <strong>{role.name}</strong>{" "}
             role ?
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              {loading ? <FormLoading /> : "Delete"}
-            </button>
-            <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
-              Cancel
-            </button>
-          </div>
-        </div>
+            </>
+          }
+          confirmText="Delete"
+          variant="danger"
+          isLoading={loading}
+          onConfirm={handleDelete}
+          onCancel={onClose}
+        />
+      
       )}
     </DialogModal>
   );

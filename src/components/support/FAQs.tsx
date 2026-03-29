@@ -220,11 +220,11 @@ export default function TentPOSFAQ() {
     grouped[item.group].push(item);
   }
 
-  return (
+   return (
     <div className="max-w-5xl mx-auto p-4">
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Frequently Asked Questions — TentPOS</CardTitle>
+          <CardTitle className="text-sm md:text-base">Frequently Asked Questions — TentCore</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
@@ -237,6 +237,7 @@ export default function TentPOSFAQ() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search questions, e.g. 'loan schedule' or 'export'"
+                className="text-sm md:text-base"
               />
             </div>
             <div className="flex items-center md:justify-end">
@@ -249,7 +250,7 @@ export default function TentPOSFAQ() {
       <div className="space-y-6">
         {GROUP_ORDER.map((group) => (
           <section key={group}>
-            <h3 className="text-lg font-semibold mb-3">{group}</h3>
+            <h3 className="text-base md:text-lg font-semibold mb-3">{group}</h3>
             {grouped[group] && grouped[group].length > 0 ? (
               <Accordion type="multiple" defaultValue={grouped[group].slice(0, 3).map((i) => i.id)}>
                 {grouped[group].map((f) => (
@@ -276,7 +277,7 @@ export default function TentPOSFAQ() {
         <div className="flex gap-2">
           {/* Replace the href / onClick with your app's ticket modal or route */}
           <Button variant="outline" onClick={() => navigate("/support/tickets?query=add_ticket")}>Open Support</Button>
-          {/* <Button onClick={() => navigate("/docs")}>View Docs</Button> */}
+          {/* <Button onClick={() =>navigate("/docs")}>View Docs</Button> */}
         </div>
       </div>
     </div>

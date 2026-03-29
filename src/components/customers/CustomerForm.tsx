@@ -73,7 +73,7 @@ export default function CustomerForm({
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} className="text-sm"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -181,13 +181,14 @@ export default function CustomerForm({
             
 
             <div className="flex justify-end gap-2">
-              <Button type="submit" disabled={loading} className="flex-1">
+              <Button type="submit" disabled={loading} className="flex-1" size={"sm"}>
                 {loading ? <FormLoading /> : mode === "add" ? "Save" : "Update"}
               </Button>
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => form.reset()}
+                size={"sm"}
               >
                 Reset
               </Button>

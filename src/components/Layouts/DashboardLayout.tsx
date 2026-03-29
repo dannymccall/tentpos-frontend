@@ -37,6 +37,8 @@ import {
 } from "react-icons/fa";
 import {  FaReceipt } from "react-icons/fa6";
 import { Receipt } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import MobileBackHeader from "../MobileBackHeader";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -447,6 +449,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
+   const location = useLocation();
+
+  const hideOnRoutes = ["/dashboard"];
+
+  const shouldShowBack = !hideOnRoutes.includes(location.pathname);
    useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
@@ -481,6 +488,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               : "w-full"
           }`}
         />
+        {shouldShowBack && <MobileBackHeader title="Back"/>}
 
         <main
           className={`transition-all duration-300 pt-16 min-h-screen ${

@@ -1,9 +1,9 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import React from "react";
-import FormLoading from "../loaders/FormLoading";
 import type { Customer } from "@/types/customer.types";
 import DialogModal from "../Dialog";
 import { DialogTitle } from "../ui/dialog";
+import ConfirmDialogContent from "../confirmDialogContent";
 interface customerProps {
   customer: Customer;
   isOpen: boolean;
@@ -35,27 +35,25 @@ const CustomerModal: React.FC<customerProps> = ({
     <DialogModal
       open={isOpen}
       setOpen={onClose}
-      title={<DialogTitle className="m-auto">Delete Customer</DialogTitle>}
+      title={<DialogTitle className="m-auto"></DialogTitle>}
     >
       {customer && (
-        <div className="flex flex-col gap-4 items-center">
-          <p className="">
-            Are you sure you want to delete the{" "}
+         <ConfirmDialogContent
+          title="Delete Customer"
+          description={
+            <>
+               Are you sure you want to delete the{" "}
             <strong>{`${customer.firstName} ${customer.lastName}`}</strong>{" "}
-            customer
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 text-white px-4 py-2 rounded"
-            >
-              {isPending ? <FormLoading /> : "Delete"}
-            </button>
-            <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
-              Cancel
-            </button>
-          </div>
-        </div>
+            customer ?
+            </>
+          }
+          confirmText="Delete"
+          variant="danger"
+          isLoading={isPending}
+          onConfirm={handleDelete}
+          onCancel={onClose}
+        />
+       
       )}
     </DialogModal>
   );

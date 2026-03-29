@@ -145,8 +145,8 @@ if(isLoading) return <SpinnerCustom />
           <Card key={i} className="p-4">
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-sm text-muted-foreground">{kpi.title}</div>
-                <div className="text-xl font-bold mt-1">
+                <div className="text-xs md:text-sm text-muted-foreground">{kpi.title}</div>
+                <div className="text-sm md:text-base font-bold mt-1">
                   {(kpi.value)}
                 </div>
               </div>
@@ -157,7 +157,7 @@ if(isLoading) return <SpinnerCustom />
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Sales trend */}
         <Card className="lg:col-span-2">
           <CardHeader>
@@ -168,8 +168,8 @@ if(isLoading) return <SpinnerCustom />
               <ResponsiveContainer>
                 <LineChart data={data.monthlySales}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
+                  <XAxis dataKey="month" className="text-xs md:text-sm"/>
+                  <YAxis className="text-xs md:text-sm"/>
                   <ReTooltip />
                   <Line
                     type="monotone"
@@ -239,14 +239,14 @@ if(isLoading) return <SpinnerCustom />
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-medium">{s.customer ? `${s.customer.firstName} ${s.customer.lastName}`: "Walk-In Customer"}</div>
+                      <div className="font-medium text-sm md:text-base">{s.customer ? `${s.customer.firstName} ${s.customer.lastName}`: "Walk-In Customer"}</div>
                       <div className="text-xs text-muted-foreground">
                         Cashier: {s.userSale.fullName}
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-semibold">
+                    <div className="font-semibold text-sm md:text-base">
                       {formatCurrency(s.amountPaid)}
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -269,7 +269,7 @@ if(isLoading) return <SpinnerCustom />
               {data.outOfStock.map((item:any, i:number) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between p-3 rounded-md bg-red-50"
+                  className="flex text-sm md:text-base items-center justify-between p-3 rounded-md bg-red-50"
                 >
                   <div>{item.product.title}</div>
                   <div className="font-bold text-red-600">{item.inventory} left</div>

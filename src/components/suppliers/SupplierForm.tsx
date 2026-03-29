@@ -94,7 +94,7 @@ export default function SupplierForm({
                       <FormItem>
                         <FormLabel>Supplier name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Supplier name" {...field} />
+                          <Input placeholder="Supplier name" {...field} className="text-sm md:text-base"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -111,7 +111,7 @@ export default function SupplierForm({
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="supplier@company.com" {...field} />
+                        <Input placeholder="supplier@company.com" {...field} className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -125,7 +125,7 @@ export default function SupplierForm({
                     <FormItem>
                       <FormLabel>Phone</FormLabel>
                       <FormControl>
-                        <Input placeholder="+233 24 000 0000" {...field} />
+                        <Input placeholder="+233 24 000 0000" {...field} className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -140,7 +140,7 @@ export default function SupplierForm({
                   <FormItem>
                     <FormLabel>Contact person</FormLabel>
                     <FormControl>
-                      <Input placeholder="Contact person (optional)" {...field} />
+                      <Input placeholder="Contact person (optional)" {...field} className="text-sm md:text-base"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +154,7 @@ export default function SupplierForm({
                   <FormItem>
                     <FormLabel>Address</FormLabel>
                     <FormControl>
-                      <Textarea rows={3} placeholder="Street, City, Country" {...field} />
+                      <Textarea rows={3} placeholder="Street, City, Country" {...field} className="text-sm md:text-base"/>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,7 +169,7 @@ export default function SupplierForm({
                     <FormItem>
                       <FormLabel>Opening balance</FormLabel>
                       <FormControl>
-                        <Input placeholder="0.00" {...field} />
+                        <Input placeholder="0.00" {...field} className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -183,7 +183,7 @@ export default function SupplierForm({
                     <FormItem>
                       <FormLabel>Notes</FormLabel>
                       <FormControl>
-                        <Textarea rows={2} placeholder="Any internal notes" {...field} />
+                        <Textarea rows={2} placeholder="Any internal notes" {...field} className="text-sm md:text-base"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -192,10 +192,10 @@ export default function SupplierForm({
               </div>
 
               <div className="flex gap-2 justify-end">
-                <Button type="button" variant="outline" onClick={() => form.reset()}>
+                <Button type="button" variant="outline" onClick={() => form.reset()} size="sm">
                   Reset
                 </Button>
-                <Button type="submit" className="min-w-[140px]" disabled={loading}>
+                <Button type="submit"  disabled={loading} size={"sm"}>
                   {mode === "add" ? "Create Supplier" : "Save changes"}
                 </Button>
               </div>

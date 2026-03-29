@@ -98,7 +98,7 @@ const IncomeStatement = () => {
   };
 
   return (
-    <div className="rounded-none">
+    <div className="rounded-none p-2">
       <AccountingReportFilter
         title=""
         description="Summary of revenue, costs, and profit"
@@ -106,13 +106,13 @@ const IncomeStatement = () => {
         onGenerate={(filters) => fetchIncomeStatement(filters)}
       />
       {data && Object.keys(data!).length > 0 ? (
-        <Card className="max-w-3xl mx-auto mt-5">
+        <Card className="max-w-3xl mx-auto mt-5 ">
           <CardHeader>
             {/* <CardTitle className="text-xl">Income Statement</CardTitle> */}
             <div className="flex items-center justify-between">
 
             <p className="text-sm text-muted-foreground font-semibold">
-              Period: {data?.period}
+              Period: {data?.period.includes("null") ? "- to -" : data?.period}
             </p>
             <div className="flex gap-2 mt-2">
               <Button
@@ -142,14 +142,14 @@ const IncomeStatement = () => {
             <Divider />
             <div className="flex justify-between items-center font-bold text-lg">
               <span>Net Profit</span>
-              <Badge variant={isProfit ? "default" : "destructive"}>
+              <Badge className={isProfit ? "bg-emerald-500" : "bg-red-500"}>
                 {currency(data?.netProfit!)}
               </Badge>
             </div>
           </CardContent>
         </Card>
       ) : (
-        <Card className="max-w-3xl mx-auto min-h-[400px] translate-y-1/3">
+        <Card className="max-w-3xl  translate-y-1/3">
           <div className="m-auto text-center">
             <Filter className="mx-auto h-12 w-12 text-muted-foreground/50" />
             <h3 className="mt-4 text-lg font-semibold">
@@ -177,7 +177,7 @@ function Row({
   highlight?: boolean;
 }) {
   return (
-    <div className={`flex justify-between ${highlight ? "font-semibold" : ""}`}>
+    <div className={`flex text-sm md:text-base justify-between ${highlight ? "font-semibold" : ""}`}>
       <span>{label}</span>
       <span>{currency( Number(value))}</span>
     </div>

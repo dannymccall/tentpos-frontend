@@ -40,7 +40,7 @@ const Role = ({
         onEdit={onEdit}
         onSuccess={onSuccess}
       />
-      <tr className=" border-b-gray-300 hover:bg-gray-50">
+      <tr className=" border-b-gray-300 hover:bg-gray-50 text-xs md:text-sm">
         <td className="p-1 border border-gray-300">{role.name}</td>
         <td className="p-1 border border-gray-300">{role.description}</td>
         <td className="p-1 border border-gray-300">{permissionCount}</td>

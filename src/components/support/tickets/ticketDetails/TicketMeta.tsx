@@ -6,7 +6,7 @@ const TicketMeta = ({ ticket }: { ticket: Ticket }) => (
     <CardHeader>
       <CardTitle>Ticket Info</CardTitle>
     </CardHeader>
-    <CardContent className="text-sm space-y-2">
+    <CardContent className="text-xs md:text-sm space-y-2">
       <div><strong>Subject:</strong> {ticket.subject}</div>
       <div><strong>Email:</strong> {ticket.contactEmail}</div>
       <div><strong>Category:</strong> {ticket.category}</div>

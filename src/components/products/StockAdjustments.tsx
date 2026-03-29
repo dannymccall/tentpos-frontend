@@ -16,7 +16,7 @@ const StockAdjustmentsTable: React.FC<{ adjustments: StockAdjustment[] }> = ({ a
     <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm"> 
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Product</TableHead>
             <TableHead className="font-semibold">Branch</TableHead>
@@ -28,7 +28,7 @@ const StockAdjustmentsTable: React.FC<{ adjustments: StockAdjustment[] }> = ({ a
         </TableHeader>
         <TableBody>
           {adjustments.map((adjustment) => (
-            <TableRow key={adjustment.id}>
+            <TableRow key={adjustment.id} className="text-xs md:text-sm">
               <TableCell>{adjustment.id}</TableCell>
               <TableCell>{adjustment.productStockAdjustment.title}</TableCell>
               <TableCell>

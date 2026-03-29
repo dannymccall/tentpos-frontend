@@ -77,7 +77,7 @@ export default function EcommerceCheckoutPage({
   };
 
   return (
-    <div className="  mt-6 min-h-full overflow-y-auto">
+    <div className=" mt-6 min-h-full overflow-y-auto">
      
      <div className="overflow-y-auto min-h-full">
       {/* LEFT SECTION */}
@@ -109,7 +109,7 @@ export default function EcommerceCheckoutPage({
               type="number"
               step="0.01"
               {...register("tax")}
-              className="mt-1"
+              className="mt-1 text-sm md:text-base"
             />
           </div>
 
@@ -119,24 +119,24 @@ export default function EcommerceCheckoutPage({
               type="number"
               step="0.01"
               {...register("amountPaid")}
-              className="mt-1"
+              className="mt-1 text-sm md:text-base"
             />
           </div>
         </div>
       </div>
 
       {/* RIGHT SECTION — ORDER SUMMARY */}
-      <div className="bg-white shadow rounded-xl p-6 space-y-4">
+      <div className="bg-white shadow rounded-xl p-6 space-y-4 text-sm md:text-base">
 
-        <h2 className="text-xl font-semibold">Order Summary</h2>
+        <h2 className="text-sm md:text-base font-semibold">Order Summary</h2>
 
         {cartItems.map((item, i) => (
           <div key={i} className="flex justify-between text-sm">
             <p>
               {item.title} ×{" "}
-              <span className="font-medium">{item.quantity}</span>
+              <span className="font-medium text-sm md:text-base">{item.quantity}</span>
             </p>
-            <p className="font-semibold">
+            <p className="font-semibold text-sm md:text-base">
               {item.price * item.quantity} GHS
             </p>
           </div>
@@ -156,17 +156,17 @@ export default function EcommerceCheckoutPage({
 
         <Separator />
 
-        <div className="flex justify-between text-lg font-semibold">
+        <div className="flex justify-between text-base md:text-lg font-semibold">
           <span>Total</span>
-          <span>{total.toFixed(2)} GHS</span>
+          <span className="text-sm md:text-base">{total.toFixed(2)} GHS</span>
         </div>
 
-        <div className="flex justify-between text-base">
+        <div className="flex justify-between text-sm md:text-base">
           <span>Amount Paid</span>
           <span>{amountPaid.toFixed(2)} GHS</span>
         </div>
 
-        <div className="flex justify-between text-base font-semibold">
+        <div className="flex justify-between text-sm md:text-base font-semibold">
           <span>Balance</span>
           <span className={balance > 0 ? "text-red-600" : "text-green-600"}>
             {balance.toFixed(2)} GHS
@@ -177,6 +177,7 @@ export default function EcommerceCheckoutPage({
           className="w-full mt-4"
           disabled={loading}
           onClick={form.handleSubmit(onSubmit)}
+          size={"sm"}
         >
           {loading ? "Processing..." : "Complete Checkout"}
         </Button>

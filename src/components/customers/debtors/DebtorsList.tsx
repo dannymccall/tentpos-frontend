@@ -49,7 +49,7 @@ const DebtorsTable: React.FC<{ debtors: Debtor[] }> = ({ debtors }) => {
               <TableCell>{debtor.branchDebtor.name}</TableCell>
               <TableCell className="text-right">
                 <div className="w-full  flex-1 flex justify-end">
-                  <Button size={"sm"} onClick={() => {setIsOpen(true), setDebtor(debtor)}}>Pay</Button>
+                  <Button  onClick={() => {setIsOpen(true), setDebtor(debtor)}}>Pay</Button>
                 </div>
               </TableCell>
             </TableRow>

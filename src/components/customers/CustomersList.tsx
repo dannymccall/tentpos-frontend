@@ -26,7 +26,7 @@ const CustomerTable: React.FC<{ customers: Customer[] }> = ({ customers }) => {
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">First Name</TableHead>
             <TableHead className="font-semibold">Last Name</TableHead>
@@ -40,7 +40,7 @@ const CustomerTable: React.FC<{ customers: Customer[] }> = ({ customers }) => {
         </TableHeader>
         <TableBody>
           {customers.map((customer) => (
-            <TableRow key={customer.id}>
+            <TableRow key={customer.id} className="text-xs md:text-sm">
               <TableCell>{customer.id}</TableCell>
               <TableCell>{customer.firstName}</TableCell>
               <TableCell>{customer.lastName}</TableCell>

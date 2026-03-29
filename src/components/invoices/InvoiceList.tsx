@@ -37,7 +37,7 @@ const InvoiceTable: React.FC<{ invoices: Invoice[] }> = ({ invoices }) => {
       </DialogModal>
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="font-semibold">Id</TableHead>
             <TableHead className="font-semibold">Invoice Number</TableHead>
             <TableHead className="font-semibold">Sales Number</TableHead>
@@ -53,7 +53,7 @@ const InvoiceTable: React.FC<{ invoices: Invoice[] }> = ({ invoices }) => {
         </TableHeader>
         <TableBody>
           {invoices.map((invoice) => (
-            <TableRow key={invoice.id}>
+            <TableRow key={invoice.id} className="text-xs md:text-sm">
               <TableCell>{invoice.id}</TableCell>
               <TableCell>{invoice.invoiceNumber}</TableCell>
               <TableCell>{invoice.saleInvoice?.saleNumber}</TableCell>

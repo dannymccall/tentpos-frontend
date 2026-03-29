@@ -138,10 +138,10 @@ export default function UserDetails() {
                 <CardTitle className="text-sm font-medium text-gray-500">
                   {metric.title}
                 </CardTitle>
-                <Icon className={`h-5 w-5 ${metric.color}`} />
+                <Icon className={`md:h-5 ms:w-5 h-4 w-4  ${metric.color}`} />
               </CardHeader>
               <CardContent>
-                <p className="text-lg font-semibold text-gray-800">
+                <p className="text-sm md:text-base font-semibold text-gray-800">
                   {metric.value}
                 </p>
               </CardContent>
@@ -158,7 +158,7 @@ export default function UserDetails() {
             Monthly Sales vs Transactions vs Discounts
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-96">
+        <CardContent className="md:h-96 h-[500px] ">
           <ResponsiveContainer width="100%" height={400}>
             <BarChart
               data={monthlySales}
@@ -179,7 +179,8 @@ export default function UserDetails() {
                 }}
                 formatter={(value: number) => value.toLocaleString()}
               />
-              <Legend verticalAlign="top" height={36} />
+              <Legend verticalAlign="bottom" height={36} />
+              <div></div>
               <Bar
                 dataKey="totalSales"
                 fill="#22c55e"

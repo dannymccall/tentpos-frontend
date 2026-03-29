@@ -356,7 +356,7 @@ export default function SaleForm({
                     <FormItem>
                       <FormLabel>Date</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} />
+                        <Input type="date" {...field} className="text-sm"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -491,7 +491,7 @@ export default function SaleForm({
                           <FormItem className="">
                             <FormLabel>Qty</FormLabel>
                             <FormControl>
-                              <Input {...field} className="w-10" />
+                              <Input {...field} className="w-20 md:w-full text-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -507,7 +507,7 @@ export default function SaleForm({
                           <FormItem>
                             <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <Input {...field} />
+                              <Input {...field} className="w-20 md:w-full text-sm" />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -523,7 +523,7 @@ export default function SaleForm({
                           <FormItem>
                             <FormLabel>Total</FormLabel>
                             <FormControl>
-                              <Input {...field} readOnly />
+                              <Input {...field} readOnly className="w-20 md:w-full text-sm"/>
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -580,7 +580,7 @@ export default function SaleForm({
                     <FormItem>
                       <FormLabel>Tax</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="0.00" />
+                        <Input {...field} placeholder="0.00" className="text-sm"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -594,7 +594,7 @@ export default function SaleForm({
                     <FormItem>
                       <FormLabel>Discount</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="0.00" />
+                        <Input {...field} placeholder="0.00"  className="text-sm"/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -608,7 +608,7 @@ export default function SaleForm({
                       <FormItem>
                         <FormLabel>Amount paid</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="0.00" />
+                          <Input {...field} placeholder="0.00"  className="text-sm"/>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -618,7 +618,7 @@ export default function SaleForm({
                 <div />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 text-sm md:text-base">
                 <div>Subtotal: {calcTotals.subtotal.toFixed(2)}</div>
                 <div>Total: {calcTotals.total.toFixed(2)}</div>
                 <div>Balance: {calcTotals.balance.toFixed(2)}</div>
@@ -648,6 +648,7 @@ export default function SaleForm({
                     form.reset();
                     window.scroll({ behavior: "smooth", top: 0 });
                   }}
+                  size={"sm"}
                 >
                   Reset
                 </Button>
@@ -662,6 +663,7 @@ export default function SaleForm({
                     variant="outline"
                     disabled={loading}
                     onClick={() => setSubmitType("hold")}
+                    size={"sm"}
                   >
                     Hold Sale
                   </Button>
@@ -673,6 +675,7 @@ export default function SaleForm({
                     disabled={loading}
                     onClick={() => setSubmitType("partial")}
                     className="bg-amber-600 text-white hover:bg-amber-500"
+                    size={"sm"}
                   >
                     Partial Sale
                   </Button>
@@ -690,6 +693,7 @@ export default function SaleForm({
                         : "default"
                   }
                   onClick={() => setSubmitType("complete")}
+                  size={"sm"}
                 >
                   {getButtonLabel(mode, (defaultValues as any)?.status)}
                 </Button>

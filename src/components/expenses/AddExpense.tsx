@@ -108,8 +108,10 @@ export default function ExpenseCreation({
   };
 
   return (
+    <div className="p-2">
+
     <Card
-      className={`shadow-lg rounded-2xl ${
+      className={` rounded-2xl ${
         expense ? "w-full shadow-none" : "max-w-xl"
       }  mx-auto p-2`}
     >
@@ -271,7 +273,7 @@ export default function ExpenseCreation({
             <Button
               type="button"
               disabled={isPending}
-              className=" text-base"
+            
               onClick={handleSubmit((data) => onSubmit(data, "update"))}
             >
               {isPending ? (
@@ -286,7 +288,7 @@ export default function ExpenseCreation({
               <Button
                 type="button"
                 disabled={creationPending}
-                className=" text-base"
+                
                 variant={"secondary"}
                 onClick={handleSubmit((data) => onSubmit(data, "new"))}
               >
@@ -297,5 +299,6 @@ export default function ExpenseCreation({
         </form>
       </CardContent>
     </Card>
+    </div>
   );
 }

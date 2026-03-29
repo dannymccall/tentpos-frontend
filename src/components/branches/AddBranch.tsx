@@ -6,24 +6,26 @@ import FormLoading from "../loaders/FormLoading";
 import { useFetchUsers } from "../../hooks/useFetchUsers";
 import { useApiMutation } from "../../hooks/useApiMutation";
 import { useAuth } from "../../context/AuthContext";
-
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { hasPermission } from "@/lib/permissions";
 import { Unauthorized } from "../Unauthorzed";
+import { FormField, InputField } from "../FormElements";
+import { Button } from "../ui/button";
+
 const AddBranch: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedManager, setSelectedManager] = useState<string | null>(null);
- 
-  const {users} = useFetchUsers()
-  const {permissions, businessProfile} = useAuth();
+
+  const { users } = useFetchUsers();
+  const { permissions, businessProfile } = useAuth();
 
   // console.log(users)
 
-  const isAuthorized =hasPermission(permissions, "CREATE_BRANCH") || businessProfile?.appRole === "owner"
+  const isAuthorized =
+    hasPermission(permissions, "CREATE_BRANCH") ||
+    businessProfile?.appRole === "owner";
   const filteredManagers = useMemo(() => {
     return users.filter((m) =>
-      m.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+      m.fullName.toLowerCase().includes(searchTerm.toLowerCase()),
     );
   }, [searchTerm]);
   const {
@@ -34,38 +36,34 @@ const AddBranch: React.FC = () => {
     reset,
   } = useForm<Branch>();
 
- 
-const { mutate: addBranch, isPending } = useApiMutation({
-  url: "/api/branches/create-branch",
-  method: "POST",
-  invalidateKey: "/api/branches/get-branches",
-  onSuccessCallback: () => reset(),
-});
+  const { mutate: addBranch, isPending } = useApiMutation({
+    url: "/api/branches/create-branch",
+    method: "POST",
+    invalidateKey: "/api/branches/get-branches",
+    onSuccessCallback: () => reset(),
+  });
 
   const onSubmit = async (data: Branch) => {
-   addBranch(data);
-  // console.log(data)
+    addBranch(data);
+    // console.log(data)
   };
 
-  if(!isAuthorized) return <Unauthorized />
+  if (!isAuthorized) return <Unauthorized />;
 
   return (
-    <div className="flex justify-center items-center py-20">
+    <div className="flex justify-center items-center p-2">
       <div className="bg-white w-full md:w-3xl p-10 rounded-lg">
         <h1 className="text-center mb-5 font-semibold text-gray-600">
           Add New Branch
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-5"
+        >
           {/* Name */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="name"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              Branch Name
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="Branch Name">
+              <InputField
                 placeholder="eg. Main"
                 type="text"
                 {...register("name", { required: "Branch name is required" })}
@@ -78,19 +76,13 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.name.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* Address */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="address"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              Address
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="Address">
+              <InputField
                 placeholder="eg. 123 High Street"
                 type="text"
                 {...register("address", { required: "Address is required" })}
@@ -103,19 +95,13 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.address.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* City */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="city"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              City
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="City">
+              <InputField
                 placeholder="eg. Accra"
                 type="text"
                 {...register("city", { required: "City is required" })}
@@ -128,19 +114,13 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.city.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* Region */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="region"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              Region
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="Region">
+              <InputField
                 placeholder="eg. Greater Accra"
                 type="text"
                 {...register("region", { required: "Region is required" })}
@@ -153,19 +133,13 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.region.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* Phone */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="phone"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              Phone
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="Phone">
+              <InputField
                 placeholder="eg. +233 24 000 0000"
                 type="text"
                 {...register("phone", { required: "Phone number is required" })}
@@ -178,19 +152,13 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.phone.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* Email */}
           <div className="flex items-center flex-col md:flex-row gap-5">
-            <label
-              htmlFor="email"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
-            >
-              Email
-            </label>
-            <div className="w-full flex flex-col justify-center">
-              <Input
+            <FormField label="Email">
+              <InputField
                 placeholder="eg. branch@email.com"
                 type="email"
                 {...register("email", {
@@ -209,49 +177,43 @@ const { mutate: addBranch, isPending } = useApiMutation({
                   {errors.email.message}
                 </p>
               )}
-            </div>
+            </FormField>
           </div>
 
           {/* Branch Manager with search */}
-          <div className="flex items-start flex-col md:flex-row gap-5">
-            <label
-              htmlFor="managerId"
-              className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end mt-2"
-            >
-              Branch Manager
-            </label>
-            <div className="w-full flex flex-col">
-              {/* Search box */}
-              <Input
-                placeholder="Search manager..."
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="mb-2 text-slate-700 font-semibold"
-              />
+            <div className="w-full md:col-span-2">
+              <FormField label="Branch Manager">
+                {/* Search box */}
+                <InputField
+                  placeholder="Search manager..."
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="mb-2 text-slate-700 font-semibold"
+                />
 
-              {/* Dropdown */}
-              <select
-                {...register("managerId")}
-                value={selectedManager ?? ""}
-                onChange={(e) => {
-                  setSelectedManager(e.target.value);
-                  setValue("managerId", e.target.value);
-                }}
-                className="border rounded-lg px-3 py-2 text-slate-700 font-semibold"
-              >
-                <option value="">-- Select Manager --</option>
-                {filteredManagers.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.fullName}
-                  </option>
-                ))}
-              </select>
+                {/* Dropdown */}
+                <select
+                  {...register("managerId")}
+                  value={selectedManager ?? ""}
+                  onChange={(e) => {
+                    setSelectedManager(e.target.value);
+                    setValue("managerId", e.target.value);
+                  }}
+                  className="border rounded-lg px-3 py-2 text-slate-700 font-semibold"
+                >
+                  <option value="">-- Select Manager --</option>
+                  {filteredManagers.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.fullName}
+                    </option>
+                  ))}
+                </select>
+              </FormField>
             </div>
-          </div>
 
           {/* Submit button */}
-          <div className="flex justify-end">
+          <div className="md:col-span-2 place-self-end">
             <Button
               type="submit"
               onClick={() => {}}

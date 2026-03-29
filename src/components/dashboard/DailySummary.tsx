@@ -38,15 +38,15 @@ interface DailySummaryResponse {
 }
 
 const StatCard = ({ title, value, icon, footer }: any) => (
-  <Card className="rounded-2xl shadow-sm">
+  <Card className="rounded-2xl ">
     <CardHeader className="flex flex-row items-center justify-between pb-2">
       <CardTitle className="text-sm font-medium text-muted-foreground">
         {title}
       </CardTitle>
-      <div className="text-xl text-muted-foreground">{icon}</div>
+      <div className="text-sm md:text-base text-muted-foreground">{icon}</div>
     </CardHeader>
     <CardContent>
-      <div className="text-2xl font-bold">{value}</div>
+      <div className="text-sm md:text-base font-bold">{value}</div>
       {footer && <p className="text-xs text-muted-foreground mt-1">{footer}</p>}
     </CardContent>
   </Card>
@@ -210,7 +210,7 @@ export default function DailySummaryDashboard() {
             <span className="text-sm text-muted-foreground">
               Lost / Damaged Items
             </span>
-            <span className="text-lg font-semibold">
+            <span className="text-sm md:text-base font-semibold">
               {data?.inventory.lostQty}
             </span>
           </div>

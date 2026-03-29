@@ -87,9 +87,9 @@ export default function InventoryReportDashboard() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-8 bg-slate-50/50 min-h-screen">
+    <div className="flex flex-col gap-6 p-2 bg-slate-50/50 min-h-screen">
       {/* HEADER & FILTERS */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6 rounded-xl border shadow-sm">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white p-6 rounded-xl ">
         <div>
          
           <p className="text-sm text-muted-foreground">
@@ -201,14 +201,14 @@ export default function InventoryReportDashboard() {
 
       {/* DATA AREA */}
       <div className="grid gap-6 w-full overflow-x-auto">
-        <Card className="min-h-[400px] flex border-dashed">
+        <Card className=" flex border-dashed">
           {data ? (
             <RenderInventoryReport
               data={data}
               status={movementType}
             />
           ) : (
-            <div className="m-auto text-center">
+            <div className=" text-center">
               <Filter className="mx-auto h-12 w-12 text-muted-foreground/50" />
               <h3 className="mt-4 text-lg font-semibold">
                 Ready to generate inventory report

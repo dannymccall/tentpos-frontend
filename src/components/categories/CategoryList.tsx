@@ -46,7 +46,7 @@ const CategoryTable: React.FC<CategoryProps> = ({
       />
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-xs md:text-sm">
             <TableHead className="w-[100px]">ID</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Parent Category</TableHead>
@@ -56,7 +56,7 @@ const CategoryTable: React.FC<CategoryProps> = ({
         </TableHeader>
         <TableBody>
           {categories.map((category) => (
-            <TableRow key={category.id}>
+            <TableRow key={category.id} className="text-xs md:text-sm">
               <TableCell>{category.id}</TableCell>
               <TableCell>{category.name}</TableCell>
               <TableCell>{category.parentCategory}</TableCell>

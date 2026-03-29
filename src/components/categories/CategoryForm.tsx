@@ -91,7 +91,7 @@ export default function CategoryForm({
   return (
       <Card className="max-w-xl w-full  rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">
+          <CardTitle className="text-sm md:text-base font-semibold">
             {mode === "add" ? "Add New Category" : ""}
           </CardTitle>
         </CardHeader>
@@ -110,7 +110,7 @@ export default function CategoryForm({
                   <FormItem>
                     <FormLabel>Category Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Phones, Shoes..." {...field} />
+                      <Input placeholder="e.g. Phones, Shoes..." {...field} className="text-sm" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -158,6 +158,7 @@ export default function CategoryForm({
                         rows={3}
                         placeholder="Describe the category..."
                         {...field}
+                        className="text-sm"
                       />
                     </FormControl>
                     <FormMessage />
@@ -165,7 +166,7 @@ export default function CategoryForm({
                 )}
               />
 
-              <Button type="submit" disabled={loading} className="w-full">
+              <Button type="submit" disabled={loading} className="w-full" size={"sm"}>
                 {loading
                   ? "Processing..."
                   : mode === "add"

@@ -47,11 +47,11 @@ export default function SalesSummaryReport({ data = [] }: SummaryReportProps) {
         <CardTitle className="text-xl">Sales Summary Report</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Export</Button>
+            <Button variant="outline" className="text-xs md:text-sm">Export</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={exportCSV}>Export CSV</DropdownMenuItem>
-            <DropdownMenuItem onClick={exportPDF}>Export PDF</DropdownMenuItem>
+            <DropdownMenuItem onClick={exportCSV} className="text-xs md:text-sm">Export CSV</DropdownMenuItem>
+            <DropdownMenuItem onClick={exportPDF} className="text-xs md:text-sm">Export PDF</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>

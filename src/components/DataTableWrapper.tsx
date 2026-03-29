@@ -117,7 +117,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
 
               {/* Export Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger asChild className="border-gray-600">
                   <Button
                     variant="outline"
                     className="bg-slate-800 text-white hover:bg-slate-700"

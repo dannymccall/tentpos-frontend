@@ -1,16 +1,22 @@
-import  { useMemo } from "react";
+import { useMemo } from "react";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
+
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Table, TableHeader, TableBody, TableRow, TableCell, TableHead } from "@/components/ui/table";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableHead,
+} from "@/components/ui/table";
 import { formatDate } from "@/lib/helperFunctions";
 
 import type { SaleReturn, SaleReturnItem } from "@/types/sale.types";
+import DialogModal from "../Dialog";
 
 interface SaleReturnDetailModalProps {
   open: boolean;
@@ -33,53 +39,53 @@ export default function SaleReturnDetailModal({
   }, [saleReturn]);
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>
-            Returned Items — Sale #{saleReturn.sale.saleNumber}
-          </DialogTitle>
-        </DialogHeader>
+    <DialogModal
+      open={open}
+      setOpen={onClose}
+      title={
+        <DialogTitle className="text-sm md:text-base">
+          Returned Items — Sale #{saleReturn.sale.saleNumber}
+        </DialogTitle>
+      }
+    >
+      <div className="overflow-x-auto mt-4">
+        <Table>
+          <TableHeader>
+            <TableRow className="text-xs md:text-sm">
+              <TableHead>Product ID</TableHead>
+              <TableHead>Quantity</TableHead>
+              <TableHead>Unit Price</TableHead>
+              <TableHead>Refund Amount</TableHead>
+              <TableHead>Condition</TableHead>
+              <TableHead>Date Returned</TableHead>
+            </TableRow>
+          </TableHeader>
 
-        <div className="overflow-x-auto mt-4">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Product ID</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Unit Price</TableHead>
-                <TableHead>Refund Amount</TableHead>
-                <TableHead>Condition</TableHead>
-                <TableHead>Date Returned</TableHead>
+          <TableBody>
+            {saleReturn.items.map((item: SaleReturnItem) => (
+              <TableRow key={item.id} className="text-xs md:text-sm">
+                <TableCell>{item.productItem.title}</TableCell>
+                <TableCell>{item.quantity}</TableCell>
+                <TableCell>{Number(item.unitPrice).toFixed(2)}</TableCell>
+                <TableCell>{Number(item.refundAmount).toFixed(2)}</TableCell>
+                <TableCell>{item.condition}</TableCell>
+                <TableCell>{formatDate(item.createdAt)}</TableCell>
               </TableRow>
-            </TableHeader>
+            ))}
+          </TableBody>
+        </Table>
 
-            <TableBody>
-              {saleReturn.items.map((item: SaleReturnItem) => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.productItem.title}</TableCell>
-                  <TableCell>{item.quantity}</TableCell>
-                  <TableCell>{Number(item.unitPrice).toFixed(2)}</TableCell>
-                  <TableCell>{Number(item.refundAmount).toFixed(2)}</TableCell>
-                  <TableCell>{item.condition}</TableCell>
-                  <TableCell>{formatDate(item.createdAt)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          {/* Total */}
-          <div className="mt-4 text-right font-semibold text-lg">
-            Total Refund: ${totalRefund.toFixed(2)}
-          </div>
+        {/* Total */}
+        <div className="mt-4 text-right font-semibold text-sm md:text-base">
+          Total Refund: ${totalRefund.toFixed(2)}
         </div>
+      </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
-            Close
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <DialogFooter>
+        <Button variant="outline" onClick={onClose}>
+          Close
+        </Button>
+      </DialogFooter>
+    </DialogModal>
   );
 }
