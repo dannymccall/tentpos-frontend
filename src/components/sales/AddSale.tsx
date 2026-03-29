@@ -49,7 +49,7 @@ const AddSale = () => {
     }
   };
   return (
-    <div>
+    <div className="p-2">
       <AddSalePage
         onSubmit={onSubmit}
         loading={isPending}
