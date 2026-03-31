@@ -73,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
           <FaBars size={18} />
         </Button>
 
-        <h1 className="text-lg font-semibold text-gray-800 tracking-tight">
+       <h1 className="md:text-lg text-base font-semibold text-gray-800 tracking-tight">
           {title}
         </h1>
       </div>
