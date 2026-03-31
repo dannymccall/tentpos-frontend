@@ -96,10 +96,10 @@ export default function Tabs({
         className="w-full"
       >
         {/* Mobile dropdown */}
-        <div className="sm:hidden  z-50 mb-4 fixed w-full">
+         <div className="sm:hidden fixed mb-4 z-50 w-full">
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="w-full bg-white  border-t border-t-gray-300  px-4 py-4  text-left flex justify-between items-center shadow-sm"
+            className="w-full bg-[#0f172b] border-t border-t-gray-300 text-gray-200 px-4 py-4 text-left flex justify-between items-center shadow-sm"
           >
             {visibleTabs.find((t) => t.key === active)?.label}
             <svg
@@ -121,7 +121,7 @@ export default function Tabs({
           </button>
 
           {mobileOpen && (
-            <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg">
+            <div className="absolute z-50 mt-1 w-full bg-[#0f172b] border border-gray-500  shadow-lg">
               {visibleTabs.map((tab) => (
                 <button
                   key={tab.key}
@@ -129,8 +129,8 @@ export default function Tabs({
                     setActive(tab.key);
                     setMobileOpen(false);
                   }}
-                  className={`w-full text-sm   text-left px-4 py-2 hover:bg-gray-100 ${
-                    active === tab.key ? "font-semibold bg-gray-100" : ""
+                  className={`w-full text-left px-4 py-2 hover:bg-gray-100 ${
+                    active === tab.key ? "text-sm font-semibold text-gray-200" : "text-gray-400"
                   }`}
                 >
                   {tab.label}{" "}
