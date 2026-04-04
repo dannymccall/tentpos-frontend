@@ -393,6 +393,24 @@ const defaultSidebarItems: SidebarSection[] = [
       },
     ],
   },
+  {
+    title: "Warehousing",
+    code: "warehousing.view",
+    links: [
+      {
+        label: "Warehouse Dashboard",
+        icon: <FaChartPie />,
+        path: "/warehousing/dashboard",
+        code: "warehousing.view",
+      },
+      {
+        label: "New Warehouse",
+        icon: <FaChartPie />,
+        path: "/warehousing/warehouses?query=add_warehouse",
+        code: "warehousing.create.warehouse",
+      },
+    ],
+  },
 
   {
     title: "Support",
