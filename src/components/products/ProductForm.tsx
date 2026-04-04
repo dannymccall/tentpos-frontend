@@ -524,7 +524,7 @@ export default function ProductForm({
                         <img
                           src={img.preview || img.url}
                           alt={`img-${i}`}
-                          className="w-full h-24 object-cover"
+                          className=" h-24"
                         />
                         <button
                           type="button"
