@@ -475,7 +475,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   }, []);
 
   return (
-    <div className="flex h-full w-screen bg-[#f1f5f5]">
+    <div className="flex h-full w-screen bg-[#edf0f6]">
       <Sidebar items={defaultSidebarItems} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen}/>
 
       <div className="flex flex-col w-full">

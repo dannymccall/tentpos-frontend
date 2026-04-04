@@ -140,7 +140,7 @@ if(isLoading) return <SpinnerCustom />
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-4">
         {KPIS.map((kpi, i) => (
           <Card key={i} className="p-4">
             <div className="flex justify-between items-center">
