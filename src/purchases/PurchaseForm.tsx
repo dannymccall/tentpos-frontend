@@ -26,6 +26,8 @@ import { toCapitalized } from "@/lib/helperFunctions";
 import { FaBucket } from "react-icons/fa6";
 import { Label } from "@radix-ui/react-label";
 import { SearchCommand } from "@/components/SearchCommand";
+import { WarehouseSelect } from "@/components/warehouse/components/WarehouseTransferHeader";
+import { useFetchWarehouses } from "@/hooks/useFetchWarehouses";
 // Schema
 const money = z.string().regex(/^\d+(?:\.\d{1,2})?$/, "Invalid amount");
 
@@ -46,6 +48,7 @@ const purchaseSchema = z.object({
   discount: money.optional().or(z.literal("")),
   notes: z.string().optional().or(z.literal("")),
   amountPaid: money.optional().or(z.literal("")),
+  warehouseId: z.string().optional().or(z.null()),
 });
 
 type PurchaseFormValues = z.infer<typeof purchaseSchema>;
@@ -81,6 +84,8 @@ export default function PurchaseForm({
     },
   });
 
+  const { warehouses } = useFetchWarehouses();
+  const warehouseId = form.watch("warehouseId");
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "items",
@@ -132,7 +137,7 @@ export default function PurchaseForm({
     const balance = total - amountPaid;
     return { subtotal, tax, discount, total, amountPaid, balance };
   }, [
-    JSON.stringify( form.watch("items")),
+    JSON.stringify(form.watch("items")),
     form.watch("tax"),
     form.watch("discount"),
     form.watch("amountPaid"),
@@ -162,6 +167,7 @@ export default function PurchaseForm({
 
     const header = {
       supplierId: vals.supplierId ? Number(vals.supplierId) : null,
+      warehouseId: vals.warehouseId ? Number(vals.warehouseId) : null,
       receiptNumber: vals.receiptNumber,
       purchaseDate: vals.purchaseDate,
       status: vals.status,
@@ -222,7 +228,11 @@ export default function PurchaseForm({
                     <FormItem>
                       <FormLabel>Ref / Receipt #</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Purchase ref" className="text-sm"/>
+                        <Input
+                          {...field}
+                          placeholder="Purchase ref"
+                          className="text-sm"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -236,7 +246,7 @@ export default function PurchaseForm({
                     <FormItem>
                       <FormLabel>Purchase date</FormLabel>
                       <FormControl>
-                        <Input type="date" {...field} className="text-sm"/>
+                        <Input type="date" {...field} className="text-sm" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -445,6 +455,19 @@ export default function PurchaseForm({
                     Add item
                   </Button>
                 </div>
+              </div>
+
+              <div>
+                <Label htmlFor="warehouse" className="text-sm">
+                  Select Warehouse
+                </Label>
+                <WarehouseSelect
+                  warehouses={warehouses}
+                  onSelect={(id: number) => {
+                    form.setValue("warehouseId", String(id));
+                  }}
+                  value={warehouseId ? Number(warehouseId) : 0}
+                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

@@ -39,6 +39,10 @@ import UserDetails from "../users/UserDetails";
 import AllPayments from "../payments/AllPayments";
 import PurchaseReport from "../reports/PurchaseReport";
 import TutorialVideos from "../support/TutorialVideos";
+import AddWarehouse from "../warehouse/AddWarehouse";
+import WarehouseDashboard from "../warehouse/WarehouseDashboard";
+import AllTransfers from "../warehouse/components/view_transfers/AllTransfers";
+import AllWarehouses from "../warehouse/components/AllWarehouses";
 export default function AuthRoutes() {
   return (
     <Routes>
@@ -417,6 +421,46 @@ export default function AuthRoutes() {
           <ProtectedRoute>
             <DashboardLayout title="Tutorial Videos">
               <TutorialVideos />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/warehousing/add-warehouse"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="Warehouse Section">
+              <AddWarehouse />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/warehousing/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="Warehouse Dashboard">
+              <WarehouseDashboard />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/warehousing/transfers"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="Stock Transfers">
+              <AllTransfers />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route
+        path="/warehousing/warehouses"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout title="Stock Transfers">
+              <AllWarehouses />
             </DashboardLayout>
           </ProtectedRoute>
         }

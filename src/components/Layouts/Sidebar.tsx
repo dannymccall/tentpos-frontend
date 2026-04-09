@@ -74,7 +74,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
   };
   return (
     <aside
-      className={`fixed top-0 left-0 h-full bg-[#0f172b] text-white transition-all duration-300 z-40
+      className={`fixed top-0 left-0 h-full bg-linear-to-br from-[#0f172b] to-[#172650] text-white transition-all duration-300 z-40
       ${isOpen ? "w-64" : "w-0"} shadow-lg flex flex-col`}
     >
       {/* Header */}

@@ -147,6 +147,7 @@ export const getSaleStatusColor = (status: string) => {
       return "bg-emerald-600 text-white"; // payment completed
 
     case "PENDING":
+    case "pending":
       return "bg-yellow-400 text-black"; // awaiting payment
 
     case "UNPAID":

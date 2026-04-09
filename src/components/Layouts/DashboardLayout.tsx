@@ -19,6 +19,8 @@ import {
   FaExchangeAlt,
   FaExclamationTriangle,
  
+  FaEye,
+ 
   FaFileInvoiceDollar,
  
   FaHome,
@@ -39,7 +41,7 @@ import {  FaReceipt } from "react-icons/fa6";
 import { Receipt } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import MobileBackHeader from "../MobileBackHeader";
-
+import { FaHouse } from "react-icons/fa6";
 interface DashboardLayoutProps {
   children: React.ReactNode;
   title: string;
@@ -399,15 +401,27 @@ const defaultSidebarItems: SidebarSection[] = [
     links: [
       {
         label: "Warehouse Dashboard",
-        icon: <FaChartPie />,
+        icon: <FaHouse />,
         path: "/warehousing/dashboard",
         code: "warehousing.view",
       },
       {
         label: "New Warehouse",
-        icon: <FaChartPie />,
-        path: "/warehousing/warehouses?query=add_warehouse",
+        icon: <FaPlus />,
+        path: "/warehousing/add-warehouse",
         code: "warehousing.create.warehouse",
+      },
+      {
+        label: "View Transfers",
+        icon: <FaEye />,
+        path: "/warehousing/transfers",
+        code: "warehousing.view.transfer",
+      },
+      {
+        label: "View Warehouses",
+        icon: <FaEye />,
+        path: "/warehousing/warehouses",
+        code: "warehousing.view.warehouses",
       },
     ],
   },
@@ -475,11 +489,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
    useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      console.log(w)
+      // console.log(w)
       setWidth(w);
 
       if (w < 768) {
-        console.log("below")
+        // console.log("below")
         setIsSidebarOpen(false); // phone → hide sidebar
       }else{
         setIsSidebarOpen(true)

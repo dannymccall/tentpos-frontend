@@ -1,5 +1,6 @@
 import React from "react";
 import { MdKeyboardArrowRight,MdKeyboardArrowLeft  } from "react-icons/md";
+import { Button } from "./ui/button";
 
 interface PaginationProps {
   currentPage: number;
@@ -33,37 +34,40 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex justify-start items-center space-x-2 mt-4 p-2">
-      <button
+    <div className="flex justify-start flex-wrap items-center space-x-2 mt-4 p-2">
+      <Button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 rounded-md border border-gray-400 text-sm shadow-md font-medium bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+        className="py-2 rounded-md border border-gray-400 text-sm shadow-md font-medium bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+        size={"icon-sm"}
       >
         <MdKeyboardArrowLeft  />
-      </button>
+      </Button>
 
       {getPageNumbers().map((page, index) => (
-        <button
+        <Button
           key={index}
           onClick={() => typeof page === "number" && onPageChange(page)}
           disabled={page === "..."}
-          className={`px-3  rounded-md py-2 border text-sm font-medium cursor-pointer ${
+          className={`px-3  rounded-md py-2 border text-xs  font-medium cursor-pointer ${
             page === currentPage
               ? "bg-[#1f2937] text-white border-none shadow-md font-semibold"
               : "bg-white text-gray-700 hover:bg-gray-100"
           } ${page === "..." ? "cursor-default text-gray-400" : ""}`}
+           size={"icon-sm"}
         >
           {page}
-        </button>
+        </Button>
       ))}
 
-      <button
+      <Button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 rounded border border-gray-400 text-sm shadow-md font-medium bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+        className="rounded border border-gray-400 text-sm shadow-md font-medium bg-white text-gray-700 hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+       size={"icon-sm"}
       >
         <MdKeyboardArrowRight />
-      </button>
+      </Button>
     </div>
   );
 };
