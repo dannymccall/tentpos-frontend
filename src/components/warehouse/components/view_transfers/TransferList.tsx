@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import TransferModal from "./TransferModal";
 import { Button } from "@/components/ui/button";
 import {  XCircle } from "lucide-react";
+import { PermissionGate } from "@/components/PermissionGate";
 
 interface TransferTableProps {
   transfers: StockTransfer[];
@@ -115,6 +116,8 @@ const TransferTable: React.FC<TransferTableProps> = ({
                         }}
                       />
                       {t.status === "pending" && (
+                        <PermissionGate code="warehouse.cancel.transfer">
+
                         <Button
                           variant={"ghost"}
                           className="bg-gray-200"
@@ -127,6 +130,7 @@ const TransferTable: React.FC<TransferTableProps> = ({
                         >
                           <XCircle size={18} className="text-red-500" />{" "}
                         </Button>
+                        </PermissionGate>
                       )}
                       {/* {t.status === "completed" && (
                         <Button variant={"ghost"} className="bg-gray-200" size={"sm"}>

@@ -33,7 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
   // console.log({ permissions });
   // Simulated API call for badges
   useEffect(() => {
-    let interval;
 
     async function fetchCounts() {
       try {
@@ -47,9 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ items, isOpen, setIsOpen }) => {
     }
 
     fetchCounts();
-    interval = setInterval(fetchCounts, 30_000); // 30 seconds
 
-    return () => clearInterval(interval);
   }, []);
 
   // Assume user role from global store

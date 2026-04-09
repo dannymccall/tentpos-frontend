@@ -17,18 +17,19 @@ const WarehouseModal: React.FC<WarehouseProps> = ({
 }) => {
   if (!warehouse) return null;
 
-  const { mutate: categoryMutation, isPending } = useApiMutation({
+  const { mutate: deleteWarehouse, isPending } = useApiMutation({
     url: `/api/warehousing/delete-warehouse?id=${warehouse.id}`,
     method: "DELETE",
     invalidateKey: "/api/warehousing/warehouses",
     onSuccessCallback: () => {
       //   onSuccess();
+      onClose()
     },
   });
 
   const handleDelete = async () => {
-    categoryMutation({});
-    onClose();
+    deleteWarehouse({});
+  
   };
 
   return (

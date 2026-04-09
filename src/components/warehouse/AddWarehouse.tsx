@@ -187,13 +187,13 @@ export default function WarehouseStepperPage() {
         {/* Stepper Header */}
         <div className="flex items-center gap-6 cursor-pointer">
           <div
-            className={`font-semibold ${step === 1 ? "text-[#1d3449]" : "text-gray-400"} text-sm md:text-[15px]`}
+            className={`font-semibold ${step === 1 ? "text-[#1d3449]" : "text-gray-400"} text-xs md:text-sm`}
             onClick={() => data && setStep(1)}
           >
             1. Warehouse Information
           </div>
           <div
-            className={`font-semibold ${step === 2 ? "text-[#1d3449]" : "text-gray-400"} cursor-pointer text-sm md:text-[15px]`}
+            className={`font-semibold ${step === 2 ? "text-[#1d3449]" : "text-gray-400"} cursor-pointer text-xs md:text-sm`}
             onClick={() => data && setStep(2)}
           >
             2. Allocate Products

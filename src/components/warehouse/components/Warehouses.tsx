@@ -60,6 +60,8 @@ const Warehouses: React.FC<WarehousesProps> = ({
                           setWarehouse(w);
                           setOpen(true);
                         }}
+                        deletePermission="warehouse.delete"
+                        viewPermission="wareouse.view"
                       />
                     </TableCell>
                   )}

@@ -11,18 +11,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { StockTransferProduct } from "@/types/warehouse.types";
 import { Button } from "@/components/Button";
 import { Separator } from "@/components/ui/separator";
+import { PermissionGate } from "@/components/PermissionGate";
 interface StockTransferProductsListProps {
   products: StockTransferProduct[];
   status: string;
-    approveTransfer: () => void;
-  approvingTransfer: boolean
-
+  approveTransfer: () => void;
+  approvingTransfer: boolean;
 }
 const StockTransferProductsList: React.FC<StockTransferProductsListProps> = ({
   products,
   status,
   approveTransfer,
-  approvingTransfer
+  approvingTransfer,
 }) => {
   return (
     <Card className="w-full max-h-[60vh] md:h-full bg-transparent overflow-y-auto">
@@ -47,13 +47,19 @@ const StockTransferProductsList: React.FC<StockTransferProductsListProps> = ({
             ))}
           </TableBody>
         </Table>
-            <Separator />
+        <Separator />
         {status === "pending" && (
           <div className="flex justify-end gap-3 mt-5">
-            <Button className="bg-emerald-500" size={"sm"} onClick={approveTransfer} loading={approvingTransfer}>
-              Accept Transfer
-            </Button>
-          
+            <PermissionGate code="warehouse.approve.transfer">
+              <Button
+                className="bg-emerald-500"
+                size={"sm"}
+                onClick={approveTransfer}
+                loading={approvingTransfer}
+              >
+                Accept Transfer
+              </Button>
+            </PermissionGate>
           </div>
         )}
       </CardContent>

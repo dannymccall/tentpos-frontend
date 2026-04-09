@@ -68,7 +68,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
         className="w-full px-4 md:px-8 h-screen"
       >
         <Card className=" py-0 ">
-          <CardHeader className="border-b  bg-linear-to-br from-[#0f172b] to-[#172650] rounded-md text-white flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6 py-6">
+          <CardHeader className="border-b  bg-linear-to-br from-[#0f172b] to-[#172650] rounded-md text-white flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6   py-6">
             {/* Title Section */}
             <div>
               <CardTitle className="text-base font-semibold">
@@ -139,7 +139,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
             </div>
           </CardHeader>
 
-          <CardContent className="bg-white">
+          <CardContent className="bg-white p-0">
             {loading ? (
               <div className="flex justify-center py-12">
                 <SpinnerCustom />

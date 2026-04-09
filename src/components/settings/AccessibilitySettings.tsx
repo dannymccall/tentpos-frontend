@@ -58,6 +58,7 @@ export const ENTITIES = [
   "ledgers",
   "financialStatements",
   "tickets",
+  "warehouse_transfers"
 ];
 
 export const SCOPES = [

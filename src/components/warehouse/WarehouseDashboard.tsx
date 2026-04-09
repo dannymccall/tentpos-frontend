@@ -2,9 +2,7 @@ import api from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import KPIs, { type KPIsInfo } from "./components/KPIs";
 import { SpinnerCustom } from "../loaders/Spinner";
-import {
-  MdNoTransfer,
-} from "react-icons/md";
+import { MdNoTransfer } from "react-icons/md";
 import { FaBoxOpen, FaHouse, FaMoneyBill } from "react-icons/fa6";
 import Warehouses from "./components/Warehouses";
 import StockMovementButton from "./components/StockMovementButton";
@@ -34,7 +32,7 @@ const WarehouseDashboard = () => {
   const [toWarehouseId, setToWarehouseId] = useState<number | null>(null);
   const [toBranchId, setToBranchId] = useState<number | null>(null);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: ["warehouse-dashboard"],
     queryFn: async () => {
@@ -119,15 +117,13 @@ const WarehouseDashboard = () => {
     warehouseTransfers,
     intransit,
     clearedTransfers,
-    aggregateDestinationInventory
+    aggregateDestinationInventory,
   } = data;
 
   const kpiData: KPIsInfo[] = [
     {
       label: "Total Products",
-      icon: (
-        <FaThLarge className="text-amber-500 text-xl md:text-2xl" />
-      ),
+      icon: <FaThLarge className="text-amber-500 text-xl md:text-2xl" />,
       value: totalWarehouseProducts,
     },
     {
@@ -247,62 +243,80 @@ const WarehouseDashboard = () => {
           </div>
         ))}
       </div>
-     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-  
-  {/* LEFT SIDE */}
-  <div className="md:col-span-1 flex flex-col gap-6">
-    
-    {/* Warehouses */}
-    <div className="bg-white rounded-xl shadow-sm p-4">
-      <h2 className="font-semibold mb-3 ml-5">Warehouses Overview</h2>
-      <Warehouses warehouses={warehouses} showActions={false}/>
-      <div className="flex justify-center mt-4">
-        <Button size="sm" onClick={() => navigate("/warehousing/warehouses")}>View All</Button>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* LEFT SIDE */}
+        <div className="md:col-span-1 flex flex-col gap-6">
+          {/* Warehouses */}
+          <div className="bg-white rounded-xl shadow-sm p-4">
+            <h2 className="font-semibold mb-3 ml-5">Warehouses Overview</h2>
+            {warehouses && warehouses.length > 0 ? (
+              <>
+                <Warehouses warehouses={warehouses} showActions={false} />
+                <div className="flex justify-center mt-4">
+                  <Button
+                    size="sm"
+                    onClick={() => navigate("/warehousing/warehouses")}
+                  >
+                    View All
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="p-2 bg-gray-100 flex justify-center font-semibold text-sm">
+                No warehouse created yet
+              </div>
+            )}
+          </div>
+
+          {/* Recent Movements */}
+          <div className="bg-white rounded-xl shadow-sm p-4">
+            <h2 className="font-semibold mb-3 ml-5">
+              Recent Product Movements
+            </h2>
+            {warehouseTransfers && warehouseTransfers.length > 0 ? (
+              <>
+                <TransferTable
+                  transfers={warehouseTransfers}
+                  visibleColumns={["date", "status", "destination", "source"]}
+                  rowLimit={5}
+                  showActions={false}
+                />
+                <div className="flex justify-center mt-4">
+                  <Button
+                    size="sm"
+                    onClick={() => navigate("/warehousing/transfers")}
+                  >
+                    View All
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <div className="p-2 bg-gray-100 flex justify-center font-semibold text-sm">
+                No movements yet
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="md:col-span-2 flex flex-col gap-6">
+          {/* Stock Summary */}
+          <div className="bg-white rounded-xl shadow-sm p-4">
+            <h2 className="font-semibold mb-4">Stock Summary</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {warehouseSummary.map((w, i) => (
+                <WarehouseSummary key={i} kpiData={w} className={w.className} />
+              ))}
+            </div>
+          </div>
+
+          {/* Inventory Chart */}
+          <div className="bg-white rounded-xl shadow-sm p-4 h-[400px]">
+            <h2 className="font-semibold mb-4">Inventory Distribution</h2>
+            <InventoryBarChart data={aggregateDestinationInventory} />
+          </div>
+        </div>
       </div>
-    </div>
-
-    {/* Recent Movements */}
-    <div className="bg-white rounded-xl shadow-sm p-4">
-      <h2 className="font-semibold mb-3 ml-5">Recent Product Movements</h2>
-      <TransferTable
-        transfers={warehouseTransfers}
-        visibleColumns={["date", "status", "destination", "source"]}
-        rowLimit={5}
-        showActions={false}
-      />
-      <div className="flex justify-center mt-4">
-        <Button size="sm" onClick={() => navigate("/warehousing/transfers")}>View All</Button>
-      </div>
-    </div>
-
-  </div>
-
-  {/* RIGHT SIDE */}
-  <div className="md:col-span-2 flex flex-col gap-6">
-    
-    {/* Stock Summary */}
-    <div className="bg-white rounded-xl shadow-sm p-4">
-      <h2 className="font-semibold mb-4">Stock Summary</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {warehouseSummary.map((w, i) => (
-          <WarehouseSummary
-            key={i}
-            kpiData={w}
-            className={w.className}
-          />
-        ))}
-      </div>
-    </div>
-
-    {/* Inventory Chart */}
-    <div className="bg-white rounded-xl shadow-sm p-4 h-[400px]">
-      <h2 className="font-semibold mb-4">Inventory Distribution</h2>
-      <InventoryBarChart data={aggregateDestinationInventory} />
-    </div>
-
-  </div>
-
-</div>
     </main>
   );
 };

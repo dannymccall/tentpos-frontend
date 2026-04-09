@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import StockTransferProductsList from "./StockTransferProductsList";
 import { Button } from "@/components/Button";
 import { useApiMutation } from "@/hooks/useApiMutation";
+import { PermissionGate } from "@/components/PermissionGate";
 
 interface TransferModalProps {
   onClose: () => void;
@@ -71,6 +72,8 @@ const TransferModal: React.FC<TransferModalProps> = ({
           />
 
           <div className="flex justify-end gap-3 mt-2">
+            <PermissionGate code="warehouse.cancel.transfer">
+
             <Button
               onClick={() => rejectTransfer({ reason, reference })}
               disabled={isPending || !reason.trim()}
@@ -80,6 +83,7 @@ const TransferModal: React.FC<TransferModalProps> = ({
             >
               Cancel Transfer
             </Button>
+            </PermissionGate>
 
             <Button
               onClick={onClose}
