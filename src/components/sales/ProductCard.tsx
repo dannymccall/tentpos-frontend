@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
         {/* Price & Add to Cart */}
         <div className="p-3 flex flex-col gap-2">
           <div className="text-gray-600 flex text-sm md:text-base font-medium w-full justify-between items-center">
-            ${Number(product.price).toFixed(2)}
+            ¢{Number(product.price).toFixed(2)}
             <Button
               size="sm"
               className="  hover:bg-secondary-foreground text-white text-xs"
