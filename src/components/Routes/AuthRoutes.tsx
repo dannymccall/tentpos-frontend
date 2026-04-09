@@ -459,7 +459,7 @@ export default function AuthRoutes() {
         path="/warehousing/warehouses"
         element={
           <ProtectedRoute>
-            <DashboardLayout title="Stock Transfers">
+            <DashboardLayout title="Warehouses">
               <AllWarehouses />
             </DashboardLayout>
           </ProtectedRoute>

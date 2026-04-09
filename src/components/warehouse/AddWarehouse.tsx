@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { WarehouseProducts } from "@/types/warehouse_products.types";
 import { MdCancel } from "react-icons/md";
 import { Tooltip } from "./components/StockMovementButton";
+import { SpinnerCustom } from "../loaders/Spinner";
 
 type WarehouseFormValues = {
   name: string;
@@ -41,7 +42,7 @@ export default function WarehouseStepperPage() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["warehouse", id],
     queryFn: async () => {
       const res = await api.get<{ data: any }>(
@@ -180,6 +181,8 @@ export default function WarehouseStepperPage() {
       ),
     );
   };
+
+  if(!!id && isLoading) return <SpinnerCustom />
 
   return (
     <div className="w-full p-2 md:p-10">

@@ -61,7 +61,7 @@ const WarehouseDashboard = () => {
         (toWarehouseId !== null || toBranchId !== null), // Only fetch when both IDs are selected
     });
 
-  console.log({ warehouseProducts });
+  // console.log({ warehouseProducts });
 
   const products = useMemo(() => {
     if (!warehouseProducts) return [];
@@ -73,7 +73,7 @@ const WarehouseDashboard = () => {
     }));
   }, [warehouseProducts]);
 
-  console.log(products);
+  // console.log(products);
 
   const { mutate: transferProducts, isPending } = useApiMutation({
     url: "/api/warehousing/stock-transfer",
@@ -88,7 +88,7 @@ const WarehouseDashboard = () => {
   });
 
   const onSubmitTransfer = (selectedProducts: Record<string, number>) => {
-    console.log("Submitting transfer with products:", selectedProducts);
+    // console.log("Submitting transfer with products:", selectedProducts);
     transferProducts({
       fromWarehouseId,
       toWarehouseId,
@@ -134,7 +134,7 @@ const WarehouseDashboard = () => {
     {
       label: "Warehouse Stock Value",
       icon: <FaMoneyBill className="text-emerald-500 text-xl md:text-2xl" />,
-      value: `¢ ${warehouseStockValue[0].stockValue}`,
+      value: `¢ ${warehouseStockValue[0].stockValue ? warehouseStockValue[0].stockValue : "0.00"}`,
     },
     {
       label: "Stock Movements",
