@@ -207,11 +207,12 @@ export function hasEntityAccess(
   dataScope: any,
   entity: string
 ): boolean {
-  if (!dataScope?.scopes) return false;
+  if (!dataScope) return false;
 
   const scope = dataScope.find(
     (s: any) => s.entity === entity
   );
+  console.log({scope})
 
   if (!scope) return false;
 

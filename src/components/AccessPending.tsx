@@ -6,12 +6,14 @@ type Props = {
   hasRole: boolean;
   hasDataScope: boolean;
   branchLocation: boolean
+  dashboardAccess:boolean
 };
 export default function AccessPending({
   appName = "TentPOS",
   hasRole,
   hasDataScope,
-  branchLocation
+  branchLocation,
+  dashboardAccess
 }: Props) {
 
   return (
@@ -44,6 +46,7 @@ export default function AccessPending({
           <StatusItem label="Role Assigned" status={hasRole} />
           <StatusItem label="Data Access" status={hasDataScope} />
           <StatusItem label="Branch Location" status={branchLocation} />
+          <StatusItem label="Dashboard Access" status={dashboardAccess} />
         </div>
         <div className="pt-7">
             <Button size={"sm"} onClick={() => window.location.reload()}>Refresh</Button>
