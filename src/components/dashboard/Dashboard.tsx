@@ -27,6 +27,7 @@ import { SpinnerCustom } from "../loaders/Spinner";
 import { hasPermission } from "@/lib/permissions";
 import { useAuth } from "@/context/AuthContext";
 import AccessPending from "../AccessPending";
+import { useEffect } from "react";
 /** -------------------------
  * MOCK DATA FOR TENTPOS
  * ------------------------- */
@@ -38,6 +39,7 @@ const COLORS = ["#6366F1", "#10B981", "#8B5CF6"];
  * ------------------------- */
 
 export default function TentPOSDashboard() {
+  const { businessProfile, dataScope, fetchMe } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: async () => {
@@ -47,6 +49,10 @@ export default function TentPOSDashboard() {
     refetchOnWindowFocus: false,
   });
   // console.log(data)
+
+   useEffect(() => {
+    fetchMe()
+  },[])
   if (!data) return;
   const KPIS = [
     {
@@ -105,9 +111,10 @@ export default function TentPOSDashboard() {
     },
   ];
 
+
+ 
   if (isLoading) return <SpinnerCustom />;
 
-  const { businessProfile, dataScope } = useAuth();
 
   const permissions = businessProfile?.userRole?.role?.permissions || [];
 
