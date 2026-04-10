@@ -1,10 +1,4 @@
-
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
@@ -20,23 +14,22 @@ import {
   Pie,
   Cell,
   Legend,
-
 } from "recharts";
 
-import { formatCurrency, formatDate } from "@/lib/helperFunctions";
+import {
+  formatCurrency,
+  formatDate,
+  hasEntityAccess,
+} from "@/lib/helperFunctions";
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { SpinnerCustom } from "../loaders/Spinner";
-
+import { hasPermission } from "@/lib/permissions";
+import { useAuth } from "@/context/AuthContext";
+import AccessPending from "../AccessPending";
 /** -------------------------
  * MOCK DATA FOR TENTPOS
  * ------------------------- */
-
-
-
-
-
-
 
 const COLORS = ["#6366F1", "#10B981", "#8B5CF6"];
 
@@ -45,79 +38,95 @@ const COLORS = ["#6366F1", "#10B981", "#8B5CF6"];
  * ------------------------- */
 
 export default function TentPOSDashboard() {
-
-
-
-   const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: async () => {
-      const res = await api.get<{ data: any }>(
-        `/api/dashboard`
-      );
+      const res = await api.get<{ data: any }>(`/api/dashboard`);
       return res.data;
     },
     refetchOnWindowFocus: false,
   });
   // console.log(data)
-  if(!data) return
+  if (!data) return;
   const KPIS = [
-  {
-    title: "Total Sales Today",
-    value: formatCurrency(data.todaySales),
-    delta: "+14%",
-    color: "#6366F1",
-  },
-  {
-    title: "Total Revenue",
-    value: formatCurrency(Number(data.totalRevenue.totalRevenue)),
-    delta: "+9%",
-    color: "#10B981",
-  },
-  {
-    title: "Total Profit",
-    value: formatCurrency(Number(data.totalProfit.totalProfit)),
-    delta: "+4",
-    color: "#8B5CF6",
-  },
-  {
-    title: "Items Low in Stock",
-    value: data.outOfStockCount,
-    delta: "-2",
-    color: "#EF4444",
-  },
-  {
-    title: "Total Return Amount",
-    value: formatCurrency(data.totalReturnAmount),
-    delta: "+1",
-    color: "#f59e0b",
-  },
-  {
-    title: "Total Products",
-    value: data.totalProducts,
-    delta: "+6",
-    color: "#7C3AED",
-  },
-  {
-    title: "Total Sales",
-    value:formatCurrency( data.totalSales),
-    delta: "+6",
-    color: "#7C3AED",
-  },
-  {
-    title: "Total Debt",
-    value:formatCurrency( data.totalDebt),
-    delta: "+6",
-    color: "#7C3AED",
-  },
-  {
-    title: "Expected Revenue",
-    value:formatCurrency( data.expectedRevenue.expectedRevenue),
-    delta: "+6",
-    color: "#7C3AED",
-  },
-];
+    {
+      title: "Total Sales Today",
+      value: formatCurrency(data.todaySales),
+      delta: "+14%",
+      color: "#6366F1",
+    },
+    {
+      title: "Total Revenue",
+      value: formatCurrency(Number(data.totalRevenue.totalRevenue)),
+      delta: "+9%",
+      color: "#10B981",
+    },
+    {
+      title: "Total Profit",
+      value: formatCurrency(Number(data.totalProfit.totalProfit)),
+      delta: "+4",
+      color: "#8B5CF6",
+    },
+    {
+      title: "Items Low in Stock",
+      value: data.outOfStockCount,
+      delta: "-2",
+      color: "#EF4444",
+    },
+    {
+      title: "Total Return Amount",
+      value: formatCurrency(data.totalReturnAmount),
+      delta: "+1",
+      color: "#f59e0b",
+    },
+    {
+      title: "Total Products",
+      value: data.totalProducts,
+      delta: "+6",
+      color: "#7C3AED",
+    },
+    {
+      title: "Total Sales",
+      value: formatCurrency(data.totalSales),
+      delta: "+6",
+      color: "#7C3AED",
+    },
+    {
+      title: "Total Debt",
+      value: formatCurrency(data.totalDebt),
+      delta: "+6",
+      color: "#7C3AED",
+    },
+    {
+      title: "Expected Revenue",
+      value: formatCurrency(data.expectedRevenue.expectedRevenue),
+      delta: "+6",
+      color: "#7C3AED",
+    },
+  ];
 
-if(isLoading) return <SpinnerCustom />
+  if (isLoading) return <SpinnerCustom />;
+
+  const { businessProfile, dataScope } = useAuth();
+
+  const permissions = businessProfile?.userRole?.role?.permissions || [];
+
+  const canViewDashboard = hasPermission(permissions as any, "dashboard.view");
+
+  const isOwner = businessProfile?.appRole === "owner";
+  const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
+  if (!isOwner) {
+    if (!canViewDashboard || !canAccessDashboardData) {
+      return (
+        <AccessPending
+          appName="TentPOS"
+          hasRole={isOwner || !!businessProfile?.userRole?.role?.name}
+          hasDataScope={isOwner || canAccessDashboardData}
+          branchLocation={!!businessProfile?.branch.name}
+        />
+      );
+    }
+  }
   return (
     <div className="p-6 lg:p-8 space-y-6">
       {/* Search bar + refresh */}
@@ -145,9 +154,11 @@ if(isLoading) return <SpinnerCustom />
           <Card key={i} className="p-4">
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-xs md:text-sm text-muted-foreground">{kpi.title}</div>
+                <div className="text-xs md:text-sm text-muted-foreground">
+                  {kpi.title}
+                </div>
                 <div className="text-sm md:text-base font-bold mt-1">
-                  {(kpi.value)}
+                  {kpi.value}
                 </div>
               </div>
               <span className="text-xs text-green-600">{kpi.delta}</span>
@@ -168,8 +179,8 @@ if(isLoading) return <SpinnerCustom />
               <ResponsiveContainer>
                 <LineChart data={data.monthlySales}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" className="text-xs md:text-sm"/>
-                  <YAxis className="text-xs md:text-sm"/>
+                  <XAxis dataKey="month" className="text-xs md:text-sm" />
+                  <YAxis className="text-xs md:text-sm" />
                   <ReTooltip />
                   <Line
                     type="monotone"
@@ -206,7 +217,7 @@ if(isLoading) return <SpinnerCustom />
                     dataKey="value"
                     label
                   >
-                    {data.paymentTypeStats.map((_:any, idx:any) => (
+                    {data.paymentTypeStats.map((_: any, idx: any) => (
                       <Cell key={idx} fill={COLORS[idx]} />
                     ))}
                   </Pie>
@@ -227,7 +238,7 @@ if(isLoading) return <SpinnerCustom />
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {data.recentSales.map((s:any, i:any) => (
+              {data.recentSales.map((s: any, i: any) => (
                 <div
                   key={i}
                   className="flex items-center justify-between p-3 rounded-md hover:bg-muted/30"
@@ -235,11 +246,17 @@ if(isLoading) return <SpinnerCustom />
                   <div className="flex items-center gap-3">
                     <Avatar>
                       <AvatarFallback className="bg-indigo-600 text-white">
-                        {s.customer ? s.customer.firstName.slice(0, 1):"Walk-In Customer".slice(0,1)}
+                        {s.customer
+                          ? s.customer.firstName.slice(0, 1)
+                          : "Walk-In Customer".slice(0, 1)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-medium text-sm md:text-base">{s.customer ? `${s.customer.firstName} ${s.customer.lastName}`: "Walk-In Customer"}</div>
+                      <div className="font-medium text-sm md:text-base">
+                        {s.customer
+                          ? `${s.customer.firstName} ${s.customer.lastName}`
+                          : "Walk-In Customer"}
+                      </div>
                       <div className="text-xs text-muted-foreground">
                         Cashier: {s.userSale.fullName}
                       </div>
@@ -266,13 +283,15 @@ if(isLoading) return <SpinnerCustom />
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {data.outOfStock.map((item:any, i:number) => (
+              {data.outOfStock.map((item: any, i: number) => (
                 <div
                   key={i}
                   className="flex text-sm md:text-base items-center justify-between p-3 rounded-md bg-red-50"
                 >
                   <div>{item.product.title}</div>
-                  <div className="font-bold text-red-600">{item.inventory} left</div>
+                  <div className="font-bold text-red-600">
+                    {item.inventory} left
+                  </div>
                 </div>
               ))}
             </div>

@@ -38,6 +38,7 @@ interface AuthContextType {
   setSettings: (settings: Settings) => void;
   avatar?: string;
   sessionId?: string;
+  dataScope: DataScope[] | null
 }
 
 interface Settings {
@@ -45,6 +46,11 @@ interface Settings {
   logo: string;
 }
 
+
+interface DataScope {
+  scope: string;
+  entity: string
+};
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
@@ -57,6 +63,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [businessProfile, setBusinessProfile] =
     useState<BusinessProfile | null>(null);
   const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [dataScope, setDataScope] = useState<DataScope[] | null>(null)
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState<Settings>({
     companyName: "",
@@ -88,6 +95,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               companyName: response.data.data.settings.name || "",
               logo: response.data.data.settings.logo || "",
             });
+            setDataScope(response.data.data.dataScope.scopes)
         }
       }
     } catch (error) {
@@ -174,6 +182,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         permissions,
         settings,
         setSettings,
+        dataScope
       }}
     >
       {!loading && children}
