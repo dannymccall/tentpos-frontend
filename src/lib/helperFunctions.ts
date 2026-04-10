@@ -202,3 +202,18 @@ export function getStatusColor(status: Status): string {
       return "text-gray-100";
   }
 }
+
+export function hasEntityAccess(
+  dataScope: any,
+  entity: string
+): boolean {
+  if (!dataScope?.scopes) return false;
+
+  const scope = dataScope.scopes.find(
+    (s: any) => s.entity === entity
+  );
+
+  if (!scope) return false;
+
+  return scope.scope !== "none";
+}
