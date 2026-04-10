@@ -46,6 +46,7 @@ export default function TentPOSDashboard() {
       const res = await api.get<{ data: any }>(`/api/dashboard`);
       return res.data;
     },
+  
     refetchOnWindowFocus: false,
   });
   // console.log(data)
@@ -53,6 +54,28 @@ export default function TentPOSDashboard() {
    useEffect(() => {
     fetchMe()
   },[])
+
+
+    const permissions = businessProfile?.userRole?.role?.permissions || [];
+
+  const canViewDashboard = hasPermission(permissions as any, "dashboard.view");
+
+  const isOwner = businessProfile?.appRole === "owner";
+  const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
+  // console.log({canAccessDashboardData, canViewDashboard})
+  if (!isOwner) {
+    if (!data && !canViewDashboard || !canAccessDashboardData) {
+      return (
+        <AccessPending
+          appName="TentPOS"
+          hasRole={isOwner || !!businessProfile?.userRole?.role?.name}
+          hasDataScope={isOwner || canAccessDashboardData}
+          branchLocation={!!businessProfile?.branch.name}
+          dashboardAccess={canViewDashboard}
+        />
+      );
+    }
+  }
   if (!data) return;
   const KPIS = [
     {
@@ -116,26 +139,7 @@ export default function TentPOSDashboard() {
   if (isLoading) return <SpinnerCustom />;
 
 
-  const permissions = businessProfile?.userRole?.role?.permissions || [];
 
-  const canViewDashboard = hasPermission(permissions as any, "dashboard.view");
-
-  const isOwner = businessProfile?.appRole === "owner";
-  const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
-  // console.log({canAccessDashboardData, canViewDashboard})
-  if (!isOwner) {
-    if (!canViewDashboard || !canAccessDashboardData) {
-      return (
-        <AccessPending
-          appName="TentPOS"
-          hasRole={isOwner || !!businessProfile?.userRole?.role?.name}
-          hasDataScope={isOwner || canAccessDashboardData}
-          branchLocation={!!businessProfile?.branch.name}
-          dashboardAccess={canViewDashboard}
-        />
-      );
-    }
-  }
   return (
     <div className="p-6 lg:p-8 space-y-6">
       {/* Search bar + refresh */}
