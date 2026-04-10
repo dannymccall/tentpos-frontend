@@ -115,6 +115,7 @@ export default function TentPOSDashboard() {
 
   const isOwner = businessProfile?.appRole === "owner";
   const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
+  // console.log({canAccessDashboardData, canViewDashboard})
   if (!isOwner) {
     if (!canViewDashboard || !canAccessDashboardData) {
       return (
@@ -123,6 +124,7 @@ export default function TentPOSDashboard() {
           hasRole={isOwner || !!businessProfile?.userRole?.role?.name}
           hasDataScope={isOwner || canAccessDashboardData}
           branchLocation={!!businessProfile?.branch.name}
+          dashboardAccess={canViewDashboard}
         />
       );
     }
