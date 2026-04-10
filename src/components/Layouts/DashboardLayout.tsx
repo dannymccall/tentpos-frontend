@@ -56,7 +56,7 @@ const defaultSidebarItems: SidebarSection[] = [
         label: "Dashboard",
         icon: <FaHome />,
         path: "/dashboard",
-        code: "default",
+        code: "dashboard.view",
       },
       // {
       //   label: "Sales Summary",
