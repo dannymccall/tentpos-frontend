@@ -397,13 +397,13 @@ const defaultSidebarItems: SidebarSection[] = [
   },
   {
     title: "Warehousing",
-    code: "warehousing.view",
+    code: "warehouse.view",
     links: [
       {
         label: "Warehouse Dashboard",
         icon: <FaHouse />,
         path: "/warehousing/dashboard",
-        code: "warehouse.view",
+        code: "warehouse.view.dashboard",
       },
       {
         label: "New Warehouse",
