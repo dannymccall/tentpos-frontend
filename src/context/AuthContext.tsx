@@ -38,7 +38,8 @@ interface AuthContextType {
   setSettings: (settings: Settings) => void;
   avatar?: string;
   sessionId?: string;
-  dataScope: DataScope[] | null
+  dataScope: DataScope[] | null;
+  fetchMe: () => void
 }
 
 interface Settings {
@@ -182,7 +183,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         permissions,
         settings,
         setSettings,
-        dataScope
+        dataScope,
+        fetchMe
       }}
     >
       {!loading && children}
