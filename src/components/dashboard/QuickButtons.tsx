@@ -4,9 +4,11 @@ import { SiQuicktime } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { FiPlusCircle, FiUsers } from "react-icons/fi";
 import { FaBoxOpen } from "react-icons/fa";
-import { MdOutlinePayments,  MdOutlineToday } from "react-icons/md";
+import {   MdOutlineToday } from "react-icons/md";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { HiOutlineDocumentReport, HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { FcSalesPerformance } from "react-icons/fc";
+
 interface QuickButtonProps {
   icon: React.ReactNode;
   title: string;
@@ -53,9 +55,9 @@ const QuickButtons = () => {
     className: "bg-red-100 border-red-300 text-red-800 hover:bg-red-200",
   },
   {
-    icon: <MdOutlinePayments className="text-2xl" />,
-    title: "Payments",
-    page: "/sales/payments",
+    icon: <FcSalesPerformance className="text-2xl" />,
+    title: "Quick Sale",
+    page: "/sales?query=quick_sale",
     className: "bg-yellow-100 border-yellow-300 text-yellow-800 hover:bg-yellow-200",
   },
  {
