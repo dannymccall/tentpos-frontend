@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useNotification } from "../../context/NotificationContext";
 import EditBranchForm from "./EditBranchForm";
 import type { Branch } from "../../types/branch.type";
-import FormLoading from "../loaders/FormLoading";
 // import BaseModal from "../BaseModal";
 import { makeRequest } from "@/lib/helperFunctions";
 import DialogModal from "../Dialog";
 import { DialogTitle } from "../ui/dialog";
+import ConfirmDialogContent from "../confirmDialogContent";
 interface BranchModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -58,14 +58,16 @@ const BranchModal: React.FC<BranchModalProps> = ({
       open={isOpen}
       setOpen={onClose}
       title={
-        <DialogTitle>
+        <DialogTitle className="text-center">
           {mode === "view"
             ? "View Branch"
             : mode === "edit"
               ? "Edit Branch"
-              : "Delete Branch"}
+              : ""}
+              
         </DialogTitle>
       }
+      size="w-full md:max-w-[600px]"
     >
       {mode === "view" && (
         <EditBranchForm branch={branch} mode={mode} onSuccess={onSuccess} />
@@ -76,26 +78,21 @@ const BranchModal: React.FC<BranchModalProps> = ({
       )}
 
       {mode === "delete" && (
-        <div className="flex flex-col gap-4 items-center">
-          <p className="">
+
+         <ConfirmDialogContent
+            title="Delete Branch"
+            description={<>  <p className="">
             Are you sure you want to delete the <strong>{branch.name}</strong>{" "}
             branch ?
-          </p>
-          <div className="flex gap-2">
-            <button
-              onClick={handleDelete}
-              className="bg-red-500 cursor-pointer text-white px-4 py-2 rounded"
-            >
-              {loading ? <FormLoading /> : "Delete"}
-            </button>
-            <button
-              onClick={onClose}
-              className="bg-gray-300 cursor-pointer px-4 py-2 rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
+          </p></>}
+            confirmText="Delete"
+            variant="danger"
+            isLoading={loading}
+            onConfirm={handleDelete}
+            onCancel={onClose}
+          />
+
+
       )}
     </DialogModal>
   );

@@ -28,6 +28,14 @@ import { hasPermission } from "@/lib/permissions";
 import { useAuth } from "@/context/AuthContext";
 import AccessPending from "../AccessPending";
 import { useEffect } from "react";
+import { FcSalesPerformance } from "react-icons/fc";
+import { FaMoneyBillWave, FaChartLine, FaBoxes } from "react-icons/fa";
+import { MdOutlineInventory2, MdOutlineAttachMoney } from "react-icons/md";
+import { RiRefund2Line } from "react-icons/ri";
+import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { TbMoneybag } from "react-icons/tb";
+import QuickButtons from "./QuickButtons";
+import { TopProductsChart } from "../TopProductsChart";
 /** -------------------------
  * MOCK DATA FOR TENTPOS
  * ------------------------- */
@@ -46,17 +54,16 @@ export default function TentPOSDashboard() {
       const res = await api.get<{ data: any }>(`/api/dashboard`);
       return res.data;
     },
-  
+
     refetchOnWindowFocus: false,
   });
   // console.log(data)
 
-   useEffect(() => {
-    fetchMe()
-  },[])
+  useEffect(() => {
+    fetchMe();
+  }, []);
 
-
-    const permissions = businessProfile?.userRole?.role?.permissions || [];
+  const permissions = businessProfile?.userRole?.role?.permissions || [];
 
   const canViewDashboard = hasPermission(permissions as any, "dashboard.view");
 
@@ -64,7 +71,7 @@ export default function TentPOSDashboard() {
   const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
   // console.log({canAccessDashboardData, canViewDashboard})
   if (!isOwner) {
-    if (!data && !canViewDashboard || !canAccessDashboardData) {
+    if ((!data && !canViewDashboard) || !canAccessDashboardData) {
       return (
         <AccessPending
           appName="TentPOS"
@@ -81,67 +88,85 @@ export default function TentPOSDashboard() {
     {
       title: "Total Sales Today",
       value: formatCurrency(data.todaySales),
-      delta: "+14%",
+      delta: (
+        <FcSalesPerformance className="bg-amber-100 text-amber-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#6366F1",
     },
     {
       title: "Total Revenue",
       value: formatCurrency(Number(data.totalRevenue.totalRevenue)),
-      delta: "+9%",
+      delta: (
+        <FaChartLine className="bg-green-100 text-green-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#10B981",
     },
     {
       title: "Total Profit",
       value: formatCurrency(Number(data.totalProfit.totalProfit)),
-      delta: "+4",
+      delta: (
+        <TbMoneybag className="bg-purple-100 text-purple-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#8B5CF6",
     },
     {
       title: "Items Low in Stock",
       value: data.outOfStockCount,
-      delta: "-2",
+      delta: (
+        <MdOutlineInventory2 className="bg-red-100 text-red-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#EF4444",
     },
     {
       title: "Total Return Amount",
       value: formatCurrency(data.totalReturnAmount),
-      delta: "+1",
+      delta: (
+        <RiRefund2Line className="bg-yellow-100 text-yellow-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#f59e0b",
     },
     {
       title: "Total Products",
       value: data.totalProducts,
-      delta: "+6",
+      delta: (
+        <FaBoxes className="bg-indigo-100 text-indigo-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#7C3AED",
     },
     {
       title: "Total Sales",
       value: formatCurrency(data.totalSales),
-      delta: "+6",
+      delta: (
+        <HiOutlineShoppingCart className="bg-blue-100 text-blue-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#7C3AED",
     },
     {
       title: "Total Debt",
       value: formatCurrency(data.totalDebt),
-      delta: "+6",
+      delta: (
+        <FaMoneyBillWave className="bg-red-100 text-red-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#7C3AED",
     },
     {
       title: "Expected Revenue",
       value: formatCurrency(data.expectedRevenue.expectedRevenue),
-      delta: "+6",
+      delta: (
+        <MdOutlineAttachMoney className="bg-green-100 text-green-800 p-2 text-4xl rounded-md" />
+      ),
       color: "#7C3AED",
     },
   ];
 
-
- 
+  const chartData = data.topProducts.map((item: any) => ({
+    name: item.product.title,
+    quantity: Number(item.totalSold),
+  }));
   if (isLoading) return <SpinnerCustom />;
 
-
-
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className=" px-10  space-y-6">
       {/* Search bar + refresh */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div></div>
@@ -178,6 +203,14 @@ export default function TentPOSDashboard() {
             </div>
           </Card>
         ))}
+      </div>
+      <div className="w-full flex flex-col md:flex-row gap-10">
+        <div className="w-full">
+          <QuickButtons />
+        </div>
+        <div className="w-full">
+          <TopProductsChart data={chartData} />
+        </div>
       </div>
 
       {/* Charts */}

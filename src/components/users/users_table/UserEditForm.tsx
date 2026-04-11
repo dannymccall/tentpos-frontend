@@ -32,7 +32,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors },
     reset,
   } = useForm<User>();
 
@@ -88,11 +88,11 @@ const EditUserForm: React.FC<UserFormProps> = ({
   };
 
   return (
-    <div className="flex justify-center items-center sm:max-w-sm w-full">
-      <div className=" rounded-lg">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <div className="flex justify-center items-center  w-full">
+      <div className=" rounded-lg w-full">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 min-h-72 max-h-[60vh]  md:max-h-[80vh]  w-full overflow-y-auto">
           {/* Full Name */}
-          <div className="flex items-center flex-col md:flex-row gap-5">
+          <div className="flex md:items-center flex-col md:flex-row gap-5">
             <label className="w-40 text-[15px] font-semibold text-gray-600 text-start ">
               Full Name
             </label>
@@ -116,7 +116,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
 
           {/* Branch */}
 
-          <div className="flex items-center flex-col md:flex-row gap-5">
+          <div className="flex md:items-center  flex-col md:flex-row gap-5">
             <label className="w-40 text-[15px] font-semibold text-gray-600 text-start ">
               Branch
             </label>
@@ -159,7 +159,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
           </div>
 
           {/* Tenant ID */}
-          <div className="flex items-center flex-col md:flex-row gap-5">
+          <div className="flex md:items-center  flex-col md:flex-row gap-5">
             <label className="w-40 text-[15px] font-semibold text-gray-600 text-start ">
               Tenant ID
             </label>
@@ -182,7 +182,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
           </div>
 
           {/* App Role */}
-          <div className="flex items-center flex-col md:flex-row gap-5">
+          <div className="flex md:items-center  flex-col md:flex-row gap-5">
             <label className="w-40 text-[15px] font-semibold text-gray-600 text-start ">
               App Role
             </label>
@@ -217,7 +217,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
             )}
           </div>
 
-          <div className="flex items-center flex-col md:flex-row gap-5">
+          <div className="flex md:items-center  flex-col md:flex-row gap-5">
             <label
               className={`${
                 mode === "view" ? "w-40" : "w-40"
@@ -256,7 +256,7 @@ const EditUserForm: React.FC<UserFormProps> = ({
               <Button
                 type="submit"
                 onClick={() => {}}
-                disabled={Object.keys(dirtyFields).length === 0 || loading}
+                disabled={ loading}
                 className="disabled:opacity-50"
               >
                 {loading ? (

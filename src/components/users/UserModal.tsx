@@ -65,6 +65,7 @@ const UserModal: React.FC<RoleModalProps> = ({
               : "Delete User"}
         </DialogTitle>
       }
+      size="w-full "
     >
       {mode === "edit" && (
         <EditUserForm
