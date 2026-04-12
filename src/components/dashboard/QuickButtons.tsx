@@ -70,8 +70,8 @@ const QuickButtons = () => {
   return (
     <div className="bg-white p-4 rounded-lg">
       <div>
-        <h1 className="flex flex-row items-center gap-2 mb-5 text-sm md:text-base">
-          <SiQuicktime className="bg-gray-100 text-2xl rounded-md text-blue-800  p-2"/> Quick Buttons
+        <h1 className="flex flex-row items-center gap-2 mb-5 text-sm md:text-base font-bold">
+          <SiQuicktime className="bg-gray-100 text-2xl rounded-md text-blue-800  p-2 "/> Quick Buttons
         </h1>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

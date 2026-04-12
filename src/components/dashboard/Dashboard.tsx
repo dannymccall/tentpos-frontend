@@ -87,7 +87,7 @@ export default function TentPOSDashboard() {
   const KPIS = [
     {
       title: "Total Sales Today",
-      value: formatCurrency(data.todaySales),
+      value: formatCurrency(data?.todaySales ?? "0.00"),
       delta: (
         <FcSalesPerformance className="bg-amber-100 text-amber-800 p-2 text-4xl rounded-md" />
       ),
@@ -95,7 +95,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Revenue",
-      value: formatCurrency(Number(data.totalRevenue.totalRevenue)),
+      value: formatCurrency(Number(data?.totalRevenue?.totalRevenue ?? "0.00")),
       delta: (
         <FaChartLine className="bg-green-100 text-green-800 p-2 text-4xl rounded-md" />
       ),
@@ -103,7 +103,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Profit",
-      value: formatCurrency(Number(data.totalProfit.totalProfit)),
+      value: formatCurrency(Number(data?.totalProfit?.totalProfit ?? "0.00")),
       delta: (
         <TbMoneybag className="bg-purple-100 text-purple-800 p-2 text-4xl rounded-md" />
       ),
@@ -111,7 +111,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Items Low in Stock",
-      value: data.outOfStockCount,
+      value: data?.outOfStockCount ?? "0.00",
       delta: (
         <MdOutlineInventory2 className="bg-red-100 text-red-800 p-2 text-4xl rounded-md" />
       ),
@@ -119,7 +119,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Return Amount",
-      value: formatCurrency(data.totalReturnAmount),
+      value: formatCurrency(data?.totalReturnAmount ?? "0.00"),
       delta: (
         <RiRefund2Line className="bg-yellow-100 text-yellow-800 p-2 text-4xl rounded-md" />
       ),
@@ -127,7 +127,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Products",
-      value: data.totalProducts,
+      value: data?.totalProducts ?? "0.00",
       delta: (
         <FaBoxes className="bg-indigo-100 text-indigo-800 p-2 text-4xl rounded-md" />
       ),
@@ -135,7 +135,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Sales",
-      value: formatCurrency(data.totalSales),
+      value: formatCurrency(data?.totalSales ?? "0.00"),
       delta: (
         <HiOutlineShoppingCart className="bg-blue-100 text-blue-800 p-2 text-4xl rounded-md" />
       ),
@@ -143,7 +143,7 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Total Debt",
-      value: formatCurrency(data.totalDebt),
+      value: formatCurrency(data?.totalDebt ?? "0.00"),
       delta: (
         <FaMoneyBillWave className="bg-red-100 text-red-800 p-2 text-4xl rounded-md" />
       ),
@@ -151,11 +151,20 @@ export default function TentPOSDashboard() {
     },
     {
       title: "Expected Revenue",
-      value: formatCurrency(data.expectedRevenue.expectedRevenue),
+      value: formatCurrency(data?.expectedRevenue?.expectedRevenue ?? "0.00"),
       delta: (
         <MdOutlineAttachMoney className="bg-green-100 text-green-800 p-2 text-4xl rounded-md" />
       ),
       color: "#7C3AED",
+    },
+
+    {
+      title: "Expected Profit",
+      value: formatCurrency(Number(data?.expectedProfit?.[0]?.expectedProfit ?? "0.00")),
+      delta: (
+        <TbMoneybag className="bg-purple-100 text-purple-800 p-2 text-4xl rounded-md" />
+      ),
+      color: "#8B5CF6",
     },
   ];
 
@@ -166,7 +175,7 @@ export default function TentPOSDashboard() {
   if (isLoading) return <SpinnerCustom />;
 
   return (
-    <div className=" px-10  space-y-6">
+    <div className=" px-10 pb-5  space-y-6">
       {/* Search bar + refresh */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div></div>
