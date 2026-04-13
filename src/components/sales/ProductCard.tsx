@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
             className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg mb-2"
           />
 
-          <div className="font-semibold text-gray-800 text-center">
+          <div className="font-semibold text-gray-800 text-center text-sm">
             {product.title}
           </div>
         </div>

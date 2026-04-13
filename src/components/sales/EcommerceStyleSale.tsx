@@ -157,6 +157,7 @@ export default function AddSalePage({
                   size="sm"
                   variant={activeCategory === cat.id ? "default" : "outline"}
                   onClick={() => handleClickCategory(cat.id)}
+                  className="text-xs"
                 >
                   {cat.name}
                 </Button>
@@ -203,6 +204,7 @@ export default function AddSalePage({
                 size="sm"
                 variant={activeCategory === "ALL" ? "default" : "outline"}
                 onClick={() => handleClickCategory("ALL")}
+                className="text-xs"
               >
                 All
               </Button>
@@ -228,7 +230,7 @@ export default function AddSalePage({
             <h2 className="text-base md:text-lg font-bold mb-4 text-center">
               Top Products
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="flex  gap-5 w-full overflow-x-auto">
               {products.mostPurchasedProducts
                 .sort(
                   (a, b) =>
@@ -241,19 +243,19 @@ export default function AddSalePage({
           </section>
         )}
 
-     <section className="mb-6 w-full">
-  <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
+      <section className="mb-6 w-full">
+        <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
 
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {products?.products?.map((p) => (
-      <ProductCard
-        key={p.id}
-        product={p}
-        addToCart={() => addToCart(p)}
-      />
-    ))}
-  </div>
-</section>
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2  md:gap-4">
+          {products?.products?.map((p) => (
+            <ProductCard
+              key={p.id}
+              product={p}
+              addToCart={() => addToCart(p)}
+            />
+          ))}
+        </div>
+      </section>
 
       <DialogModal
         open={invoiceModalOpen}
