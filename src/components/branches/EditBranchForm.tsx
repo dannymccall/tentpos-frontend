@@ -97,7 +97,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         className="space-y-6 overflow-y-auto min-h-72 max-h-[60vh]  md:max-h-[80vh]  w-full"
       >
         {/* Name */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="name"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
@@ -123,7 +123,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         </div>
 
         {/* Address */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="address"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
@@ -149,7 +149,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         </div>
 
         {/* City */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="city"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
@@ -175,7 +175,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         </div>
 
         {/* Region */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="region"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
@@ -201,7 +201,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         </div>
 
         {/* Phone */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="phone"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"
@@ -227,7 +227,7 @@ const EditBranchForm: React.FC<BranchFormProps> = ({
         </div>
 
         {/* Email */}
-        <div className="flex items-center flex-col md:flex-row gap-5">
+        <div className="flex md:items-center flex-col md:flex-row gap-5">
           <label
             htmlFor="email"
             className="w-56 text-[15px] font-semibold text-gray-600 text-start md:text-end"

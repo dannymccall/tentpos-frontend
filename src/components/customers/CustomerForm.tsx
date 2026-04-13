@@ -56,7 +56,9 @@ export default function CustomerForm({
   const creditLimitAllocated = form.watch("creditLimitAllocated");
 
   return (
-    <Card className="max-w-xl mx-auto p-4">
+    <div className="p-2">
+
+    <Card className="max-w-xl mx-auto">
       <CardHeader>
         <CardTitle>
           {" "}
@@ -197,5 +199,6 @@ export default function CustomerForm({
         </Form>
       </CardContent>
     </Card>
+    </div>
   );
 }

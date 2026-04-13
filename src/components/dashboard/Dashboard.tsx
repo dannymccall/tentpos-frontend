@@ -175,7 +175,7 @@ export default function TentPOSDashboard() {
   if (isLoading) return <SpinnerCustom />;
 
   return (
-    <div className=" px-10 pb-5  space-y-6">
+    <div className="px-5  md:px-10 pb-5  space-y-6">
       {/* Search bar + refresh */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div></div>

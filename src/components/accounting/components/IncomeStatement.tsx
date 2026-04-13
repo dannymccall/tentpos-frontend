@@ -149,7 +149,7 @@ const IncomeStatement = () => {
           </CardContent>
         </Card>
       ) : (
-        <Card className="max-w-3xl  translate-y-1/3">
+        <Card className="max-w-3xl mx-auto  translate-y-1/3">
           <div className="m-auto text-center">
             <Filter className="mx-auto h-12 w-12 text-muted-foreground/50" />
             <h3 className="mt-4 text-lg font-semibold">
