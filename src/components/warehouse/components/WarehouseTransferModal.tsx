@@ -21,52 +21,50 @@ const WarehouseTransferModal: React.FC<WarehouseTransferModalProps> = ({
     <DialogModal
       open={open}
       setOpen={onClose}
-      title={
-        <DialogTitle className="text-center">Stock Movement</DialogTitle>
-      }
+      title={<DialogTitle className="text-center text-sm nd:text-[15px]">Stock Movement</DialogTitle>}
       size="w-full md:max-w-3xl"
     >
-    <div className="flex items-center justify-between mb-6">
-  
-  {/* LEFT: Title + Flow */}
-  <div className="flex items-center gap-3">
-    
-    {/* Icon Flow */}
-    <div className="flex items-center gap-2 text-gray-500">
-      <FaWarehouse />
+      <div className="flex items-center justify-between mb-6">
+        {/* LEFT: Title + Flow */}
+        <div className="flex items-center gap-3">
+          {/* Icon Flow */}
+          <div className="flex items-center gap-2 text-gray-500">
+            <FaWarehouse />
 
-      <FaArrowRight className="text-xs" />
+            <FaArrowRight className="text-xs" />
 
-      {type === "warehouse_to_warehouse" ? (
-        <FaWarehouse />
-      ) : (
-        <FaCodeBranch />
-      )}
-    </div>
+            {type === "warehouse_to_warehouse" ? (
+              <FaWarehouse />
+            ) : (
+              <FaCodeBranch />
+            )}
+          </div>
 
-    {/* Text */}
-    <div>
-      <h1 className="text-base md:text-lg font-semibold text-gray-900">
-        {type === "warehouse_to_warehouse"
-          ? "Warehouse Transfer"
-          : "Branch Transfer"}
-      </h1>
+          {/* Text */}
+          <div>
+            <h1 className="text-base md:text-lg font-semibold text-gray-900">
+              {type === "warehouse_to_warehouse"
+                ? "Warehouse Transfer"
+                : "Branch Transfer"}
+            </h1>
 
-      <p className="text-xs text-gray-500">
-        {type === "warehouse_to_warehouse"
-          ? "Move stock between warehouses"
-          : "Move stock from warehouse to branch"}
-      </p>
-    </div>
-  </div>
+            <p className="text-xs text-gray-500">
+              {type === "warehouse_to_warehouse"
+                ? "Move stock between warehouses"
+                : "Move stock from warehouse to branch"}
+            </p>
+          </div>
+        </div>
 
-  {/* RIGHT: Status badge (optional but 🔥) */}
-  <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
-    Transfer
-  </span>
-</div>
+        {/* RIGHT: Status badge (optional but 🔥) */}
+        <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+          Transfer
+        </span>
+      </div>
       <Separator />
-      <div className="overflow-y-auto max-h-[60vh] md:max-h-full">{children}</div>
+      <div className="overflow-y-auto max-h-[45vh] md:max-h-full">
+        {children}
+      </div>
     </DialogModal>
   );
 };

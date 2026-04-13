@@ -44,7 +44,7 @@ const filteredProducts = products?.filter((p) =>
   p?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
 );
   return (
-    <div className="space-y-4 border p-3 rounded-xl overflow-auto max-h-[40vh]">
+    <div className="space-y-4 border p-3 rounded-xl overflow-auto min-h-72 max-h-[60vh]  md:max-h-[80vh">
       {/* TABLE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
         {/* Left side */}
