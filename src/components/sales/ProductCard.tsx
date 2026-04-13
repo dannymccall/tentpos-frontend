@@ -60,7 +60,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
                 {" "}
                 <FaPlus className="" />
               </span>
+              <span className="hidden md:inline">
+
               Add to Cart
+              </span>
             </Button>
           </div>
         </div>
