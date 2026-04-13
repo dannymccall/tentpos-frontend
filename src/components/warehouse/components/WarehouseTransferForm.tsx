@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 type Product = {
   id: string;
@@ -9,14 +10,14 @@ type Product = {
 const WarehouseTransferForm = ({
   products,
   onSubmitTransfer,
-  pending
+  pending,
 }: {
   products: Product[];
   onSubmitTransfer: (selectedProducts: Record<string, number>) => void;
-  pending:boolean
+  pending: boolean;
 }) => {
   const [selected, setSelected] = useState<Record<string, number>>({});
-
+  const [searchTerm, setSearchTerm] = useState("");
   const toggleProduct = (productId: string) => {
     setSelected((prev) => {
       const copy = { ...prev };
@@ -39,8 +40,11 @@ const WarehouseTransferForm = ({
     }));
   };
 
+const filteredProducts = products?.filter((p) =>
+  p?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
+);
   return (
-    <div className="space-y-4 border p-3 rounded-xl overflow-auto">
+    <div className="space-y-4 border p-3 rounded-xl overflow-auto max-h-[40vh]">
       {/* TABLE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
         {/* Left side */}
@@ -55,7 +59,16 @@ const WarehouseTransferForm = ({
             </p>
           </div>
         </div>
-
+        <div>
+          <Input
+            placeholder="Search by product title or SKU..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            className="max-w-sm border-blue-500"
+          />
+        </div>
         {/* Right side (optional counter later) */}
         <span className="text-xs text-blue-800">
           {Object.keys(selected).length} selected
@@ -70,7 +83,7 @@ const WarehouseTransferForm = ({
 
       {/* PRODUCTS */}
       <div className="space-y-2 max-h-[350px] overflow-y-auto pr-2">
-        {products.map((product) => {
+        {filteredProducts.map((product) => {
           const isChecked = selected[product.id] !== undefined;
 
           return (
@@ -118,7 +131,11 @@ const WarehouseTransferForm = ({
         })}
       </div>
       <div className="flex justify-end">
-        <Button onClick={() => onSubmitTransfer(selected)} variant={"primary"} loading={pending}>
+        <Button
+          onClick={() => onSubmitTransfer(selected)}
+          variant={"primary"}
+          loading={pending}
+        >
           Move Stock
         </Button>
       </div>
