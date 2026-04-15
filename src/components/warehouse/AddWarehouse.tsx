@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "../Button";
 import { useApiMutation } from "@/hooks/useApiMutation";
@@ -218,7 +218,6 @@ export default function WarehouseStepperPage() {
           <>
             <Card className="rounded-2xl border max-h-[63vh] overflow-y-auto">
               <CardHeader>
-                <CardTitle>Allocate Products</CardTitle>
                 <p className="md:text-sm text-xs  bg-blue-100 border rounded p-2 text-blue-700 border-blue-600">
                   Specify quantities for each product in this warehouse.
                   Existing products will be updated automatically, while new
