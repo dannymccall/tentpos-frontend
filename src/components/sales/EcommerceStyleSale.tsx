@@ -140,7 +140,7 @@ export default function AddSalePage({
             handleSubmitCheckout={handleSubmit}
           />
 
-          <section className="mb-4  mt-4 md:mt-0">
+          <section className="mb-4  mt-4">
             <div className="flex gap-2 overflow-x-auto pb-2">
               <Badge className="text-xs">Filter by Category</Badge>
               <Button
@@ -226,11 +226,11 @@ export default function AddSalePage({
 
       {Object.values(products).length > 0 &&
         products.mostPurchasedProducts.length > 0 && (
-          <section className="mb-6 w-full">
+          <section className="mb-6 ">
             <h2 className="text-base md:text-lg font-bold mb-4 text-center">
               Top Products
             </h2>
-            <div className="flex  gap-5 w-full md:w-64 overflow-x-auto">
+            <div className="flex  gap-5  overflow-x-auto">
               {products.mostPurchasedProducts
                 .sort(
                   (a, b) =>

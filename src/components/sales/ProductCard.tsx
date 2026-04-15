@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
   return (
     <Card
       key={product.id}
-      className="w-64 md:w-11/12 place-self-center md:place-self-start shadow-none"
+      className="w-64  place-self-center md:place-self-start shadow-none"
     >
       <CardContent className="p-0 rounded-lg transition-shadow shadow-md hover:shadow-xl cursor-pointer">
         {/* Product Image & Stock */}
