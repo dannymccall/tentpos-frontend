@@ -121,7 +121,7 @@ export default function AddSalePage({
     <div className="bg-white p-4 rounded-md">
       {/* Sections */}
       {!scrolled && (
-        <div className="mb-4">
+        <div className="my-4">
           <EcommerceHeader
             cartCount={cart.length}
             onClickCart={() => setOpen((p) => !p)}
@@ -196,7 +196,7 @@ export default function AddSalePage({
             handleSubmitCheckout={handleSubmit}
           />
 
-          <section className="mb-2 md:ml-64 mt-3 md:mt-0 transition-all duration-300">
+          <section className="mb-2 ml-5 mt-5  transition-all duration-300">
             <div className="flex gap-2 overflow-x-auto pb-2">
               <Badge>Filter by Category</Badge>
 
@@ -230,7 +230,7 @@ export default function AddSalePage({
             <h2 className="text-base md:text-lg font-bold mb-4 text-center">
               Top Products
             </h2>
-            <div className="flex  gap-5 w-full overflow-x-auto">
+            <div className="flex  gap-5 w-full md:w-64 overflow-x-auto">
               {products.mostPurchasedProducts
                 .sort(
                   (a, b) =>
