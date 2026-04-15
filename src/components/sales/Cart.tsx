@@ -8,6 +8,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 interface CartPropsExtended extends CartProps {
   handleSubmitCheckout: (data: any) => Promise<any> | any;
+  loading: boolean
 }
 
 export default function Cart({
@@ -67,6 +68,7 @@ export default function Cart({
               handleSubmitCheckout={handleSubmitCheckout}
               cartItems={cart}
               customer={{}}
+              loading={loading}
             />
           </ScrollArea>
         );

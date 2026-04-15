@@ -19,12 +19,14 @@ interface CheckoutProps {
   cartItems: CartItem[];
   customer: Customer;
   handleSubmitCheckout: (data: any) => Promise<any> | any;
+  loading: boolean
 }
 
 export default function EcommerceCheckoutPage({
   cartItems,
   customer,
-  handleSubmitCheckout
+  handleSubmitCheckout,
+  loading
 }: CheckoutProps) {
   const form = useForm({
     defaultValues: {
@@ -41,7 +43,6 @@ export default function EcommerceCheckoutPage({
   });
 
   const { register, watch } = form;
-  const [loading, setLoading] = useState(false);
   const { customers } = useFetchCustomers();
   const [customerId, setCustomerId] = useState<string | number | null>(null);
 
@@ -71,7 +72,6 @@ export default function EcommerceCheckoutPage({
       total: total,
       amountPaid: amountPaid
     };
-    setLoading(true)
     // console.log("Submitting Checkout:", payload);
     handleSubmitCheckout(payload);
   };
