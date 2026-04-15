@@ -244,7 +244,7 @@ export default function AddSalePage({
         )}
 
       <section className="mb-6 w-full">
-        <h2 className="text-xl font-bold mb-4 text-center">Products</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">All Products</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2  md:gap-4">
           {products?.products?.map((p) => (

@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
     >
       <CardContent className="p-0 rounded-lg transition-shadow shadow-md hover:shadow-xl cursor-pointer">
         {/* Product Image & Stock */}
-        <div className="bg-[#d0d3db] rounded-t-lg p-3 flex flex-col items-center">
+        <div className="bg-blue-300/5 rounded-t-lg p-3 flex flex-col items-center">
           <div className="w-full flex justify-end mb-2">
             <Badge variant="outline" className="border border-primary">Stock: {stock}</Badge>
           </div>
