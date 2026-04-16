@@ -39,7 +39,8 @@ interface AuthContextType {
   avatar?: string;
   sessionId?: string;
   dataScope: DataScope[] | null;
-  fetchMe: () => void
+  fetchMe: () => void;
+  loading: boolean
 }
 
 interface Settings {
@@ -78,12 +79,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       // console.log(sessionId);
       if (sessionId) {
+        setLoading(true)
         const response = await makeRequest(`/api/auth/me`, {
           method: "GET",
           credentials: "include",
         });
         // console.log({ response });
         if (response.data.data) {
+          setLoading(false)
           setUser(response.data.data);
           setProfilePicture(response.data.avatar || "");
           setBusinessProfile(response.data.data.businessProfile);
@@ -184,7 +187,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         settings,
         setSettings,
         dataScope,
-        fetchMe
+        fetchMe,
+        loading
       }}
     >
       {!loading && children}

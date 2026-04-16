@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useEffect } from "react";
+import { SpinnerCustom } from "../loaders/Spinner";
 interface ProtectedRouteProps {
   redirectPath?: string;
   children: React.ReactElement;
@@ -11,18 +12,23 @@ export function ProtectedRoute({
   redirectPath = "/",
   children,
 }: ProtectedRouteProps) {
-  const { user, fetchMe } = useAuth();
+  const { user, fetchMe, loading } = useAuth();
 
   useEffect(() => {
-    fetchMe()
-  }, [])
-  // console.log({ user });
-  if (user === null) {
+    fetchMe();
+  }, []);
+
+  // ⏳ still checking auth
+  if (loading) {
+    return <SpinnerCustom />; // or a spinner
+  }
+
+  // ❌ not authenticated
+  if (!user) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  // if(code !== "default" || !hasPermission(permissions, code!) && businessProfile?.appRole !== "owner" ){
-  //   return <Navigate to="/unauthorized"/>
-  // }
+  // ✅ authenticated
   return children;
 }
+
