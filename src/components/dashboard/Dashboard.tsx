@@ -27,7 +27,6 @@ import { SpinnerCustom } from "../loaders/Spinner";
 import { hasPermission } from "@/lib/permissions";
 import { useAuth } from "@/context/AuthContext";
 import AccessPending from "../AccessPending";
-import { useEffect } from "react";
 import { FcSalesPerformance } from "react-icons/fc";
 import { FaMoneyBillWave, FaChartLine, FaBoxes } from "react-icons/fa";
 import { MdOutlineInventory2, MdOutlineAttachMoney } from "react-icons/md";
@@ -47,7 +46,7 @@ const COLORS = ["#6366F1", "#10B981", "#8B5CF6"];
  * ------------------------- */
 
 export default function TentPOSDashboard() {
-  const { businessProfile, dataScope, fetchMe } = useAuth();
+  const { businessProfile, dataScope } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
     queryFn: async () => {
@@ -59,9 +58,9 @@ export default function TentPOSDashboard() {
   });
   // console.log(data)
 
-  useEffect(() => {
-    fetchMe();
-  }, []);
+  // useEffect(() => {
+  //   fetchMe();
+  // }, []);
 
   const permissions = businessProfile?.userRole?.role?.permissions || [];
 

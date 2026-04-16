@@ -12,7 +12,7 @@ type Status = "loading" | "error" | "success";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, fetchMe, } = useAuth();
 
   const [status, setStatus] = useState<Status>("loading");
   const [message, setMessage] = useState("Processing sign-in...");
@@ -26,6 +26,8 @@ const AuthCallback = () => {
 
   const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
 
+
+ 
   const exchangeCode = async () => {
     if (!code) {
       setStatus("error");
@@ -55,6 +57,7 @@ const AuthCallback = () => {
       setMessage("Redirecting...");
 
       navigate("/dashboard", { replace: true });
+      fetchMe()
     } catch (err: any) {
       setStatus("error");
       setMessage(err.message || "Authentication failed. Please try again.");

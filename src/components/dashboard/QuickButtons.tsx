@@ -79,7 +79,7 @@ const QuickButtons = () => {
 
           <Button
             key={i}
-            className={cn(b.className, "flex flex-col h-32 gap-5 border")}
+            className={cn(b.className, "flex flex-col h-32 gap-5 border active:scale-95 hover:scale-105")}
             onClick={() => navigator(b.page)}
           >
             {b.icon}

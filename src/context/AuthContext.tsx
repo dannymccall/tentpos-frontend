@@ -40,7 +40,7 @@ interface AuthContextType {
   sessionId?: string;
   dataScope: DataScope[] | null;
   fetchMe: () => void;
-  loading: boolean
+  loading: boolean;
 }
 
 interface Settings {
@@ -124,8 +124,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setPermissions(
         userData.businessProfile?.userRole.role.permissions as any
       );
+      setDataScope((userData as any)?.dataScope?.scopes)
     setSettings({
-      companyName: (userData.settings as any).name,
+      companyName: (userData?.settings as any)?.name,
       logo: userData.settings.logo,
     });
   };
