@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 interface ProtectedRouteProps {
   redirectPath?: string;
   children: React.ReactElement;
@@ -10,8 +11,11 @@ export function ProtectedRoute({
   redirectPath = "/",
   children,
 }: ProtectedRouteProps) {
-  const { user } = useAuth();
+  const { user, fetchMe } = useAuth();
 
+  useEffect(() => {
+    fetchMe()
+  }, [])
   // console.log({ user });
   if (user === null) {
     return <Navigate to={redirectPath} replace />;
