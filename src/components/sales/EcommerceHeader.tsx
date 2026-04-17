@@ -15,7 +15,7 @@ export default function EcommerceHeader({
   onClickCart,
 }: EcommerceHeaderProps) {
   return (
-    <div className="w-full flex  md:justify-end justify-start">
+    <div className="w-full flex  md:justify-end justify-start p-2 md:p-0">
       <div className="flex gap-3 items-center w-full md:w-auto">
         {/* Search box */}
         <Input
@@ -23,7 +23,7 @@ export default function EcommerceHeader({
           placeholder="Search products..."
           value={searchValue}
           onChange={(e) => onSearch && onSearch(e.target.value)}
-          className="placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 transition-all rounded-md w-full md:w-64 text-sm"
+          className="placeholder:text-slate-400 border-gray-500 focus:ring-2 focus:ring-blue-500 transition-all rounded-md w-full md:w-64 text-sm"
         />
 
         {/* Shopping cart */}

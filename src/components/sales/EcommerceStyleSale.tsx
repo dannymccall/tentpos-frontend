@@ -214,7 +214,7 @@ export default function AddSalePage({
                   size="sm"
                   variant={activeCategory === cat.id ? "primary" : "ghost"}
                   onClick={() => handleClickCategory(cat.id)}
-                  className="text-xs border border-gray-500"
+                  className="text-xs border border-gray-500 text-slate-50"
                 >
                   {cat.name}
                 </Button>
