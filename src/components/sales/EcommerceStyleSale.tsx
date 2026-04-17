@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
 import type { Product, CartItem, Invoice, Sale } from "../../types/sale.types";
-import { Button } from "@/components/ui/button";
 
 import EcommerceHeader from "./EcommerceHeader";
 import Cart from "./Cart";
@@ -9,6 +8,7 @@ import InvoiceView from "./InvoiceView";
 import { useFetchCategories } from "@/hooks/useFetchCatgories";
 import { Badge } from "../ui/badge";
 import ProductCard from "./ProductCard";
+import { Button } from "../Button";
 
 interface AddSalePageProps {
   products: { products: Product[]; mostPurchasedProducts: Product[] };
@@ -142,10 +142,10 @@ export default function AddSalePage({
 
           <section className="mb-4  mt-4">
             <div className="flex gap-2 overflow-x-auto pb-2">
-              <Badge className="text-xs">Filter by Category</Badge>
+              <Badge className="text-xs bg-primary">Filter by Category</Badge>
               <Button
                 size="sm"
-                variant={activeCategory === "ALL" ? "default" : "outline"}
+                variant={activeCategory === "ALL" ? "primary" : "ghost"}
                 onClick={() => handleClickCategory("ALL")}
               >
                 All
@@ -155,9 +155,9 @@ export default function AddSalePage({
                 <Button
                   key={cat.id}
                   size="sm"
-                  variant={activeCategory === cat.id ? "default" : "outline"}
+                  variant={activeCategory === cat.id ? "primary" : "ghost"}
                   onClick={() => handleClickCategory(cat.id)}
-                  className="text-xs"
+                  className="text-xs border py-1"
                 >
                   {cat.name}
                 </Button>
@@ -202,9 +202,8 @@ export default function AddSalePage({
 
               <Button
                 size="sm"
-                variant={activeCategory === "ALL" ? "default" : "outline"}
+                variant={activeCategory === "ALL" ? "primary" : "ghost"}
                 onClick={() => handleClickCategory("ALL")}
-                className="text-xs"
               >
                 All
               </Button>
@@ -213,8 +212,9 @@ export default function AddSalePage({
                 <Button
                   key={cat.id}
                   size="sm"
-                  variant={activeCategory === cat.id ? "default" : "outline"}
+                  variant={activeCategory === cat.id ? "primary" : "ghost"}
                   onClick={() => handleClickCategory(cat.id)}
+                  className="text-xs border border-gray-500"
                 >
                   {cat.name}
                 </Button>

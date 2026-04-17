@@ -83,7 +83,7 @@ export default function Cart({
 
       {/* Dropdown Cart */}
       <div
-        className={`absolute max-h-[400px] overflow-y-auto -right-5 md:right-0   w-96 bg-white border rounded-lg shadow-lg transition-all duration-300  transform origin-top ${
+        className={`absolute max-h-[400px] overflow-y-auto  md:right-0  w-full  md:w-96 bg-white border rounded-lg shadow-lg transition-all duration-300  transform origin-top ${
           open
             ? "opacity-100 scale-100"
             : "opacity-0 scale-95 pointer-events-none"
