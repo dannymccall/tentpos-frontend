@@ -1,6 +1,5 @@
 import { useApiMutation } from "@/hooks/useApiMutation";
 import React from "react";
-import FormLoading from "../loaders/FormLoading";
 import type { Sale } from "@/types/sale.types";
 import DialogModal from "../Dialog";
 import { DialogTitle } from "../ui/dialog";
