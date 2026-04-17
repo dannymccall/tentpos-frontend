@@ -523,7 +523,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         {shouldShowBack && <MobileBackHeader title="Back"/>}
 
         <main
-          className={`transition-all duration-300 pt-16 min-h-screen ${
+          className={`transition-all duration-300 pt-5  md:pt-16 min-h-screen ${
             isSidebarOpen
               ? "ml-64 w-[calc(100%-16rem)]"
               : "w-full"

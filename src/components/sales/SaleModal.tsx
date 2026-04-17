@@ -31,11 +31,11 @@ const SaleModal: React.FC<ProductProps> = ({ isOpen, onClose, sale }) => {
     <DialogModal
       open={isOpen}
       setOpen={onClose}
-      title={<DialogTitle className="text-center">Cancel Sale</DialogTitle>}
+      title={<DialogTitle className="text-center"></DialogTitle>}
     >
       {sale && (
         <ConfirmDialogContent
-          title="Delete Branch"
+          title="Cancel Sale"
           description={
             <>
               {" "}

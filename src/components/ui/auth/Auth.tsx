@@ -35,14 +35,14 @@ const Auth = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#020617] flex items-center justify-center px-4">
+    <main className="min-h-screen bg-[#020617] w-full  flex md:items-center md:justify-center pt-10 md:pt-0">
       <div
         className={cn(
-          "rounded-xl border border-[#1F2937] bg-[#020617] shadow-lg",
+          "rounded-xl  bg-[#020617] shadow-lg w-full p-3",
         )}
       >
-        <div className="flex justify-center items-center w-full">
-          <div className="bg-gray-100 rounded-lg md:p-8 p-2 max-w-sm w-full h-[500px] text-center">
+        <div className="flex justify-center w-full">
+          <div className="bg-gray-100 rounded-lg md:p-8  w-full md:max-w-[500px] p-2  h-[500px] text-center">
             {/* Logo */}
             <div className="flex flex-col items-center mb-10 space-y-6">
               <div className="absolute w-24 h-24 rounded-full bg-blue-500/30 animate-ping"></div>
