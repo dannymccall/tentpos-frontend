@@ -127,16 +127,17 @@ export default function ReturnSaleModal({
     <DialogModal
       open={open}
       setOpen={onClose}
-      title={<DialogTitle className="text-sm">Return Items — Sale #{sale.saleNumber}</DialogTitle>}
+      title={<DialogTitle className="text-sm text-center">Return Items — Sale #{sale.saleNumber}</DialogTitle>}
+      size="md:max-w-[670px]"
     >
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-auto max-h-[45vh] md:max-h-full">
         <p className="text-sm text-muted-foreground">
           ⚠️ This action will create a <strong>return record</strong>, adjust
           inventory, and may issue a refund. This cannot be undone.
         </p>
 
         {/* Sale Items */}
-        <div className="space-y-3">
+        <div className="space-y-3 ">
           {fields.map((field, index) => {
             const saleItem = sale.saleItems?.find(
               (i) => i.id === field.saleItemId,
@@ -145,7 +146,7 @@ export default function ReturnSaleModal({
             return (
               <div
                 key={field.id}
-                className="grid grid-cols-5 gap-3 items-end border p-3 rounded-lg"
+                className="grid md:grid-cols-5 gap-3 items-end border p-3 rounded-lg"
               >
                 <div className="col-span-2">
                   <Label>Product</Label>
