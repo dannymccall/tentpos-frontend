@@ -137,7 +137,7 @@ export default function ReturnSaleModal({
         </p>
 
         {/* Sale Items */}
-        <div className="space-y-3 ">
+        <div className="space-y-3">
           {fields.map((field, index) => {
             const saleItem = sale.saleItems?.find(
               (i) => i.id === field.saleItemId,
