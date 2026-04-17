@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { ShoppingCart } from "lucide-react";
 
 interface EcommerceHeaderProps {
@@ -6,6 +7,7 @@ interface EcommerceHeaderProps {
   searchValue?: string;
   onSearch?: (value: string) => void;
   onClickCart: () => void;
+  scrolled?: boolean
 }
 
 export default function EcommerceHeader({
@@ -13,6 +15,7 @@ export default function EcommerceHeader({
   searchValue = "",
   onSearch,
   onClickCart,
+  scrolled = false
 }: EcommerceHeaderProps) {
   return (
     <div className="w-full flex  md:justify-end justify-start p-2 md:p-0">
@@ -23,7 +26,7 @@ export default function EcommerceHeader({
           placeholder="Search products..."
           value={searchValue}
           onChange={(e) => onSearch && onSearch(e.target.value)}
-          className="placeholder:text-slate-400 border-gray-500 focus:ring-2 focus:ring-blue-500 transition-all rounded-md w-full md:w-64 text-sm"
+          className={cn(scrolled&& "text-slate-50", "placeholder:text-slate-400 border-gray-500 focus:ring-2 focus:ring-blue-500 transition-all rounded-md w-full md:w-64 text-sm")}
         />
 
         {/* Shopping cart */}

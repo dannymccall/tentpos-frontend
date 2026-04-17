@@ -183,6 +183,7 @@ export default function AddSalePage({
               onClickCart={() => setOpen((p) => !p)}
               onSearch={onSearch}
               searchValue={searchValue}
+              scrolled={scrolled}
             />
           </div>
           <Cart
