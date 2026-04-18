@@ -1,9 +1,9 @@
 import SaleForm from "./SalesForm";
 import { useApiMutation } from "@/hooks/useApiMutation";
-import { useFetchProducts } from "@/hooks/useFetchProducts";
+import { useFetchSaleProducts } from "@/hooks/useFetchSaleProducts";
 import { useFetchCustomers } from "@/hooks/useFetchCustomers";
 const QuickSale = () => {
-  const { products } = useFetchProducts();
+  const { products } = useFetchSaleProducts();
   const {customers} = useFetchCustomers()
   const { mutateAsync: salesMutation, isPending } = useApiMutation({
     url: `/api/sales`,
@@ -22,7 +22,7 @@ const QuickSale = () => {
         mode="add"
         onSubmit={onSubmit}
         loading={isPending}
-        products={products as any}
+        products={(products as any).products}
         customers={customers as any}
       />
     </div>
