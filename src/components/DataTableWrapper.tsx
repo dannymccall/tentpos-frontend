@@ -99,7 +99,7 @@ const DataTableWrapper: React.FC<ItemProps<any>> = ({
                 </SelectContent>
               </Select>
               {filters && (
-                <div className="flex flex-wrap gap-3 w-full">{filters}</div>
+                <div className="flex flex-wrap gap-3 w-full md:w-auto">{filters}</div>
               )}
               {/* Search Bar */}
               <div className="relative w-full sm:w-64">
