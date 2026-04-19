@@ -28,6 +28,7 @@ import FormLoading from "../loaders/FormLoading";
 import { useFetchCategories } from "@/hooks/useFetchCatgories";
 import InventoryUpdate from "./InventoryUpdate";
 import type { Product } from "@/types/product.types";
+import { PermissionGate } from "../PermissionGate";
 // Types & Schema
 const money = z
   .string()
@@ -122,7 +123,7 @@ export default function ProductForm({
     name: "tags",
   } as any);
 
-  console.log(tagFields, appendTag, removeTag)
+  console.log(tagFields, appendTag, removeTag);
   const {
     fields: variantFields,
     append: appendVariant,
@@ -149,7 +150,9 @@ export default function ProductForm({
       inventory:
         product && product.branchInventory
           ? String(product.branchInventory.inventory)
-          : product.branches?.length! > 0 ? String(product.branches![0].inventory) :  "",
+          : product.branches?.length! > 0
+            ? String(product.branches![0].inventory)
+            : "",
       trackInventory: product.trackInventory ?? false,
       status: product.status?.toLowerCase() === "active" ? "active" : "draft",
       tags: product.tags ?? [],
@@ -248,7 +251,11 @@ export default function ProductForm({
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Product title" {...field} className="text-sm md:text-base"/>
+                      <Input
+                        placeholder="Product title"
+                        {...field}
+                        className="text-sm md:text-base"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -278,34 +285,33 @@ export default function ProductForm({
               {/* Category & Brand */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-
-                <FormField
-                  control={form.control}
-                  name="categoryId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Category</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          value={String(field.value)}
-                        >
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select category" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {cat.map((c) => (
-                              <SelectItem key={c.id} value={String(c.id)}>
-                                {c.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="categoryId"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Category</FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={String(field.value)}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {cat.map((c) => (
+                                <SelectItem key={c.id} value={String(c.id)}>
+                                  {c.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
 
                 {/* <FormField
@@ -332,7 +338,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="0.00" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="0.00"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -353,24 +363,23 @@ export default function ProductForm({
                   )}
                 /> */}
                 <div className="md:col-span-2">
-
-                <FormField
-                  control={form.control}
-                  name="cost"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cost</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          placeholder="Cost to you (optional)"
-                          className="text-sm md:text-base"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="cost"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Cost</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Cost to you (optional)"
+                            className="text-sm md:text-base"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
               </div>
 
@@ -384,7 +393,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>SKU</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="SKU (optional)" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="SKU (optional)"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -413,7 +426,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Threshold</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Threshold" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="Threshold"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -431,7 +448,12 @@ export default function ProductForm({
                           <FormItem>
                             <FormLabel>Inventory</FormLabel>
                             <FormControl>
-                              <Input type="number" {...field} disabled className="text-sm md:text-base"/>
+                              <Input
+                                type="number"
+                                {...field}
+                                disabled
+                                className="text-sm md:text-base"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -482,7 +504,7 @@ export default function ProductForm({
                           ✕
                         </button>
                       </Badge>
-                    )
+                    ),
                   )}
                 </div>
 
@@ -534,7 +556,7 @@ export default function ProductForm({
                           x
                         </button>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </FormItem>
@@ -580,7 +602,7 @@ export default function ProductForm({
                                     e.target.value
                                       .split(",")
                                       .map((s: string) => s.trim())
-                                      .filter(Boolean)
+                                      .filter(Boolean),
                                   )
                                 }
                                 placeholder="Comma separated values e.g. Red, Blue, Green"
@@ -610,7 +632,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Weight</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="e.g. 1.2 kg" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="e.g. 1.2 kg"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -624,7 +650,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Width</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="cm" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="cm"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -638,7 +668,11 @@ export default function ProductForm({
                     <FormItem>
                       <FormLabel>Height</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="cm" className="text-sm md:text-base"/>
+                        <Input
+                          {...field}
+                          placeholder="cm"
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -673,15 +707,17 @@ export default function ProductForm({
               />
 
               <div className="flex gap-2">
-                <Button type="submit" disabled={loading} className="flex-1">
-                  {loading ? (
-                    <FormLoading />
-                  ) : mode === "add" ? (
-                    "Create Product"
-                  ) : (
-                    "Update Product"
-                  )}
-                </Button>
+                <PermissionGate code="inventory.products.create" mode="disable">
+                  <Button type="submit" disabled={loading} className="flex-1">
+                    {loading ? (
+                      <FormLoading />
+                    ) : mode === "add" ? (
+                      "Create Product"
+                    ) : (
+                      "Update Product"
+                    )}
+                  </Button>
+                </PermissionGate>
                 <Button
                   type="button"
                   variant="outline"

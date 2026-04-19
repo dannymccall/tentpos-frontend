@@ -50,7 +50,7 @@ const StockTransferProductsList: React.FC<StockTransferProductsListProps> = ({
         <Separator />
         {status === "pending" && (
           <div className="flex justify-end gap-3 mt-5">
-            <PermissionGate code="warehouse.approve.transfer">
+            <PermissionGate code="warehouse.approve.transfer" mode="disable">
               <Button
                 className="bg-emerald-500"
                 size={"sm"}

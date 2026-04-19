@@ -112,8 +112,8 @@ const TransferTable: React.FC<TransferTableProps> = ({
                           setProducts(t.products);
                           setMode("view");
                           setTransferMeta({ status: t.status, transferId: t.id });
-              
                         }}
+                        viewPermission="warehouse.view.transfer"
                       />
                       {t.status === "pending" && (
                         <PermissionGate code="warehouse.cancel.transfer">
