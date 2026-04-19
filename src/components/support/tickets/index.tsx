@@ -26,12 +26,14 @@ const Tickets = () => {
           label: "My Tickets",
           icon: <ClipboardList className="text-[#0f172b] " />,
           panel: <AllTickets />,
+          code: "support.create.ticket"
         },
         {
           key: "add_ticket",
           label: "Submit New Ticket",
           icon: <FaPlus className="text-[#0f172b] " />,
           panel: <SubmitTicket />,
+          code: "support.view"
         },
        
       ]}
