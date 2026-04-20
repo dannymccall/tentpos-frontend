@@ -70,7 +70,7 @@ export default function TentPOSDashboard() {
   const canAccessDashboardData = hasEntityAccess(dataScope, "dashboard");
   // console.log({canAccessDashboardData, canViewDashboard})
   if (!isOwner) {
-    if ((!data && !canViewDashboard) || !canAccessDashboardData) {
+    if ((!canViewDashboard) || !canAccessDashboardData) {
       return (
         <AccessPending
           appName="TentPOS"
