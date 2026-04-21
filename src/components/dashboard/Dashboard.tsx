@@ -199,7 +199,7 @@ export default function TentPOSDashboard() {
         {KPIS.map((kpi, i) => (
           <Card key={i} className="p-4">
             <div className="flex justify-between items-center">
-              <div>
+              <div className="space-y-5">
                 <div className="text-xs md:text-sm text-muted-foreground">
                   {kpi.title}
                 </div>
