@@ -76,7 +76,7 @@ export default function TentPOSDashboard() {
           appName="TentPOS"
           hasRole={isOwner || !!businessProfile?.userRole?.role?.name}
           hasDataScope={isOwner || canAccessDashboardData}
-          branchLocation={!!businessProfile?.branch.name}
+          branchLocation={!!businessProfile?.branch?.name}
           dashboardAccess={canViewDashboard}
         />
       );
