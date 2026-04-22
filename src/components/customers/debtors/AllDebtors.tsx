@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 import { useFetch } from "@/hooks/useFetch";
 import { useExportCSV } from "@/hooks/useExportCSV";
@@ -8,8 +8,9 @@ import type { Customer } from "@/types/customer.types";
 import DataTableWrapper from "@/components/DataTableWrapper";
 import DebtorsTable from "./DebtorsList";
 
-
 const AllDebtors = () => {
+  const [limit, setLimit] = useState<number>(10);
+
   const {
     data: debtors,
     loading,
@@ -19,9 +20,7 @@ const AllDebtors = () => {
     query,
     refetch,
     setQuery,
-  } = useFetch<Customer[]>({ uri: "/api/customers/debtors" });
-  const [limit, setLimit] = useState<number>(10);
-
+  } = useFetch<Customer[]>({ uri: "/api/customers/debtors", limit });
 
   const { exportCSV } = useExportCSV();
   const { exportPDF } = useExportPDF();
@@ -29,7 +28,6 @@ const AllDebtors = () => {
     setPage(page);
   };
   // console.log(loading, hasLoaded);
-
 
   const onSearch = (query: string) => {
     setQuery(query);
@@ -92,10 +90,7 @@ const AllDebtors = () => {
       exportCSV={handleExportCSV}
       exportPDF={handleExportPDF}
     >
-      <DebtorsTable
-        debtors={debtors}
-       
-      />
+      <DebtorsTable debtors={debtors} />
     </DataTableWrapper>
   );
 };
