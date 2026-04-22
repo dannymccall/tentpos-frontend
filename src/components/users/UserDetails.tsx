@@ -12,9 +12,7 @@ import {
 
 import {
   Users,
-  Briefcase,
   Building2,
-  Coins,
   CheckCircle2,
   TrendingUp,
 } from "lucide-react";
@@ -25,6 +23,9 @@ import UserRecentSales from "./users_table/UserRecentSales";
 import Pagination from "../Pagination";
 import { useState } from "react";
 import { SpinnerCustom } from "../loaders/Spinner";
+import { MdSecurity } from "react-icons/md";
+import { TbTransactionDollar } from "react-icons/tb";
+import { FcSalesPerformance } from "react-icons/fc";
 export interface MonthlyData {
   month: string;
   loansApplied: number;
@@ -92,7 +93,7 @@ export default function UserDetails() {
     {
       title: "Role",
       value: user.userRole?.role?.name,
-      icon: Briefcase,
+      icon: MdSecurity,
       color: "text-purple-600",
     },
     {
@@ -104,13 +105,13 @@ export default function UserDetails() {
     {
       title: "Total Transactions",
       value: stats.totalTransactions,
-      icon: Users,
+      icon: TbTransactionDollar,
       color: "text-blue-600",
     },
     {
       title: "Total Sales",
       value: stats.totalSales,
-      icon: Coins,
+      icon: FcSalesPerformance,
       color: "text-green-600",
     },
     {
