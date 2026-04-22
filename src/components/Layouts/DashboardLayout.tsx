@@ -249,7 +249,7 @@ const defaultSidebarItems: SidebarSection[] = [
         path: "/customers/debtors",
         badge: 3,
         badgeKey: "debtors",
-        code: "customers.view",
+        code: "debtors.view",
       },
     ],
   },

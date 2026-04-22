@@ -63,6 +63,9 @@ const PurchaseTable: React.FC<{ purchases: Purchase[] }> = ({ purchases }) => {
                     showDelete
                     showEdit
                     showView
+                    viewPermission="purchases.view"
+                    deletePermission="purchases.delete"
+                    editPermission="purchases.update"
                     onDelete={() => {setPurchase(purchase); setIsOpen(true)}}
                     onView={() => navigate(`/purchases/purchase-details?purchaseId=${purchase.id}`)}
                     onEdit={() => navigate(`/purchases/purchase-details?purchaseId=${purchase.id}`)}

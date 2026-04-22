@@ -18,7 +18,7 @@ const Debtors = () => {
 
   const isAllowed =
     businessProfile?.appRole === "owner" ||
-    hasPermission(permissions, "inventory.products.view");
+    hasPermission(permissions, "debtors.view");
 
   // console.log({ isAllowed });
   if (!isAllowed) return <Unauthorized />;
@@ -36,7 +36,7 @@ const Debtors = () => {
           label: "All Debtors",
           icon: <FaUsers className="text-[#8a76f9]" />,
           panel: <AllDebtors />,
-          code: "inventory.products.view",
+          code: "debtors.view",
         },
       ]}
     />

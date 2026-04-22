@@ -38,14 +38,14 @@ const Purchases = () => {
           label: "All Purchases",
           icon: <FaFileInvoiceDollar className="text-[#8a76f9]" />,
           panel: <AllPurchases />,
-          code: "suppliers.view"
+          code: "purchases.view"
         },
         {
           key: "new_purchase",
           label: "Add Purchase",
           icon: <FaPlus className="text-[#8a76f9]" />,
           panel: <AddPurchase />,
-          code: "suppliers.create"
+          code: "purchases.create"
         },
         //  {
         //   key: "bulk_upload",
