@@ -41,7 +41,10 @@ export default function CustomerForm({
 }) {
   const form = useForm<CustomerFormValues>({
     resolver: zodResolver(customerSchema),
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      openingBalance: String(defaultValues?.openingBalance)
+    },
   });
 
   const submit = async (vals: CustomerFormValues) => {

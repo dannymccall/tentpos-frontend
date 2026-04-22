@@ -58,7 +58,7 @@ const CustomerDetails: React.FC = () => {
               loading={isPending}
             />
           ),
-          code: "inventory.categories.view",
+          code: "customers.update",
         },
       ]}
     />
