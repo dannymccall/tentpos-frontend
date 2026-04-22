@@ -455,6 +455,7 @@ export default function SaleForm({
                             getKey={(p) => p.id}
                             getLabel={(p) => `${p.title}`}
                             getSubLabel={(p) => `¢${String(p.price)}`}
+                            getQuantity={(p) => (p as any)?.branches?.[0]?.inventory}
                             onSelect={(product) => {
                               console.log(idx);
                               setProductSearch((prev) =>

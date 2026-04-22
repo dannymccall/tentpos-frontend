@@ -22,7 +22,7 @@ interface SearchCommandProps<T> {
   getKey: (item: T) => string | number;
   getLabel: (item: T) => string;
   getSubLabel?: (item: T) => string;
-
+  getQuantity?: (item: T) => string;
   onSelect: (item: T) => void;
 }
 
@@ -37,6 +37,7 @@ export function SearchCommand<T>({
   getLabel,
   getSubLabel,
   onSelect,
+  getQuantity,
 }: SearchCommandProps<T>) {
   const [open, setOpen] = useState(false);
 
@@ -60,42 +61,46 @@ export function SearchCommand<T>({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -4 }}
               transition={{ duration: 0.15 }}
-              className="absolute left-0 right-0 top-full z-[100] bg-white border rounded-md shadow-lg mt-1"
+              className="absolute left-0 right-0 top-full z-100 bg-white border rounded-md shadow-lg mt-1"
             >
               <CommandList>
-                {loading && (
-                  <CommandItem disabled>Searching...</CommandItem>
-                )}
+                {loading && <CommandItem disabled>Searching...</CommandItem>}
 
                 {error && (
                   <CommandItem disabled>Error fetching results</CommandItem>
                 )}
 
                 <CommandGroup heading="Results">
-                  {items.length > 0 ? (
-                    items.map((item) => (
-                      <CommandItem
-                        key={getKey(item)}
-                        onSelect={() => {
-                          onSelect(item);
-                          setOpen(false);
-                        }}
-                      >
-                        <div className="flex flex-col">
-                          <span>{getLabel(item)}</span>
-                          {getSubLabel && (
-                            <span className="text-xs text-muted-foreground">
-                              {getSubLabel(item)}
-                            </span>
-                          )}
-                        </div>
-                      </CommandItem>
-                    ))
-                  ) : (
-                    !loading && (
-                      <CommandEmpty>No results found.</CommandEmpty>
-                    )
-                  )}
+                  {items.length > 0
+                    ? items.map((item) => (
+                        <CommandItem
+                          key={getKey(item)}
+                          onSelect={() => {
+                            onSelect(item);
+                            setOpen(false);
+                          }}
+                        >
+                          <div className="flex flex-flex gap-5">
+                            <div className="flex flex-col">
+                              <span className="text-[13px]">{getLabel(item)}</span>
+                              {getSubLabel && (
+                                <span className="text-xs text-muted-foreground">
+                                  {getSubLabel(item)}
+                                </span>
+                              )}
+                            </div>
+                            {getQuantity && (
+                              <div className="flex flex-col">
+                                <span className="text-[13px]">Stk</span>
+                                <span className="text-xs text-muted-foreground">{getQuantity(item)}</span>
+                              </div>
+                            )}
+                          </div>
+                        </CommandItem>
+                      ))
+                    : !loading && (
+                        <CommandEmpty>No results found.</CommandEmpty>
+                      )}
                 </CommandGroup>
               </CommandList>
             </motion.div>
