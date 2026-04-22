@@ -19,7 +19,7 @@ const Customers = () => {
 
   const isAllowed =
     businessProfile?.appRole === "owner" ||
-    hasPermission(permissions, "inventory.products.view");
+    hasPermission(permissions, "customers.view");
 
   // console.log({ isAllowed });
   if (!isAllowed) return <Unauthorized />;
