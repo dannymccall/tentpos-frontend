@@ -37,21 +37,21 @@ const Customers = () => {
           label: "All Customers",
           icon: <FaUsers className="text-[#8a76f9]" />,
           panel: <AllCustomers />,
-          code: "inventory.products.view",
+          code: "customers.view",
         },
         {
           key: "add_customer",
           label: "Add Customer",
           icon: <FaPlus className="text-[#8a76f9]" />,
           panel: <AddCustomer />,
-          code: "inventory.products.create",
+          code: "customers.create",
         },
         {
           key: "bulk_upload",
           label: "Bulk Upload",
           icon: <FaUpload className="text-[#8a76f9]" />,
           panel: <BulkUploadCustomers />,
-          code: "inventory.products.create",
+          code: "customers.create",
         },
       ]}
     />
