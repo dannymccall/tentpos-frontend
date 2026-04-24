@@ -6,11 +6,18 @@ import AccessibilitySettings from "./AccessibilitySettings";
 import PersonalProfileSettings from "./PersonalProfileSettings";
 import { RiProfileFill } from "react-icons/ri";
 import { MdSecurity } from "react-icons/md";
+import { useAuth } from "@/context/AuthContext";
+import { hasPermission } from "@/lib/permissions";
+
 const Settings = () => {
   const params = new URLSearchParams(window.location.search);
-  let query = "loan_settings";
+  const { permissions, businessProfile } = useAuth();
+
+  const allowed = hasPermission(permissions, "settings.view") || businessProfile?.appRole === "owner";
+  let query =allowed ?  "profile_settings" : "personal_settings";
   const navigate = useNavigate();
   query = params.get("settings")!;
+
 
   return (
     <Tabs
