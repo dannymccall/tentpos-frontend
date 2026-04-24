@@ -95,18 +95,19 @@ export default function ProductForm({
       categoryId: "",
       brand: "",
       price: "0" as any,
-      compareAtPrice: undefined,
+      compareAtPrice: String(product?.compareAtPrice) ?? "",
       cost: undefined,
       sku: "",
       barcode: "",
       inventory: "",
       trackInventory: false,
-      status: "draft",
       tags: [],
-      images: [],
+      images: [],     status: "active",
+ 
       weight: "",
       dimensions: { width: "", height: "", depth: "" },
       variants: [],
+      threshold: String(product?.threshold) ?? ""
     },
   });
   const { categories: cat } = useFetchCategories();
