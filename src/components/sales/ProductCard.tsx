@@ -42,14 +42,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, addToCart }) => {
             className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-lg mb-2"
           />
 
-          <div className="font-semibold text-gray-800 text-center text-sm">
+          <div className="font-semibold text-gray-800 text-center text-xs">
             {product.title}
           </div>
         </div>
 
         {/* Price & Add to Cart */}
         <div className="p-3 flex flex-col gap-2">
-          <div className="text-gray-600 flex text-sm md:text-base font-medium w-full justify-between items-center">
+          <div className="text-gray-600 flex text-xs  font-medium w-full justify-between items-center">
             ¢{Number(product.price).toFixed(2)}
             <Button
               size="sm"
