@@ -102,12 +102,13 @@ export default function ProductForm({
       inventory: "",
       trackInventory: false,
       tags: [],
-      images: [],     status: "active",
- 
+      images: [],
+      status: "active",
+
       weight: "",
       dimensions: { width: "", height: "", depth: "" },
       variants: [],
-      threshold: String(product?.threshold) ?? ""
+      threshold: String(product?.threshold) ?? "",
     },
   });
   const { categories: cat } = useFetchCategories();
@@ -135,8 +136,7 @@ export default function ProductForm({
   });
   console.log(product);
   useEffect(() => {
-    if (!product) return;
-    if (!cat || cat.length === 0) return;
+    if (!product || !cat?.length) return;
 
     form.reset({
       title: product.title ?? "",
@@ -144,33 +144,40 @@ export default function ProductForm({
       categoryId: product.categoryId ? String(product.categoryId) : "",
       brand: product.brand ? String(product.brand) : "",
       price: (product.price ?? 0).toString(),
-      compareAtPrice: String(product.compareAtPrice!),
-      cost: String(product.cost!),
+      compareAtPrice:
+        product.compareAtPrice != null ? String(product.compareAtPrice) : "",
+      cost: product.cost != null ? String(product.cost) : "",
       sku: product.sku ?? "",
       barcode: product.barcode ?? "",
       inventory:
-        product && product.branchInventory
+        product?.branchInventory?.inventory != null
           ? String(product.branchInventory.inventory)
-          : product.branches?.length! > 0
-            ? String(product.branches![0].inventory)
+          : product?.branches?.[0]?.inventory != null
+            ? String(product.branches[0].inventory)
             : "",
       trackInventory: product.trackInventory ?? false,
       status: product.status?.toLowerCase() === "active" ? "active" : "draft",
       tags: product.tags ?? [],
       images: product.images ?? [],
       weight: product.weight ?? "",
-      dimensions: product.dimensions ?? { width: "", height: "", depth: "" },
+      dimensions: product.dimensions ?? {
+        width: "",
+        height: "",
+        depth: "",
+      },
       variants: product.variants ?? [],
-      threshold: String(product?.threshold ?? 0)
+      threshold: product.threshold != null ? String(product.threshold) : "",
     });
-  }, [product, cat, form.reset]);
+  }, [product, cat]);
 
+  const tags = form.watch("tags") || [];
+  const images = form.watch("images") || [];
   // Image handling (local preview). In real app upload to CDN in onChange or onSubmit
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
     const fileArray = Array.from(files);
-    const current = form.getValues("images") || [];
+    const current = form.watch("images") || [];
     const mapped = fileArray.map((f) => ({
       file: f,
       preview: URL.createObjectURL(f),
@@ -179,7 +186,7 @@ export default function ProductForm({
   };
 
   const removeImage = (index: number) => {
-    const imgs = form.getValues("images") || [];
+    const imgs = form.watch("images") || [];
     const removed = imgs.filter((_, i) => i !== index);
     form.setValue("images", removed);
   };
@@ -217,10 +224,14 @@ export default function ProductForm({
   };
 
   const handleUpdate = (value: string) => {
-    // console.log(value);
-    const inventory = form.getValues("inventory");
-    const newqty = Number(inventory! as any) + Number(value);
-    form.setValue("inventory", String(newqty));
+    const current = Number(form.getValues("inventory") || 0);
+    const newQty = current + Number(value || 0);
+
+    form.setValue("inventory", String(newQty), {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+
     setOpen(false);
   };
 
@@ -296,7 +307,7 @@ export default function ProductForm({
                         <FormControl>
                           <Select
                             onValueChange={field.onChange}
-                            value={String(field.value)}
+                            value={field.value || ""}
                           >
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select category" />
@@ -490,24 +501,23 @@ export default function ProductForm({
               <FormItem>
                 <FormLabel>Tags</FormLabel>
                 <div className="flex gap-2 flex-wrap mb-2">
-                  {(form.getValues("tags") || []).map(
-                    (t: string, i: number) => (
-                      <Badge key={i} className="capitalize">
-                        {t}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const arr = form.getValues("tags") || [];
-                            arr.splice(i, 1);
-                            form.setValue("tags", arr);
-                          }}
-                          className="ml-2 text-xs opacity-70"
-                        >
-                          ✕
-                        </button>
-                      </Badge>
-                    ),
-                  )}
+                  {(tags || []).map((t: string, i: number) => (
+                    <Badge key={i} className="capitalize">
+                      {t}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newTags = tags.filter(
+                            (_, index) => index !== i,
+                          );
+                          form.setValue("tags", newTags);
+                        }}
+                        className="ml-2 text-xs opacity-70"
+                      >
+                        ✕
+                      </button>
+                    </Badge>
+                  ))}
                 </div>
 
                 <div className="flex gap-2">
@@ -519,7 +529,7 @@ export default function ProductForm({
                         e.preventDefault();
                         const val = (e.target as HTMLInputElement).value.trim();
                         if (!val) return;
-                        const existing = form.getValues("tags") || [];
+                        const existing = form.watch("tags") || [];
                         form.setValue("tags", [...existing, val]);
                         (e.target as HTMLInputElement).value = "";
                       }
@@ -539,27 +549,25 @@ export default function ProductForm({
                   onChange={handleImageChange}
                 />
                 <div className="mt-2 grid grid-cols-3 gap-2">
-                  {(form.getValues("images") || []).map(
-                    (img: any, i: number) => (
-                      <div
-                        key={i}
-                        className="relative border rounded overflow-hidden"
+                  {images.map((img: any, i: number) => (
+                    <div
+                      key={i}
+                      className="relative border rounded overflow-hidden"
+                    >
+                      <img
+                        src={img.preview || img.url}
+                        alt={`img-${i}`}
+                        className=" h-24"
+                      />
+                      <button
+                        type="button"
+                        className="absolute top-1 right-1 bg-white rounded px-1"
+                        onClick={() => removeImage(i)}
                       >
-                        <img
-                          src={img.preview || img.url}
-                          alt={`img-${i}`}
-                          className=" h-24"
-                        />
-                        <button
-                          type="button"
-                          className="absolute top-1 right-1 bg-white rounded px-1"
-                          onClick={() => removeImage(i)}
-                        >
-                          x
-                        </button>
-                      </div>
-                    ),
-                  )}
+                        x
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </FormItem>
 
@@ -692,7 +700,7 @@ export default function ProductForm({
                     <FormControl>
                       <Select
                         onValueChange={field.onChange}
-                        value={field.value}
+                        value={field.value || ""}
                       >
                         <SelectTrigger>
                           <SelectValue />
