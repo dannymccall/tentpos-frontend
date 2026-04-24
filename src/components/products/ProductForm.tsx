@@ -48,7 +48,7 @@ const productSchema = z.object({
   categoryId: z.string(),
   brand: z.string().optional(),
   price: money,
-  compareAtPrice: money.optional().or(z.null()),
+  // compareAtPrice: money.optional().or(z.null()),
   cost: money.optional(),
   sku: z.string().optional(),
   barcode: z.string().optional(),
@@ -95,7 +95,7 @@ export default function ProductForm({
       categoryId: "",
       brand: "",
       price: "0" as any,
-      compareAtPrice: String(product?.compareAtPrice) ?? "",
+      // compareAtPrice: String(product?.compareAtPrice) ?? "",
       cost: undefined,
       sku: "",
       barcode: "",
@@ -144,8 +144,8 @@ export default function ProductForm({
       categoryId: product.categoryId ? String(product.categoryId) : "",
       brand: product.brand ? String(product.brand) : "",
       price: (product.price ?? 0).toString(),
-      compareAtPrice:
-        product.compareAtPrice != null ? String(product.compareAtPrice) : "",
+      // compareAtPrice:
+      //   product.compareAtPrice != null ? String(product.compareAtPrice) : "",
       cost: product.cost != null ? String(product.cost) : "",
       sku: product.sku ?? "",
       barcode: product.barcode ?? "",
