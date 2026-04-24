@@ -3,12 +3,15 @@ import { Card, CardTitle } from "../ui/card";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Separator } from "../ui/separator";
+import { useNotification } from "@/context/NotificationContext";
 import api from "@/lib/api";
+import { Button } from "../Button";
 
 const PersonalProfileSettings = () => {
-  const { user, businessProfile, fetchMe } = useAuth();
+  const { user, businessProfile,  updateProfilePicture} = useAuth();
+  const { showToast } = useNotification();
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
-
+  const [loading, setLoading] = useState(false);
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -23,7 +26,7 @@ const PersonalProfileSettings = () => {
 
   const handleUpload = async () => {
     if (!logoPreview) return;
-
+    setLoading(true);
     const fileInput = document.querySelector(
       'input[type="file"]',
     ) as HTMLInputElement;
@@ -42,12 +45,18 @@ const PersonalProfileSettings = () => {
         formData,
         { headers: { "x-app-name": "tentpos" } },
       );
-      console.log(res);
-      // optionally refetch user
-      console.log("✅ Avatar updated");
-      setLogoPreview(null);
-      fetchMe();
+      setLoading(false);
+      if (res.success === true) {
+        showToast(res.message, "success");
+        setLogoPreview(null);
+        // fetchMe();
+        updateProfilePicture(res.avatar)
+        return
+      }
+
+      showToast("Something happened", "error");
     } catch (err) {
+      setLoading(false);
       console.error("❌ Upload failed", err);
     }
   };
@@ -79,12 +88,14 @@ const PersonalProfileSettings = () => {
               />
             </label>
             {logoPreview && (
-              <button
-                className="text-xs bg-black text-white px-3 py-1 rounded"
+              <Button
+                className="text-xs bg-black text-white  rounded"
                 onClick={handleUpload}
+                size={"sm"}
+                loading={loading}
               >
                 Save Avatar
-              </button>
+              </Button>
             )}
           </div>
 
