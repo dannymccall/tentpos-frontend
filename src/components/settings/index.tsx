@@ -13,7 +13,7 @@ const Settings = () => {
   const params = new URLSearchParams(window.location.search);
   const { permissions, businessProfile } = useAuth();
 
-  const allowed = hasPermission(permissions, "settings.view") || businessProfile?.appRole === "owner";
+  const allowed = hasPermission(permissions, "settings.pos.view") || businessProfile?.appRole === "owner";
   let query =allowed ?  "profile_settings" : "personal_settings";
   const navigate = useNavigate();
   query = params.get("settings")!;
@@ -21,7 +21,7 @@ const Settings = () => {
 
   return (
     <Tabs
-      defaultTab={query}
+      defaultTab={allowed ? query : "personal_settings"}
       onChange={(key) => {
         window.scroll({ top: 0, behavior: "smooth" });
         navigate(`/account/settings?query=${key}`);
