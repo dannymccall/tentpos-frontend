@@ -235,6 +235,12 @@ export default function ProductForm({
     setOpen(false);
   };
 
+  useEffect(() => {
+  if (Object.keys(form.formState.errors).length > 0) {
+    console.log("🔥 Current Errors:", form.formState.errors);
+  }
+}, [form.formState.errors]);
+
   return (
     <div className="p-4">
       <InventoryUpdate
@@ -253,7 +259,9 @@ export default function ProductForm({
         <CardContent>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(submitHandler)}
+              onSubmit={form.handleSubmit(submitHandler, (errors) => {
+                console.log("❌ FORM ERRORS:", errors);
+              })}
               className="space-y-6"
             >
               {/* Title */}
