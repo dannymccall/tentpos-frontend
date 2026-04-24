@@ -459,7 +459,7 @@ const defaultSidebarItems: SidebarSection[] = [
         label: "Settings",
         icon: <FaCog />,
         path: "/account/settings",
-        code: "settings.view",
+        code: "default",
       },
       {
         label: "Logout",

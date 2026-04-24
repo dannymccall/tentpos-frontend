@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
               companyName: response.data.data.settings.name || "",
               logo: response.data.data.settings.logo || "",
             });
-            setDataScope(response.data.data.dataScope.scopes)
+            setDataScope(response?.data?.data.dataScope.scopes)
         }
       }
     } catch (error) {

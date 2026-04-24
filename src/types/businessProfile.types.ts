@@ -21,5 +21,6 @@ export type BusinessProfile = {
     id:number;
     branch: Branch;
     userRole: UserRole;
-    appRole: "owner" | "user"
+    appRole: "owner" | "user";
+    avatar: string | null
 }

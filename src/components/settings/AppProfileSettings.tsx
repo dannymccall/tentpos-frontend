@@ -30,7 +30,7 @@ export default function AppProfileSettings() {
   const [activeTab, setActiveTab] = useState("general");
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  const {setSettings} = useAuth()
+  const {setSettings, settings} = useAuth()
   const queryClient = new QueryClient()
   const { data, isLoading } = useQuery({
     queryKey: ["profile-settings"],
@@ -152,8 +152,8 @@ export default function AppProfileSettings() {
                   />
                 </div>
                 <div>
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
-                    God is Good
+                  <h2 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
+                    {settings?.companyName ?? "COMPANY"}
                   </h2>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                     POS

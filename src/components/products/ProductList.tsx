@@ -106,7 +106,7 @@ const ProductTable: React.FC<{ products: Product[] }> = ({ products }) => {
                       )
                     }
                   />
-                  <PermissionGate code="inventory.adjustments.view">
+                  <PermissionGate code="inventory.adjustments.create">
 
                   <Button  variant={"secondary"} size={"icon"} onClick={() => {setStockModal(true), setProduct(product)}}>
                     <ArrowUpDown className="text-emerald-500"/>
