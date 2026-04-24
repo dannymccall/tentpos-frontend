@@ -161,6 +161,7 @@ export default function ProductForm({
       weight: product.weight ?? "",
       dimensions: product.dimensions ?? { width: "", height: "", depth: "" },
       variants: product.variants ?? [],
+      threshold: String(product?.threshold ?? 0)
     });
   }, [product, cat, form.reset]);
 
