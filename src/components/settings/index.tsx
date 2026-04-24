@@ -3,23 +3,15 @@ import Tabs from "../Tabs";
 import AppProfileSettings from "@/components/settings/AppProfileSettings";
 import { ImProfile } from "react-icons/im";
 import AccessibilitySettings from "./AccessibilitySettings";
-import { useAuth } from "@/context/AuthContext";
-import { Unauthorized } from "../Unauthorzed";
-import { hasPermission } from "@/lib/permissions";
 import PersonalProfileSettings from "./PersonalProfileSettings";
 import { RiProfileFill } from "react-icons/ri";
+import { MdSecurity } from "react-icons/md";
 const Settings = () => {
   const params = new URLSearchParams(window.location.search);
   let query = "loan_settings";
   const navigate = useNavigate();
   query = params.get("settings")!;
 
-
-  const {permissions, businessProfile} = useAuth();
-   
-  const isAllowed = businessProfile?.appRole === "owner" ||  hasPermission(permissions, "settings.view");
- 
-   if(!isAllowed) return <Unauthorized />
   return (
     <Tabs
       defaultTab={query}
@@ -38,7 +30,7 @@ const Settings = () => {
         {
           key: "accessibility_settings",
           label: "Accessbility Control",
-          icon: <ImProfile className="text-[#8a76f9]" />,
+          icon: <MdSecurity className="text-[#8a76f9]" />,
           panel: <AccessibilitySettings />,
           code: "settings.view",
         },

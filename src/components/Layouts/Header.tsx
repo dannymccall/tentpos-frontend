@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, title, className }) => {
             >
               <Avatar className="w-8 h-8 border border-gray-200 shadow-sm">
                 <AvatarImage
-                  src={user?.avatar}
+                  src={businessProfile?.avatar!}
                   alt={displayName}
                 />
                 <AvatarFallback>

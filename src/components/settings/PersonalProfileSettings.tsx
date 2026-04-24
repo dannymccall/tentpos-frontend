@@ -70,11 +70,11 @@ const PersonalProfileSettings = () => {
           <div className="flex flex-col items-center gap-2">
             <Avatar className="w-24 h-24 border border-gray-200 shadow-sm">
               <AvatarImage
-                src={logoPreview || user?.avatar}
-                alt={user?.fullName}
+                src={logoPreview || businessProfile?.avatar!}
+                alt={businessProfile?.fullName}
               />
               <AvatarFallback>
-                {user?.fullName?.charAt(0).toUpperCase()}
+                {businessProfile?.fullName?.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
 
